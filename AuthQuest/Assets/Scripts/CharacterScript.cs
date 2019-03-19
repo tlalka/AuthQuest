@@ -17,9 +17,9 @@ public abstract class CharacterScript : MonoBehaviour
 
     private Rigidbody2D myRigidbody;
 
-    protected bool isAttacking = false;
+    public bool isAttacking;
 
-    // protected Coroutine attackRoutine;
+    protected Coroutine attackRoutine;
     public bool IsMoving
     {
         get {
@@ -30,6 +30,8 @@ public abstract class CharacterScript : MonoBehaviour
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         myanimator = GetComponent<Animator>();
+        speed = 7;
+        isAttacking= false;
     }
 
     // Update is marked as virtual, so that we can override it in the subclasses
@@ -39,6 +41,7 @@ public abstract class CharacterScript : MonoBehaviour
         HandleLayers();
     
     }
+    
 
     private void FixedUpdate()
     {
@@ -78,7 +81,7 @@ public abstract class CharacterScript : MonoBehaviour
     }
     
 
-    public void ActivateLayer(string layerName)
+      public void ActivateLayer(string layerName)
     {
         for (int i = 0; i < myanimator.layerCount; i++)
         {
@@ -90,13 +93,14 @@ public abstract class CharacterScript : MonoBehaviour
 
     public void StopAttack()
     {
-        //if (attackRoutine != null)
-        //{
-            // StopCoroutine(attackRoutine);
+        if (attackRoutine != null)
+        {
+            StopCoroutine(attackRoutine);
             isAttacking = false;
             myanimator.SetBool("attack", isAttacking);
-        //}
+        }
     }
+    
 }
 
     

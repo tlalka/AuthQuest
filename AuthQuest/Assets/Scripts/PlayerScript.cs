@@ -39,15 +39,15 @@ public class PlayerScript : CharacterScript
             }
              if (Input.GetKeyDown(KeyCode.Space))
              {
-                //attackRoutine = StartCoroutine(Attack());
-                StartCoroutine(Attack());
+                attackRoutine = StartCoroutine(Attack());
+                // StartCoroutine(Attack());
                  
              }
         }
 
        private IEnumerator Attack()
        {
-           if (isAttacking && ! IsMoving)
+           if (!isAttacking && ! IsMoving)
            {
 
             isAttacking = true;
