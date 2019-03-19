@@ -2,30 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerScript : MonoBehaviour
+public class PlayerScript : CharacterScript
 {
-    [SerializeField]
-    private float speed;
 
-    private Animator myAnimator;
-    private Vector2 direction;
-    // Start is called before the first frame update
-    void Start()
-    {
+
     
-    }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
         GetInput();
-        Move();
+        
+        base.Update();
     }
 
-    public void Move()
-        {
-            transform.Translate(direction*speed*Time.deltaTime);
-        }
 
         private void GetInput()
         {
@@ -47,17 +37,28 @@ public class PlayerScript : MonoBehaviour
             {
                 direction += Vector2.right; 
             }
-             if (IAnimationClipSource.GetKey(KeyCode.Space)) 
+             if (Input.GetKeyDown(KeyCode.Space))
              {
-                 StartCoroutine(Attack());
+                //attackRoutine = StartCoroutine(Attack());
+                StartCoroutine(Attack());
+                 
              }
         }
 
-        private IEnumerator Attack()
-        {
-            myAnimator.SetBool("attack", true);
-            yield return new WaitForSeconds(3); // this is a hardcoded cast time f\or debugging
+       private IEnumerator Attack()
+       {
+           if (isAttacking && ! IsMoving)
+           {
 
+            isAttacking = true;
 
-        }
+            myanimator.SetBool("attack", isAttacking);
+
+            yield return new WaitForSeconds(3); //This is a hardcoded cast time, for debugging
+
+            Debug.Log("Attack done");
+
+            StopAttack();
+           }
+       }
 }
