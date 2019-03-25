@@ -14,6 +14,8 @@ public class PlayerScript : CharacterScript
         GetInput();
         
         base.Update();
+
+        faceMouse();
     }
 
 
@@ -37,7 +39,15 @@ public class PlayerScript : CharacterScript
             {
                 direction += Vector2.right; 
             }
+            /*
              if (Input.GetKeyDown(KeyCode.Space))
+             {
+                attackRoutine = StartCoroutine(Attack());
+                // StartCoroutine(Attack());
+                 
+             }
+             */
+             if (Input.GetMouseButtonDown(0))
              {
                 attackRoutine = StartCoroutine(Attack());
                 // StartCoroutine(Attack());
@@ -62,6 +72,22 @@ public class PlayerScript : CharacterScript
            }
        }
 
+        // player will always face mouse
+        void faceMouse()
+        {
+            Vector3 mouseposition = Input.mousePosition;
+            mouseposition = Camera.main.ScreenToWorldPoint(mouseposition);
+
+            Vector2 direction = new Vector2 (
+                mouseposition.x - transform.position.x,
+                mouseposition.y - transform.position.y
+            );
+
+            transform.up = direction;
+        }
+
+
+/* 
        private IEnumerator ClickAttack()
        {
            bool LMB = Input.GetMouseButtonDown(0);
@@ -71,4 +97,5 @@ public class PlayerScript : CharacterScript
 
            }
        }
+       */
 }
