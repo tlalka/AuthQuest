@@ -61,4 +61,14 @@ public class PlayerScript : CharacterScript
             StopAttack();
            }
        }
+
+       private IEnumerator ClickAttack()
+       {
+           bool LMB = Input.GetMouseButtonDown(0);
+
+           if (LMB) {
+               
+
+           }
+       }
 }
