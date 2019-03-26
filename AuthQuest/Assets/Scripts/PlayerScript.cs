@@ -15,7 +15,7 @@ public class PlayerScript : CharacterScript
         
         base.Update();
 
-        faceMouse();
+       // faceMouse();
     }
 
 
@@ -73,6 +73,7 @@ public class PlayerScript : CharacterScript
        }
 
         // player will always face mouse
+        /* 
         void faceMouse()
         {
             Vector3 mouseposition = Input.mousePosition;
@@ -85,6 +86,7 @@ public class PlayerScript : CharacterScript
 
             transform.up = direction;
         }
+        */
 
 
 /* 
