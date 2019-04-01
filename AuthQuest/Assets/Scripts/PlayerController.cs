@@ -7,9 +7,13 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public class PlayerController : MonoBehaviour
 {
+    //Jeff's
 
     public Rigidbody2D theRB;
     public float moveSpeed;
+    public bool isAttacking;
+    public bool IsMoving;
+    protected Coroutine attackRoutine;
 
     public Animator myAnim;
 
@@ -17,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
     public string areaTransitionName;
 
-    public Image customImage;
+    public Image customImage; //get this sword out of here. not the right place for it
     public Image sword;
 
     public bool isOpened;
@@ -31,8 +35,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         isOpened = false;
-
-        if(instance == null)
+        isAttacking = false;
+        if (instance == null)
         {
             instance = this;
         } else
@@ -41,73 +45,24 @@ public class PlayerController : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
+        moveSpeed = 7;
     }
 
     // Update is called once per frame
-    void Update()
+    void Update() //characer movment
     {
-        theRB.velocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * moveSpeed;
+        movePlayer();
+        checkSave();
 
-        myAnim.SetFloat("moveX", theRB.velocity.x);
-        myAnim.SetFloat("moveY", theRB.velocity.y);
-
-        if(Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1 || Input.GetAxisRaw("Vertical") == 1 || Input.GetAxisRaw("Vertical") == -1)
+        if (Input.GetMouseButtonDown(0))
         {
-            myAnim.SetFloat("lastMoveX", Input.GetAxisRaw("Horizontal"));
-            myAnim.SetFloat("lastMoveY", Input.GetAxisRaw("Vertical"));
+            attackRoutine = StartCoroutine(Attack());
+            // StartCoroutine(Attack());
+
         }
-
-        if(instance.transform.position.x <= -3 
-            && instance.transform.position.x >= -5 
-            && instance.transform.position.y >= 4 
-            && instance.transform.position.y <= 6)
+        if (Input.GetKey("escape"))
         {
-
-            if(isOpened == false)
-            {
-                customImage.enabled = true;
-            } else
-            {
-                customImage.enabled = false;
-            }
-            
-            
-            if(Input.GetMouseButtonDown(0))
-            {
-                if(Input.mousePosition.x >= 218 && Input.mousePosition.x <= 378
-                    && Input.mousePosition.y >= 37 && Input.mousePosition.y <= 135)
-                {
-                    Debug.Log("You have successfully cracked the code. You received the sword!");
-                    chestNumber.Add(1);
-                    choice.Add(1);
-                    success.Add(true);
-                    itemReceived.Add("Armadyl Godsword");
-                    isOpened = true;
-                    sword.enabled = true;
-                } else if(Input.mousePosition.x >= 442 && Input.mousePosition.x <= 603
-                    && Input.mousePosition.y >= 37 && Input.mousePosition.y <= 135)
-                {
-                    Debug.Log("The chest has been broken. You did not receive the sword!");
-                    chestNumber.Add(1);
-                    choice.Add(2);
-                    success.Add(false);
-                    itemReceived.Add("Nothing");
-                    isOpened = true;
-                } else
-                {
-                    Debug.Log("Nothing interesting happens");
-                }
-              
-            }
-
-        } else
-        {
-            customImage.enabled = false;
-        }
-
-        if(Input.GetKeyDown("space"))
-        {
-            SaveGame();
+            Application.Quit();
         }
     }
 
@@ -138,5 +93,53 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Game Saved");
     }
 
+    private void movePlayer()
+    {
+        theRB.velocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * moveSpeed;
+
+        myAnim.SetFloat("moveX", theRB.velocity.x);
+        myAnim.SetFloat("moveY", theRB.velocity.y);
+
+        if (Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1 || Input.GetAxisRaw("Vertical") == 1 || Input.GetAxisRaw("Vertical") == -1)
+        {
+            myAnim.SetFloat("lastMoveX", Input.GetAxisRaw("Horizontal"));
+            myAnim.SetFloat("lastMoveY", Input.GetAxisRaw("Vertical"));
+        }
+    }
+
+    private void checkSave()
+    {
+        if (Input.GetKeyDown("escape"))
+        {
+            SaveGame();
+        }
+    }
+
+    private IEnumerator Attack()
+    {
+        Debug.Log("Attack");
+        if (!isAttacking && !IsMoving)
+        {
+
+            isAttacking = true;
+
+            //myanimator.SetBool("attack", isAttacking);
+
+            yield return new WaitForSeconds(3); //This is a hardcoded cast time, for debugging
+
+            //Debug.Log("Attack done");
+
+            StopAttack();
+        }
+    }
+    public void StopAttack()
+    {
+        if (attackRoutine != null)
+        {
+            StopCoroutine(attackRoutine);
+            isAttacking = false;
+            //myanimator.SetBool("attack", isAttacking);
+        }
+    }
 
 }
