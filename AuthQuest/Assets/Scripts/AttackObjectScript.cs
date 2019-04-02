@@ -31,4 +31,12 @@ public class AttackObjectScript : CharacterScript
 
             transform.up = direction;
         }
+
+        private IEnumerator onclickattack()
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                yield return new WaitForSeconds(1);
+            }
+        }
 }
