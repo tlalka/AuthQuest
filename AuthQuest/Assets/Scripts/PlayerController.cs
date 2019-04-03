@@ -15,6 +15,13 @@ public class PlayerController : MonoBehaviour
     public bool IsMoving;
     protected Coroutine attackRoutine;
 
+    public bool isSprint;
+    private KeyCode LastKey;
+    private float timeSinceKeyPressLast;
+    private KeyCode ThisKey;
+    private float timeSinceKeyPressThis;
+    public double keyDelay;
+
     public Animator myAnim;
 
     public static PlayerController instance;
@@ -45,12 +52,17 @@ public class PlayerController : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
-        moveSpeed = 7;
+        moveSpeed = 10;//PlayerStats = GetComponent<CharacterStat>(); 
+        keyDelay = .2; //PlayerStats = GetComponent<CharacterStat>();
+        isSprint = false;
+        timeSinceKeyPressLast = -1;
+        timeSinceKeyPressThis = 0;
     }
 
     // Update is called once per frame
     void Update() //characer movment
     {
+        SprintCheck();
         movePlayer();
         checkSave();
 
@@ -95,7 +107,20 @@ public class PlayerController : MonoBehaviour
 
     private void movePlayer()
     {
-        theRB.velocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * moveSpeed;
+        float speed;
+
+        if (isSprint)
+        {
+            speed = moveSpeed * 2;
+        }
+        else
+        {
+            speed = moveSpeed;
+        }
+
+        float moveH = Mathf.Lerp(0, Input.GetAxis("Horizontal") * speed, 0.8f);
+        float moveV = Mathf.Lerp(0, Input.GetAxis("Vertical") * speed, 0.8f);
+        theRB.velocity = new Vector2(moveH, moveV);
 
         myAnim.SetFloat("moveX", theRB.velocity.x);
         myAnim.SetFloat("moveY", theRB.velocity.y);
@@ -140,6 +165,47 @@ public class PlayerController : MonoBehaviour
             isAttacking = false;
             //myanimator.SetBool("attack", isAttacking);
         }
+    }
+    private void SprintCheck()
+    {
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            timeSinceKeyPressLast = timeSinceKeyPressThis;
+            LastKey = ThisKey;
+            timeSinceKeyPressThis = Time.time;
+            ThisKey = KeyCode.W;
+        }
+        else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            timeSinceKeyPressLast = timeSinceKeyPressThis;
+            LastKey = ThisKey;
+            timeSinceKeyPressThis = Time.time;
+            ThisKey = KeyCode.A;
+        }
+        else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            timeSinceKeyPressLast = timeSinceKeyPressThis;
+            LastKey = ThisKey;
+            timeSinceKeyPressThis = Time.time;
+            ThisKey = KeyCode.D;
+        }
+        else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            timeSinceKeyPressLast = timeSinceKeyPressThis;
+            LastKey = ThisKey;
+            timeSinceKeyPressThis = Time.time;
+            ThisKey = KeyCode.S;
+        }
+
+        if (LastKey == ThisKey && keyDelay > (timeSinceKeyPressThis - timeSinceKeyPressLast))
+        {
+            isSprint = true;
+        }
+        else
+        {
+            isSprint = false;
+        }
+
     }
 
 }
