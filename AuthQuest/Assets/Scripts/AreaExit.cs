@@ -6,16 +6,16 @@ using UnityEngine.SceneManagement;
 public class AreaExit : MonoBehaviour
 {
 
-    public string areaToLoad;
+    public string LoadLevel;
 
-    public string areaTransitionName;
+    //public string areaTransitionName;
 
-    public AreaEntrance theEntrance;
+    //public AreaEntrance theEntrance;
 
     // Start is called before the first frame update
     void Start()
     {
-        theEntrance.transitionName = areaTransitionName;
+        //theEntrance.transitionName = areaTransitionName;
     }
 
     // Update is called once per frame
@@ -28,9 +28,9 @@ public class AreaExit : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            SceneManager.LoadScene(areaToLoad);
+            SceneManager.LoadScene(LoadLevel);
 
-            PlayerController.instance.areaTransitionName = areaTransitionName;
+            //PlayerController.instance.areaTransitionName = areaTransitionName;
         }
     }
 
