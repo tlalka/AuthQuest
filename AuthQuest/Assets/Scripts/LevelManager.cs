@@ -10,12 +10,12 @@ public class LevelManager : MonoBehaviour
     public Tilemap colorTiles;
     public string currentColor;
 
-    Color blue = new Color(126, 160, 224);
-    Color red = new Color(225f, 126f, 126f, 1f);
-    Color green = new Color(133, 225, 126);
-    Color yellow = new Color(225, 218, 126);
-    Color purple = new Color(114, 77, 199);
-    Color pink = new Color(233, 152, 228);
+    Color blue = new Color(126f/255f, 160f / 255f, 224f / 255f);
+    Color red = new Color(225f / 255f, 126f / 255f, 126f / 255f);
+    Color green = new Color(133f / 255f, 225f / 255f, 126f / 255f);
+    Color yellow = new Color(225f / 255f, 218f / 255f, 126f / 255f);
+    Color purple = new Color(114f / 255f, 77f / 255f, 199f / 255f);
+    Color pink = new Color(233f / 255f, 152f / 255f, 228f / 255f);
 
 
     void Start()
@@ -34,19 +34,16 @@ public class LevelManager : MonoBehaviour
     void setDoors()
     {
         doors = GameObject.FindGameObjectsWithTag("Door");
+        bool[] used = { false, false, false, false, false, false };
         for (int i = 0; i < doors.Length; i++)
         {
             Color NewColor = Color.black;
             DoorProperties door = doors[i].GetComponent<DoorProperties>();
             string color = "black";
-
-            bool[] used = { false, false, false, false, false, false };
             int caseSwitch = Random.Range(1, 6);
-            int doornum = 0;
-            while (used[caseSwitch] && doornum < 6)
+            while (used[caseSwitch] && i < 6) //if i>6 we have more doors than colors and this loop will go forever
             {
                 caseSwitch = Random.Range(1, 6);
-                doornum++;
             }
             used[caseSwitch] = true;
 
