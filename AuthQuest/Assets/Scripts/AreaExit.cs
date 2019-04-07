@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public class AreaExit : MonoBehaviour
 {
 
-    public string LoadLevel;
+    //public string LoadLevel;
+    public GameObject levelManager;
 
     //public string areaTransitionName;
 
@@ -15,7 +16,8 @@ public class AreaExit : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //theEntrance.transitionName = areaTransitionName;
+        //Debug.Log("door start");
+        levelManager = GameObject.Find("LevelManager");
     }
 
     // Update is called once per frame
@@ -28,9 +30,8 @@ public class AreaExit : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            SceneManager.LoadScene(LoadLevel);
-
-            //PlayerController.instance.areaTransitionName = areaTransitionName;
+            string color = this.GetComponent<DoorProperties>().color;
+            levelManager.GetComponent<LevelManager>().LoadNewLevel(color);
         }
     }
 

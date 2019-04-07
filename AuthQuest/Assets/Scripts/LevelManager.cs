@@ -8,7 +8,9 @@ public class LevelManager : MonoBehaviour
 {
     public GameObject[] doors;
     public Tilemap colorTiles;
-    public string currentColor;
+    public bool OGobj;
+    private string currentColor;
+    public static LevelManager instance;
 
     Color blue = new Color(126f/255f, 160f / 255f, 224f / 255f);
     Color red = new Color(225f / 255f, 126f / 255f, 126f / 255f);
@@ -17,10 +19,42 @@ public class LevelManager : MonoBehaviour
     Color purple = new Color(114f / 255f, 77f / 255f, 199f / 255f);
     Color pink = new Color(233f / 255f, 152f / 255f, 228f / 255f);
 
-
-    void Start()
+    void Awake()
     {
-        //currentColor = "blue";
+        OGobj = false;
+        Debug.Log("awake");
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("levelM");
+        if (objs.Length > 1)
+        {
+            Destroy(this.gameObject);
+            Debug.Log("obj destoyed");
+        }
+        else
+        {
+            DontDestroyOnLoad(gameObject);
+            if (currentColor == null)
+            {
+                currentColor = "red";
+                Debug.Log("null color set");
+            }
+            startup();
+        }
+    }
+
+    void OnLevelWasLoaded()
+    {
+        Debug.Log("level loaded");
+        if (OGobj)
+        {
+            startup();
+        }
+    }
+
+    void startup()
+    {
+        Debug.Log("level start " + currentColor);
+        doors = GameObject.FindGameObjectsWithTag("Door");
+        colorTiles = GameObject.FindWithTag("Tiles").GetComponent<Tilemap>();
         setTiles();
         setDoors();
     }
@@ -33,7 +67,6 @@ public class LevelManager : MonoBehaviour
 
     void setDoors()
     {
-        doors = GameObject.FindGameObjectsWithTag("Door");
         bool[] used = { false, false, false, false, false, false };
         for (int i = 0; i < doors.Length; i++)
         {
@@ -41,7 +74,7 @@ public class LevelManager : MonoBehaviour
             DoorProperties door = doors[i].GetComponent<DoorProperties>();
             string color = "black";
             int caseSwitch = Random.Range(1, 6);
-            while (used[caseSwitch] && i < 6) //if i>6 we have more doors than colors and this loop will go forever
+            while (used[caseSwitch] && i < 6) //if i>6 we have more doors than colors and this loop would go forever
             {
                 caseSwitch = Random.Range(1, 6);
             }
@@ -76,19 +109,16 @@ public class LevelManager : MonoBehaviour
             }
             door.color = color;
             doors[i].GetComponent<SpriteRenderer>().color = NewColor;
-            Debug.Log(doors[i].GetComponent<SpriteRenderer>().color);
         }
     }
 
     void setTiles()
     {
-        //colorTiles = Tilemap.FindObjectsOfTypeAll; //i don't know how to find the tilemap
         Color NewColor = Color.black;
-        
         switch (currentColor)
         {
             case "red":
-                NewColor = red;//new Color(0f, 0f, 0f, 1f)
+                NewColor = red;
                 break;
             case "yellow":
                 NewColor = yellow;
@@ -107,16 +137,15 @@ public class LevelManager : MonoBehaviour
                 break;
         }
         colorTiles.color = NewColor;
-        Debug.Log(colorTiles.color);
+        Debug.Log("set room color" + colorTiles.color);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void LoadNewLevel(string color)
     {
-        if (other.tag == "Door")
-        {
-            GameObject obj = other.attachedRigidbody.gameObject;
-            //SceneManager.LoadScene(LoadLevel);
-        }
+      currentColor = color;
+      Debug.Log("load new color " + currentColor);
+      OGobj = true;
+      SceneManager.LoadScene("basic-level");//
     }
 
 }
