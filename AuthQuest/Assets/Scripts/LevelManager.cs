@@ -7,6 +7,8 @@ using UnityEngine.Tilemaps;
 public class LevelManager : MonoBehaviour
 {
     public GameObject[] doors;
+    public GameObject player;
+    public GameObject loading;
     public Tilemap colorTiles;
     public bool OGobj;
     private string currentColor;
@@ -19,9 +21,11 @@ public class LevelManager : MonoBehaviour
     Color purple = new Color(114f / 255f, 77f / 255f, 199f / 255f);
     Color pink = new Color(233f / 255f, 152f / 255f, 228f / 255f);
 
-    void Awake()
+    void Start()
     {
         OGobj = false;
+        player = GameObject.Find("Player");
+        loading = GameObject.Find("Canvas");
         Debug.Log("awake");
         GameObject[] objs = GameObject.FindGameObjectsWithTag("levelM");
         if (objs.Length > 1)
@@ -52,11 +56,14 @@ public class LevelManager : MonoBehaviour
 
     void startup()
     {
+        loading.GetComponent<LoadingScreen>().renOn();
         Debug.Log("level start " + currentColor);
         doors = GameObject.FindGameObjectsWithTag("Door");
         colorTiles = GameObject.FindWithTag("Tiles").GetComponent<Tilemap>();
         setTiles();
         setDoors();
+        loading.GetComponent<LoadingScreen>().renOff();
+        player.GetComponent<PlayerController>().canMove = true;
     }
 
     // Update is called once per frame
@@ -142,7 +149,8 @@ public class LevelManager : MonoBehaviour
 
     public void LoadNewLevel(string color)
     {
-      currentColor = color;
+        player.GetComponent<PlayerController>().canMove = false;
+        currentColor = color;
       Debug.Log("load new color " + currentColor);
       OGobj = true;
       SceneManager.LoadScene("basic-level");//
