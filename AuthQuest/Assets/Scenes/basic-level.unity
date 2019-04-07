@@ -14592,7 +14592,7 @@ GameObject:
   - component: {fileID: 1950533662}
   m_Layer: 0
   m_Name: LevelManager
-  m_TagString: Untagged
+  m_TagString: levelM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14611,7 +14611,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doors: []
   colorTiles: {fileID: 1894488155}
-  currentColor: blue
+  OGobj: 0
 --- !u!4 &1950533663
 Transform:
   m_ObjectHideFlags: 0
