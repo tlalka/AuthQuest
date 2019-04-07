@@ -34,7 +34,7 @@ public class LevelManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             if (currentColor == null)
             {
-                currentColor = "red";
+                currentColor = "blue";
                 Debug.Log("null color set");
             }
             startup();
