@@ -31,7 +31,6 @@ public class LevelGenerator : MonoBehaviour
         colorTiles = GameObject.FindWithTag("Tiles").GetComponent<Tilemap>();
         columns = 100;
         rows = 100;
-        SetupTilesArray();
         numRooms = new IntRange(10, 25);
         roomWidth = new IntRange(6, 17);
         roomHeight = new IntRange(6, 17);
@@ -41,10 +40,18 @@ public class LevelGenerator : MonoBehaviour
     // Update is called once per frame
     public void BuildFloor()
     {
-        CreateRoomsAndCorridors();
-        int tilescovered = SetTilesValuesForRooms();
-        Debug.Log(tilescovered + " / " + columns * rows + " = " + (tilescovered / (columns * rows)));
-        SetTilesValuesForRooms();
+        int tilescovered;
+        int attempts = 0;
+        float coverage;
+        do //if a certian number of tiles aren't covered, run again
+        {
+            SetupTilesArray();
+            CreateRoomsAndCorridors();
+            tilescovered = SetTilesValuesForRooms();
+            coverage = ((float)tilescovered / (float)(columns * rows));
+            Debug.Log(tilescovered + " / " + columns * rows + " = " + coverage);
+            attempts++;
+        } while (coverage < .15 && attempts < 10);
         SetTilesValuesForCorridors();
         InstantiateTiles();
     }
