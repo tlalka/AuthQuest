@@ -12,7 +12,6 @@ public class LevelManager : MonoBehaviour
     public Tilemap colorTiles;
     public bool OGobj;
     private string currentColor;
-    public static LevelManager instance;
 
     Color blue = new Color(126f/255f, 160f / 255f, 224f / 255f);
     Color red = new Color(225f / 255f, 126f / 255f, 126f / 255f);
@@ -41,7 +40,7 @@ public class LevelManager : MonoBehaviour
                 currentColor = "blue";
                 Debug.Log("null color set");
             }
-            startup();
+            Startup();
         }
     }
 
@@ -50,16 +49,19 @@ public class LevelManager : MonoBehaviour
         Debug.Log("level loaded");
         if (OGobj)
         {
-            startup();
+            Startup();
         }
     }
 
-    void startup()
+    void Startup()
     {
         loading.GetComponent<LoadingScreen>().renOn();
         Debug.Log("level start " + currentColor);
         doors = GameObject.FindGameObjectsWithTag("Door");
         colorTiles = GameObject.FindWithTag("Tiles").GetComponent<Tilemap>();
+        //generate level
+        this.GetComponent<LevelGenerator>().BuildFloor();
+
         setTiles();
         setDoors();
         loading.GetComponent<LoadingScreen>().renOff();
