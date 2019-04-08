@@ -15,6 +15,8 @@ public class Room
         // Set a random width and height.
         roomWidth = widthRange.Random;
         roomHeight = heightRange.Random;
+        //Debug.Log("roomW " + roomWidth);
+        //Debug.Log("roomH " + roomHeight);
 
         // Set the x and y coordinates so the room is roughly in the middle of the board.
         xPos = Mathf.RoundToInt(columns / 2f - roomWidth / 2f);
@@ -45,31 +47,31 @@ public class Room
 
                 // The x coordinate can be random but the left-most possibility is no further than the width
                 // and the right-most possibility is that the end of the corridor is at the position of the room.
-                xPos = Random.Range(corridor.EndPositionX - roomWidth + 1, corridor.EndPositionX);
+                xPos = Random.Range(corridor.EndPositionX - roomWidth + 2, corridor.EndPositionX);
 
                 // This must be clamped to ensure that the room doesn't go off the board.
-                xPos = Mathf.Clamp(xPos, 0, columns - roomWidth);
+                xPos = Mathf.Clamp(xPos, 1, columns - roomWidth);
                 break;
             case Direction.East:
                 roomWidth = Mathf.Clamp(roomWidth, 1, columns - corridor.EndPositionX);
                 xPos = corridor.EndPositionX;
 
                 yPos = Random.Range(corridor.EndPositionY - roomHeight + 1, corridor.EndPositionY);
-                yPos = Mathf.Clamp(yPos, 0, rows - roomHeight);
+                yPos = Mathf.Clamp(yPos, 1, rows - roomHeight);
                 break;
             case Direction.South:
                 roomHeight = Mathf.Clamp(roomHeight, 1, corridor.EndPositionY);
                 yPos = corridor.EndPositionY - roomHeight + 1;
 
-                xPos = Random.Range(corridor.EndPositionX - roomWidth + 1, corridor.EndPositionX);
-                xPos = Mathf.Clamp(xPos, 0, columns - roomWidth);
+                xPos = Random.Range(corridor.EndPositionX - roomWidth + 2, corridor.EndPositionX);
+                xPos = Mathf.Clamp(xPos, 1, columns - roomWidth);
                 break;
             case Direction.West:
                 roomWidth = Mathf.Clamp(roomWidth, 1, corridor.EndPositionX);
                 xPos = corridor.EndPositionX - roomWidth + 1;
 
                 yPos = Random.Range(corridor.EndPositionY - roomHeight + 1, corridor.EndPositionY);
-                yPos = Mathf.Clamp(yPos, 0, rows - roomHeight);
+                yPos = Mathf.Clamp(yPos, 1, rows - roomHeight);
                 break;
         }
     }

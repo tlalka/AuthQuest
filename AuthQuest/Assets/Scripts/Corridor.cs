@@ -11,6 +11,7 @@ public class Corridor
     public int startXPos;         // The x coordinate for the start of the corridor.
     public int startYPos;         // The y coordinate for the start of the corridor.
     public int corridorLength;            // How many units long the corridor is.
+
     public Direction direction;   // Which direction the corridor is heading from it's room.
 
 
@@ -74,12 +75,10 @@ public class Corridor
 
         switch (direction)
         {
-            // If the choosen direction is North (up)...
+            // vertical coridors can't start on the rightmost edne of the room
             case Direction.North:
-                // ... the starting position in the x axis can be random but within the width of the room.
-                startXPos = Random.Range(room.xPos, room.xPos + room.roomWidth - 1);
-
-                // The starting position in the y axis must be the top of the room.
+                startXPos = Random.Range(room.xPos, room.xPos + room.roomWidth - 2);
+                
                 startYPos = room.yPos + room.roomHeight;
 
                 // The maximum length the corridor can be is the height of the board (rows) but from the top of the room (y pos + height).
@@ -91,7 +90,7 @@ public class Corridor
                 maxLength = columns - startXPos - roomWidth.m_Min;
                 break;
             case Direction.South:
-                startXPos = Random.Range(room.xPos, room.xPos + room.roomWidth);
+                startXPos = Random.Range(room.xPos, room.xPos + room.roomWidth-1);
                 startYPos = room.yPos;
                 maxLength = startYPos - roomHeight.m_Min;
                 break;

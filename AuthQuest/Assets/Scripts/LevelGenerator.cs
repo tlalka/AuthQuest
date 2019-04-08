@@ -15,12 +15,12 @@ public class LevelGenerator : MonoBehaviour
     private GameObject boardHolder;
     public Tilemap colorTiles;
 
-    public int columns = 100;
-    public int rows = 100;
-    public IntRange numRooms = new IntRange(15, 20);
-    public IntRange roomWidth = new IntRange(3, 10);
-    public IntRange roomHeight = new IntRange(3, 10);
-    public IntRange corridorLength = new IntRange(6, 10);
+    public int columns;
+    public int rows;
+    public IntRange numRooms;
+    public IntRange roomWidth;
+    public IntRange roomHeight;
+    public IntRange corridorLength;
     public TileBase floorTile;   // make an array if you want a few types                       
     public TileBase wallTile;    // make an array if you want a few types                        
     //public GameObject[] outerWallTiles;
@@ -29,13 +29,21 @@ public class LevelGenerator : MonoBehaviour
     {
         boardHolder = new GameObject("BoardHolder");
         colorTiles = GameObject.FindWithTag("Tiles").GetComponent<Tilemap>();
+        columns = 100;
+        rows = 100;
         SetupTilesArray();
+        numRooms = new IntRange(10, 25);
+        roomWidth = new IntRange(6, 17);
+        roomHeight = new IntRange(6, 17);
+        corridorLength = new IntRange(5, 15);
     }
 
     // Update is called once per frame
     public void BuildFloor()
     {
         CreateRoomsAndCorridors();
+        int tilescovered = SetTilesValuesForRooms();
+        Debug.Log(tilescovered + " / " + columns * rows + " = " + (tilescovered / (columns * rows)));
         SetTilesValuesForRooms();
         SetTilesValuesForCorridors();
         InstantiateTiles();
@@ -63,10 +71,10 @@ public class LevelGenerator : MonoBehaviour
         corridors[0] = new Corridor();
 
         // Setup the first room, there is no previous corridor so we do not use one.
-        rooms[0].SetupRoom(roomWidth, roomHeight, columns, rows);
+        rooms[0].SetupRoom(roomWidth, roomHeight, columns - 1, rows - 3);
 
         // Setup the first corridor using the first room.
-        corridors[0].SetupCorridor(rooms[0], corridorLength, roomWidth, roomHeight, columns, rows, true);
+        corridors[0].SetupCorridor(rooms[0], corridorLength, roomWidth, roomHeight, columns - 1, rows - 3, true);
 
         for (int i = 1; i < rooms.Length; i++)
         {
@@ -74,7 +82,7 @@ public class LevelGenerator : MonoBehaviour
             rooms[i] = new Room();
 
             // Setup the room based on the previous corridor.
-            rooms[i].SetupRoom(roomWidth, roomHeight, columns, rows, corridors[i - 1]);
+            rooms[i].SetupRoom(roomWidth, roomHeight, columns - 1, rows - 3, corridors[i - 1]);
 
             // If we haven't reached the end of the corridors array...
             if (i < corridors.Length)
@@ -83,20 +91,21 @@ public class LevelGenerator : MonoBehaviour
                 corridors[i] = new Corridor();
 
                 // Setup the corridor based on the room that was just created.
-                corridors[i].SetupCorridor(rooms[i], corridorLength, roomWidth, roomHeight, columns, rows, false);
+                corridors[i].SetupCorridor(rooms[i], corridorLength, roomWidth, roomHeight, columns - 1, rows - 3, false);
             }
 
             //if (i == rooms.Length * .5f)
             //{
-                //Vector3 playerPos = new Vector3(rooms[i].xPos, rooms[i].yPos, 0);
-                //Instantiate(player, playerPos, Quaternion.identity);
+            //Vector3 playerPos = new Vector3(rooms[i].xPos, rooms[i].yPos, 0);
+            //Instantiate(player, playerPos, Quaternion.identity);
             //}
         }
 
     }
 
-    void SetTilesValuesForRooms()
+    int SetTilesValuesForRooms()
     {
+        int newtilescovered = 0;
         // Go through all the rooms...
         for (int i = 0; i < rooms.Length; i++)
         {
@@ -112,11 +121,17 @@ public class LevelGenerator : MonoBehaviour
                 {
                     int yCoord = currentRoom.yPos + k;
 
+                    if (tiles[xCoord][yCoord] != TileType.Floor)
+                    {
+                        newtilescovered++;
+                    }
+
                     // The coordinates in the jagged array are based on the room's position and it's width and height.
                     tiles[xCoord][yCoord] = TileType.Floor;
                 }
             }
         }
+        return newtilescovered;
     }
 
     void SetTilesValuesForCorridors()
@@ -135,16 +150,19 @@ public class LevelGenerator : MonoBehaviour
 
                 // Depending on the direction, add or subtract from the appropriate
                 // coordinate based on how far through the length the loop is.
+                bool verticalCorridor = false;
                 switch (currentCorridor.direction)
                 {
                     case Direction.North:
                         yCoord += j;
+                        verticalCorridor = true;
                         break;
                     case Direction.East:
                         xCoord += j;
                         break;
                     case Direction.South:
                         yCoord -= j;
+                        verticalCorridor = true;
                         break;
                     case Direction.West:
                         xCoord -= j;
@@ -153,6 +171,10 @@ public class LevelGenerator : MonoBehaviour
 
                 // Set the tile at these coordinates to Floor.
                 tiles[xCoord][yCoord] = TileType.Floor;
+                if (verticalCorridor)//set vertical corridor to be 2 blocks wide
+                {
+                    tiles[xCoord + 1][yCoord] = TileType.Floor;
+                }
             }
         }
     }
@@ -164,14 +186,16 @@ public class LevelGenerator : MonoBehaviour
         {
             for (int j = 0; j < tiles[i].Length; j++)
             {
-                // ... and instantiate a floor tile for it.
-                InstantiateFromArray(floorTile, i, j);
-
+                //Debug.Log(j);
                 // If the tile type is Wall...
                 if (tiles[i][j] == TileType.Wall)
                 {
                     // ... instantiate a wall over the top.
                     InstantiateFromArray(wallTile, i, j);
+                }
+                else
+                {
+                    InstantiateFromArray(floorTile, i, j);
                 }
             }
         }

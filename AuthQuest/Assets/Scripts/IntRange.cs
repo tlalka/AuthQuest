@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 // Serializable so it will show up in the inspector.
 [Serializable]
@@ -19,6 +20,12 @@ public class IntRange
     // Get a random value from the range.
     public int Random
     {
-        get { return UnityEngine.Random.Range(m_Min, m_Max); }
+        get {
+            //Debug.Log("max " + m_Max);
+            //Debug.Log("min " + m_Min);
+            int ret = UnityEngine.Random.Range(m_Min, m_Max);
+            //Debug.Log("ran "+ret);
+            return ret;
+        }
     }
 }
