@@ -7,8 +7,9 @@ public class LevelGenerator : MonoBehaviour
 {
     public enum TileType
     {
-        Wall, Floor,
+        Wall, Floor, Grass, Roof
     }
+
     private TileType[][] tiles;
     private Room[] rooms;
     private Corridor[] corridors;
@@ -22,7 +23,10 @@ public class LevelGenerator : MonoBehaviour
     public IntRange roomHeight;
     public IntRange corridorLength;
     public TileBase floorTile;   // make an array if you want a few types                       
-    public TileBase wallTile;    // make an array if you want a few types                        
+    public TileBase wallTile;    // make an array if you want a few types
+    public TileBase grassTile;   // make an array if you want a few types
+    public TileBase roofTile;
+
     //public GameObject[] outerWallTiles;
 
     void Awake()
@@ -37,7 +41,6 @@ public class LevelGenerator : MonoBehaviour
         corridorLength = new IntRange(5, 15);
     }
 
-    // Update is called once per frame
     public void BuildFloor()
     {
         int tilescovered;
@@ -54,6 +57,9 @@ public class LevelGenerator : MonoBehaviour
         } while (coverage < .15 && attempts < 10);
         SetTilesValuesForCorridors();
         InstantiateTiles();
+        //TODO Instantiate walls and roofs
+        //Instantaiate entance and exit doors
+        //Remove unneded walls
     }
 
     void SetupTilesArray()
@@ -138,6 +144,11 @@ public class LevelGenerator : MonoBehaviour
                 }
             }
         }
+        //set the center of the first room to be green
+        int xPos = Mathf.RoundToInt(rooms[0].xPos  + rooms[0].roomWidth / 2f); //leftmost tile
+        int yPos = Mathf.RoundToInt(rooms[0].yPos  + rooms[0].roomHeight / 2f); //lowest tile
+        Debug.Log(xPos+" "+yPos);
+        tiles[xPos][yPos] = TileType.Grass;
         return newtilescovered;
     }
 
@@ -193,16 +204,79 @@ public class LevelGenerator : MonoBehaviour
         {
             for (int j = 0; j < tiles[i].Length; j++)
             {
-                //Debug.Log(j);
-                // If the tile type is Wall...
-                if (tiles[i][j] == TileType.Wall)
+                // If the tile type is a floor
+                if (tiles[i][j] == TileType.Floor || tiles[i][j] == TileType.Grass)
                 {
-                    // ... instantiate a wall over the top.
-                    InstantiateFromArray(wallTile, i, j);
-                }
-                else
-                {
-                    InstantiateFromArray(floorTile, i, j);
+
+                    //check if our current tile must be grass or normal
+                    if (tiles[i][j] == TileType.Grass)
+                    {
+                        InstantiateFromArray(grassTile, i, j);
+                    }
+                    else
+                    {
+                        InstantiateFromArray(floorTile, i, j);
+                    }
+
+                    //check if there is a floor below it
+                    if (tiles[i][j - 1] != TileType.Floor && tiles[i][j - 1] != TileType.Grass)
+                    {
+                        //then we need a roof below
+                        InstantiateFromArray(roofTile, i, (j - 1));
+
+                        //check if we need a roof to the left of this roof set
+                        TileBase test = colorTiles.GetTile(new Vector3Int(i-1, j-1, 0));
+                        if (test != roofTile)
+                        {
+                            InstantiateFromArray(roofTile, (i-1), (j - 1));
+                        }
+                        
+                    }
+
+                    //check if there is a floor above it
+                    if (tiles[i][j + 1] != TileType.Floor && tiles[i][j + 1] != TileType.Grass)
+                    {
+                        //how to prevent >2 walls in a column?
+                        //we go from bottom to top, so if a wall is below us, make current block roof and cut yout losses
+                        TileBase test = colorTiles.GetTile(new Vector3Int(i, j, 0));
+                        if (test == wallTile)
+                        {
+                            //do nothing?
+                            Debug.Log("too many walls");
+                        }
+                        else
+                        {
+                            RemoveFromArray(i, (j + 1));
+                            RemoveFromArray(i, (j + 2));
+                            RemoveFromArray(i, (j + 3));
+
+                            InstantiateFromArray(wallTile, i, (j + 1));
+                            InstantiateFromArray(wallTile, i, (j + 2));
+                            InstantiateFromArray(roofTile, i, (j + 3));
+                        }
+
+                        //check if we need roofs to the left
+                        test = colorTiles.GetTile(new Vector3Int(i-1, j+1, 0));
+                        if (test == wallTile)
+                        {
+
+                        }
+                    }
+
+                    //check if we need a roof to the right
+                    //these are over-writting the top walls
+                    if (tiles[i + 1][j] != TileType.Floor && tiles[i + 1][j] != TileType.Grass)
+                    {
+                        InstantiateFromArray(roofTile, (i + 1), j);
+                    }
+
+                    //check if we need a roof to the left
+                    if (tiles[i - 1][j] != TileType.Floor && tiles[i - 1][j] != TileType.Grass)
+                    {
+                        InstantiateFromArray(roofTile, (i - 1), j);
+                    }
+
+
                 }
             }
         }
@@ -219,8 +293,23 @@ public class LevelGenerator : MonoBehaviour
         // Create an instance of the prefab from the random index of the array.
         //GameObject tileInstance = Instantiate(prefabs[randomIndex], position, Quaternion.identity) as GameObject;
         // Set the tile's parent to the board holder.
-        //tileInstance.transform.parent = boardHolder.transform;
-        colorTiles.SetTile(position, tile);
+        //tileInstance.transform.parent = boardHolder.transform;   
+
+        //tiles will not be over-written
+        if (colorTiles.HasTile(position))
+        {
+            Debug.Log(position);
+        }
+        else
+        {
+            colorTiles.SetTile(position, tile);
+        }
+    }
+
+    void RemoveFromArray(int xCoord, int yCoord)
+    {
+        Vector3Int position = new Vector3Int(xCoord, yCoord, 0);        
+        colorTiles.SetTile(position, null);
     }
 
 

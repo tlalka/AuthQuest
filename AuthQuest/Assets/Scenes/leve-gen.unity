@@ -14917,6 +14917,8 @@ MonoBehaviour:
     m_Max: 0
   floorTile: {fileID: 11400000, guid: 4b854cfac587c054582b62862d17364f, type: 2}
   wallTile: {fileID: 11400000, guid: 6e4320e68319dec43821af9b2020aa93, type: 2}
+  grassTile: {fileID: 11400000, guid: 2a801f676335d6b4ca2713c2e2207110, type: 2}
+  roofTile: {fileID: 11400000, guid: 979b5613589e65941806d1cab71d6e1a, type: 2}
 --- !u!1 &1953787653
 GameObject:
   m_ObjectHideFlags: 0

@@ -59,7 +59,9 @@ public class LevelManager : MonoBehaviour
         Debug.Log("level start " + currentColor);
         doors = GameObject.FindGameObjectsWithTag("Door");
         colorTiles = GameObject.FindWithTag("Tiles").GetComponent<Tilemap>();
+
         //generate level
+        colorTiles.ClearAllTiles();
         this.GetComponent<LevelGenerator>().BuildFloor();
 
         setTiles();
