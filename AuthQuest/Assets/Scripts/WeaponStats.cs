@@ -11,15 +11,27 @@ public class WeaponStats : MonoBehaviour
 
     public bool isRange;
 
+    GameObject player;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "Player")
+        {
+            Debug.Log("picked up weapon");
+            player.GetComponent<PlayerController>().EquipWeapon(this.gameObject);
+            //now the weapon is equipped, we need to move it to the UI
+        }
     }
 }

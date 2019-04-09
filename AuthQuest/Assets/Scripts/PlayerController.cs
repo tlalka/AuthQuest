@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
         timeSinceKeyPressLast = -1;
         timeSinceKeyPressThis = 0;
 
-        attackIndicator = GameObject.Find("attackIndicator");
+        attackIndicator = GameObject.FindGameObjectWithTag("attack");
     }
 
     // Update is called once per frame
@@ -218,6 +218,7 @@ public class PlayerController : MonoBehaviour
 
     public void EquipWeapon(GameObject weaponToEquip)
     {
+        Debug.Log("equipped weapon");
         WeaponStats weaponstats = weaponToEquip.GetComponent<WeaponStats>();
         if (weaponstats.isRange)
         {
@@ -226,8 +227,11 @@ public class PlayerController : MonoBehaviour
         else
         {
             meleeWeapon = weaponToEquip;
-            SpriteRenderer sprite = attackIndicator.GetComponent<SpriteRenderer>();
-            sprite = weaponToEquip.GetComponent<SpriteRenderer>();
+            //Equipping equ = attackIndicator.GetComponent<Equipping>();
+            //equ.ChangeSprite(meleeWeapon.GetComponent<SpriteRenderer>().sprite);
+            Sprite newSprite = meleeWeapon.GetComponent<SpriteRenderer>().sprite;
+            attackIndicator.GetComponent<Equipping>().ChangeSprite(newSprite);
+            Debug.Log("sprite should change");
         }
 
     }
