@@ -159,8 +159,8 @@ public class LevelGenerator : MonoBehaviour
         //set user to spawn here
         //Vector3 playerPos = new Vector3(xPos, yPos, 0);
         //Instantiate(player, playerPos, Quaternion.identity);
-        Debug.Log(Spawn);
-        Spawn = new Vector3(yPos, xPos, 0);
+        //Debug.Log(Spawn);
+        //Spawn = new Vector3(yPos, xPos, 0);
         return newtilescovered;
     }
 
@@ -224,6 +224,10 @@ public class LevelGenerator : MonoBehaviour
                     if (tiles[i][j] == TileType.Grass)
                     {
                         InstantiateFromArray(grassTile, i, j);
+                        Vector3Int coord;
+                        ITilemap map;
+                        TileData data;
+                        //colorTiles.GetTile(new Vector3Int(i, j, 0)).GetTileData(coord, map, ref data);
                     }
                     else
                     {
