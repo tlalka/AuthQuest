@@ -38,6 +38,12 @@ public class PlayerController : MonoBehaviour
     public List<bool> success = new List<bool>();
     public List<string> itemReceived = new List<string>();
 
+    public GameObject meleeWeapon;
+    public GameObject rangeWeapon;
+
+    public GameObject attackIndicator;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +63,8 @@ public class PlayerController : MonoBehaviour
         isSprint = false;
         timeSinceKeyPressLast = -1;
         timeSinceKeyPressThis = 0;
+
+        attackIndicator = GameObject.Find("attackIndicator");
     }
 
     // Update is called once per frame
@@ -204,6 +212,22 @@ public class PlayerController : MonoBehaviour
         else
         {
             isSprint = false;
+        }
+
+    }
+
+    public void EquipWeapon(GameObject weaponToEquip)
+    {
+        WeaponStats weaponstats = weaponToEquip.GetComponent<WeaponStats>();
+        if (weaponstats.isRange)
+        {
+            rangeWeapon = weaponToEquip;
+        }
+        else
+        {
+            meleeWeapon = weaponToEquip;
+            SpriteRenderer sprite = attackIndicator.GetComponent<SpriteRenderer>();
+            sprite = weaponToEquip.GetComponent<SpriteRenderer>();
         }
 
     }
