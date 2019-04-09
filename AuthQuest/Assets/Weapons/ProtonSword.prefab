@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 322177365815338861}
   - component: {fileID: 322177365815338862}
   - component: {fileID: 322177365815338863}
+  - component: {fileID: 1610760650}
   m_Layer: 0
   m_Name: ProtonSword
   m_TagString: Untagged
@@ -95,4 +96,83 @@ MonoBehaviour:
   weaponName: Proton Sword
   weaponAttack: 10
   weaponSpeed: 10
+  rotation: {x: 0, y: 0, z: 0, w: 0}
+  scale: {x: 0, y: 0, z: 0}
   isRange: 0
+--- !u!60 &1610760650
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 322177365815338856}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.03, y: 2.03}
+    newSize: {x: 2.03, y: 2.03}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.415, y: -0.645}
+      - {x: -0.355, y: -0.575}
+      - {x: -0.275, y: -0.475}
+      - {x: -0.255, y: -0.515}
+      - {x: -0.175, y: -0.48499998}
+      - {x: 0.21499999, y: -0.085}
+      - {x: 0.345, y: 0.035}
+      - {x: 0.525, y: 0.21499999}
+      - {x: 0.715, y: 0.42499998}
+      - {x: 0.815, y: 0.60499996}
+      - {x: 0.815, y: 0.79499996}
+      - {x: 0.79499996, y: 0.815}
+      - {x: 0.685, y: 0.815}
+      - {x: 0.66499996, y: 0.775}
+      - {x: 0.60499996, y: 0.765}
+      - {x: 0.585, y: 0.745}
+      - {x: 0.555, y: 0.685}
+      - {x: 0.53499997, y: 0.635}
+      - {x: 0.465, y: 0.625}
+      - {x: 0.405, y: 0.545}
+      - {x: 0.39499998, y: 0.505}
+      - {x: 0.325, y: 0.49499997}
+      - {x: 0.275, y: 0.415}
+      - {x: 0.265, y: 0.36499998}
+      - {x: 0.205, y: 0.355}
+      - {x: 0.185, y: 0.33499998}
+      - {x: 0.185, y: 0.265}
+      - {x: 0.114999995, y: 0.265}
+      - {x: 0.095, y: 0.24499999}
+      - {x: 0.095, y: 0.175}
+      - {x: 0.015, y: 0.195}
+      - {x: -0.015, y: 0.105}
+      - {x: -0.095, y: 0.074999996}
+      - {x: -0.085, y: -0.005}
+      - {x: -0.155, y: -0.005}
+      - {x: -0.175, y: -0.024999999}
+      - {x: -0.175, y: -0.095}
+      - {x: -0.295, y: -0.095}
+      - {x: -0.345, y: -0.125}
+      - {x: -0.375, y: -0.175}
+      - {x: -0.405, y: -0.195}
+      - {x: -0.405, y: -0.33499998}
+      - {x: -0.385, y: -0.355}
+      - {x: -0.435, y: -0.39499998}
+      - {x: -0.755, y: -0.715}
+      - {x: -0.765, y: -0.745}
+      - {x: -0.765, y: -0.835}
+      - {x: -0.745, y: -0.85499996}
+      - {x: -0.635, y: -0.85499996}
+      - {x: -0.59499997, y: -0.825}
+      - {x: -0.49499997, y: -0.715}
+      - {x: -0.465, y: -0.685}

@@ -8,7 +8,8 @@ public class WeaponStats : MonoBehaviour
     public string weaponName;
     public int weaponAttack;
     public int weaponSpeed;//controls attack duration and cooldown, 
-
+    public Quaternion rotation;
+    public Vector3 scale;
     public bool isRange;
 
     GameObject player;
@@ -17,6 +18,9 @@ public class WeaponStats : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
+        rotation = transform.rotation;
+        scale = transform.localScale;
+        transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     // Update is called once per frame

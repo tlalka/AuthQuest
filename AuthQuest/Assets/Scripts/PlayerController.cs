@@ -231,6 +231,11 @@ public class PlayerController : MonoBehaviour
             //equ.ChangeSprite(meleeWeapon.GetComponent<SpriteRenderer>().sprite);
             Sprite newSprite = meleeWeapon.GetComponent<SpriteRenderer>().sprite;
             attackIndicator.GetComponent<Equipping>().ChangeSprite(newSprite);
+            attackIndicator.transform.localRotation = meleeWeapon.GetComponent<WeaponStats>().rotation;
+            attackIndicator.transform.localScale = meleeWeapon.GetComponent<WeaponStats>().scale;
+
+            Debug.Log(meleeWeapon.GetComponent<WeaponStats>().rotation);
+            Debug.Log(attackIndicator.transform.eulerAngles);
             Debug.Log("sprite should change");
         }
 

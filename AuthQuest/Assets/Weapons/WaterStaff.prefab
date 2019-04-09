@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1674293196811253323}
   - component: {fileID: 1674293196811253324}
   - component: {fileID: 1674293196811253325}
+  - component: {fileID: 1512969391}
   m_Layer: 0
   m_Name: WaterStaff
   m_TagString: Untagged
@@ -95,4 +96,40 @@ MonoBehaviour:
   weaponName: Water Staff
   weaponAttack: 5
   weaponSpeed: 15
+  rotation: {x: 0, y: 0, z: 0, w: 0}
+  scale: {x: 0, y: 0, z: 0}
   isRange: 0
+--- !u!60 &1512969391
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674293196811253326}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.69, y: 0.54}
+    newSize: {x: 0.69, y: 0.54}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.095, y: 0.12}
+      - {x: 0.035, y: 0.14}
+      - {x: -0.185, y: 0.14}
+      - {x: -0.185, y: -0.14999999}
+      - {x: 0.024999999, y: -0.26999998}
+      - {x: 0.21499999, y: -0.26999998}
+      - {x: 0.225, y: -0.26}
+      - {x: 0.225, y: -0.22}
+      - {x: 0.21499999, y: -0.19}
