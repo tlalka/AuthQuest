@@ -27,6 +27,10 @@ public class LevelGenerator : MonoBehaviour
     public TileBase grassTile;   // make an array if you want a few types
     public TileBase roofTile;
 
+    public Vector3 Spawn;
+
+    //public GameObject player;
+
     //public GameObject[] outerWallTiles;
 
     void Awake()
@@ -39,9 +43,10 @@ public class LevelGenerator : MonoBehaviour
         roomWidth = new IntRange(6, 17);
         roomHeight = new IntRange(6, 17);
         corridorLength = new IntRange(5, 15);
+        //player = GameObject.Find("Player");
     }
 
-    public void BuildFloor()
+    public Vector3 BuildFloor()
     {
         int tilescovered;
         int attempts = 0;
@@ -60,6 +65,7 @@ public class LevelGenerator : MonoBehaviour
         //TODO Instantiate walls and roofs
         //Instantaiate entance and exit doors
         //Remove unneded walls
+        return Spawn;
     }
 
     void SetupTilesArray()
@@ -149,6 +155,12 @@ public class LevelGenerator : MonoBehaviour
         int yPos = Mathf.RoundToInt(rooms[0].yPos  + rooms[0].roomHeight / 2f); //lowest tile
         Debug.Log(xPos+" "+yPos);
         tiles[xPos][yPos] = TileType.Grass;
+
+        //set user to spawn here
+        //Vector3 playerPos = new Vector3(xPos, yPos, 0);
+        //Instantiate(player, playerPos, Quaternion.identity);
+        Debug.Log(Spawn);
+        Spawn = new Vector3(yPos, xPos, 0);
         return newtilescovered;
     }
 
@@ -230,6 +242,12 @@ public class LevelGenerator : MonoBehaviour
                         {
                             InstantiateFromArray(roofTile, (i-1), (j - 1));
                         }
+                        //check if we need a roof to the rigt of this roof set
+                        //if current tile is NOT a floor and there is NOT a floor below it
+                        if(tiles[i+1][j - 1] != TileType.Floor && tiles[i+1][j - 1] != TileType.Grass && tiles[i + 1][j] != TileType.Floor && tiles[i + 1][j] != TileType.Grass)
+                        {
+                            InstantiateFromArray(roofTile, (i + 1), (j - 1));
+                        }
                         
                     }
 
@@ -257,9 +275,19 @@ public class LevelGenerator : MonoBehaviour
 
                         //check if we need roofs to the left
                         test = colorTiles.GetTile(new Vector3Int(i-1, j+1, 0));
-                        if (test == wallTile)
+                        if (test != wallTile)
                         {
-
+                            InstantiateFromArray(roofTile, (i - 1), (j + 1));
+                            InstantiateFromArray(roofTile, (i - 1), (j + 2));
+                            InstantiateFromArray(roofTile, (i - 1), (j + 3));
+                        }
+                        //check if we need roofs to the right
+                        //that means, if the next tile is NOT a floor, and does NOT have floor above it
+                        if(tiles[i+1][j + 1] != TileType.Floor && tiles[i+1][j + 1] != TileType.Grass && tiles[i+1][j] != TileType.Floor && tiles[i+1][j] != TileType.Grass)
+                        {
+                            InstantiateFromArray(roofTile, (i + 1), (j + 1));
+                            InstantiateFromArray(roofTile, (i + 1), (j + 2));
+                            InstantiateFromArray(roofTile, (i + 1), (j + 3));
                         }
                     }
 
@@ -298,7 +326,7 @@ public class LevelGenerator : MonoBehaviour
         //tiles will not be over-written
         if (colorTiles.HasTile(position))
         {
-            Debug.Log(position);
+            //Debug.Log(position);
         }
         else
         {

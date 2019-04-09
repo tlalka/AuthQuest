@@ -62,8 +62,9 @@ public class LevelManager : MonoBehaviour
 
         //generate level
         colorTiles.ClearAllTiles();
-        this.GetComponent<LevelGenerator>().BuildFloor();
-
+        Vector3 playerspawn = this.GetComponent<LevelGenerator>().BuildFloor();
+        Debug.Log(playerspawn);
+        player.transform.position = playerspawn;
         setTiles();
         setDoors();
         loading.GetComponent<LoadingScreen>().renOff();
