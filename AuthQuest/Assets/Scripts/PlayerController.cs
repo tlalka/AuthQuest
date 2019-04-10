@@ -15,6 +15,11 @@ public class PlayerController : MonoBehaviour
     public bool IsMoving;
     protected Coroutine attackRoutine;
 
+    // for inventory
+    public Inventory1 inventory1;
+
+    public Inventory2 inventory2;
+
     public bool isSprint;
     private KeyCode LastKey;
     private float timeSinceKeyPressLast;
@@ -216,6 +221,28 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    // for inventory1
+    private void OnControllerColliderHit1(ControllerColliderHit hit)
+    {
+
+        IInventoryItem item = hit.collider.GetComponent<IInventoryItem>();
+        if (item != null)
+        {
+            inventory1.AddItem(item);
+        }
+    }
+
+    // for inventory2
+
+    private void OnControllerColliderHit2(ControllerColliderHit hit)
+    {
+
+        IInventoryItem item = hit.collider.GetComponent<IInventoryItem>();
+        if (item != null)
+        {
+            inventory2.AddItem(item);
+        }
+    }
     public void EquipWeapon(GameObject weaponToEquip)
     {
         Debug.Log("equipped weapon");
