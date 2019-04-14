@@ -221,7 +221,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    // for inventory1
+    // for inventory1. = this is wrong, can only be used for 3d games.
     private void OnControllerColliderHit1(ControllerColliderHit hit)
     {
 
@@ -229,6 +229,19 @@ public class PlayerController : MonoBehaviour
         if (item != null)
         {
             inventory1.AddItem(item);
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "Player")
+        {
+            Debug.Log("Theitemispickedup");
+            IInventoryItem item = col.GetComponent<IInventoryItem>();
+            if (item != null)
+        {
+            inventory1.AddItem(item);
+        }
         }
     }
 

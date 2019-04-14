@@ -10,8 +10,9 @@ public class HUDScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Inventory1 = GameObject.Find("Inventory 1").GetComponent<Inventory1>();
+        /* Inventory1 = GameObject.Find("Inventory 1").GetComponent<Inventory1>();
         Inventory2 = GameObject.Find("Inventory 2").GetComponent<Inventory2>();
+        */
         Inventory1.ItemAdded += InventoryScript_ItemAdded;   
     }
 

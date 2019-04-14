@@ -13,9 +13,10 @@ public class Inventory1 : MonoBehaviour
 
     public void AddItem(IInventoryItem item)
     {
+        // Debug.Log("AddItemIsworking"); not reaching this point of code
         if (nItems.Count < SLOTS)
         {
-            Collider collider = (item as MonoBehaviour).GetComponent<Collider>();
+            Collider2D collider = (item as MonoBehaviour).GetComponent<Collider2D>();
             if (collider.enabled)
             {
                 collider.enabled = false;
