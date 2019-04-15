@@ -46,6 +46,10 @@ public class PlayerController : MonoBehaviour
     public GameObject meleeWeapon;
     public GameObject rangeWeapon;
 
+    //!!!!!!!!!!!!!!
+    public GameObject HUD;
+    //!!!!!!!!!!!!!!!!!!!
+
     public GameObject attackIndicator;
 
 
@@ -70,6 +74,10 @@ public class PlayerController : MonoBehaviour
         timeSinceKeyPressThis = 0;
 
         attackIndicator = GameObject.FindGameObjectWithTag("attack");
+
+        //!!!!!!!!!!!!!!!!!!!!!
+        HUD = GameObject.Find("HUD");
+        //!!!!!!!!!!!!!!!!!!!
     }
 
     // Update is called once per frame
@@ -260,6 +268,11 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("equipped weapon");
         WeaponStats weaponstats = weaponToEquip.GetComponent<WeaponStats>();
+
+        //!!!!!!!!!!!!!
+        HUD.GetComponent<HUDScript>().changeweapon(weaponToEquip);
+        //!!!!!!!!!!!!!!!!!!
+
         if (weaponstats.isRange)
         {
             rangeWeapon = weaponToEquip;
