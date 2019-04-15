@@ -25,9 +25,13 @@ public class HUDScript : MonoBehaviour
 
     public void ChangeWeapon(GameObject weapon)
     {
-        Image image = InventoryA.GetComponent<Image>();
-        image.sprite = weapon.GetComponent<SpriteRenderer>().sprite;
 
-        // if (weapon.GetComponent<WeaponStats>().isRange == true)
+        if (weapon.GetComponent<WeaponStats>().isRange == true) {
+            Image image2 = InventoryB.GetComponent<Image>();
+            image2.sprite = weapon.GetComponent<SpriteRenderer>().sprite;
+        } else {
+            Image image1 = InventoryA.GetComponent<Image>();
+        image1.sprite = weapon.GetComponent<SpriteRenderer>().sprite;
+        }
     }
 }
