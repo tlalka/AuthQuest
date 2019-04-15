@@ -43,6 +43,8 @@ public class PlayerController : MonoBehaviour
 
     public GameObject attackIndicator;
 
+    public GameObject HUD;
+
 
     // Start is called before the first frame update
     void Start()
@@ -65,6 +67,8 @@ public class PlayerController : MonoBehaviour
         timeSinceKeyPressThis = 0;
 
         attackIndicator = GameObject.FindGameObjectWithTag("attack");
+
+        HUD = GameObject.Find("HUD");
     }
 
     // Update is called once per frame
@@ -220,6 +224,8 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("equipped weapon");
         WeaponStats weaponstats = weaponToEquip.GetComponent<WeaponStats>();
+
+        HUD.GetComponent<HUDScript>().ChangeWeapon(weaponToEquip);
         if (weaponstats.isRange)
         {
             rangeWeapon = weaponToEquip;
