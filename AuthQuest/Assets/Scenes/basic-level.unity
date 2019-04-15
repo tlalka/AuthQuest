@@ -1088,6 +1088,7 @@ GameObject:
   - component: {fileID: 881105274}
   - component: {fileID: 881105276}
   - component: {fileID: 881105275}
+  - component: {fileID: 881105277}
   m_Layer: 0
   m_Name: Inventory 1
   m_TagString: Untagged
@@ -1152,6 +1153,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 881105273}
   m_CullTransparentMesh: 0
+--- !u!114 &881105277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881105273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1434a3cae82040848bdd9fb3a6bf8fe4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRange: 0
+  player: {fileID: 221627352}
+  canvas: {fileID: 1920396603}
 --- !u!1 &958715874
 GameObject:
   m_ObjectHideFlags: 0
@@ -15743,7 +15759,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -15786,8 +15802,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9034e78405427498693c9f4388166922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Inventory1: {fileID: 0}
-  Inventory2: {fileID: 0}
+  InventoryA: {fileID: 0}
+  InventoryB: {fileID: 0}
 --- !u!1 &1942492118
 GameObject:
   m_ObjectHideFlags: 0

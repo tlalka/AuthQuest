@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HUDScript : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class HUDScript : MonoBehaviour
 
     public void ChangeWeapon(GameObject weapon)
     {
-        Image image = InventoryA.GetComponent<ImageConversion>();
+        Image image = InventoryA.GetComponent<Image>();
         image.sprite = weapon.GetComponent<SpriteRenderer>().sprite;
 
         // if (weapon.GetComponent<WeaponStats>().isRange == true)
