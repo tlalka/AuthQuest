@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed;
     public bool isAttacking;
     public bool IsMoving;
+    public bool canMove;
     protected Coroutine attackRoutine;
 
     public bool isSprint;
@@ -75,7 +76,10 @@ public class PlayerController : MonoBehaviour
     void Update() //characer movment
     {
         SprintCheck();
-        movePlayer();
+        if (canMove)
+        {
+            movePlayer();
+        }
         checkSave();
 
         if (Input.GetMouseButtonDown(0))

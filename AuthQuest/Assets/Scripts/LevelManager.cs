@@ -7,10 +7,11 @@ using UnityEngine.Tilemaps;
 public class LevelManager : MonoBehaviour
 {
     public GameObject[] doors;
+    public GameObject player;
+    public GameObject loading;
     public Tilemap colorTiles;
     public bool OGobj;
     private string currentColor;
-    public static LevelManager instance;
 
     Color blue = new Color(126f/255f, 160f / 255f, 224f / 255f);
     Color red = new Color(225f / 255f, 126f / 255f, 126f / 255f);
@@ -19,9 +20,11 @@ public class LevelManager : MonoBehaviour
     Color purple = new Color(114f / 255f, 77f / 255f, 199f / 255f);
     Color pink = new Color(233f / 255f, 152f / 255f, 228f / 255f);
 
-    void Awake()
+    void Start()
     {
         OGobj = false;
+        player = GameObject.Find("Player");
+        loading = GameObject.Find("Canvas");
         Debug.Log("awake");
         GameObject[] objs = GameObject.FindGameObjectsWithTag("levelM");
         if (objs.Length > 1)
@@ -37,7 +40,7 @@ public class LevelManager : MonoBehaviour
                 currentColor = "blue";
                 Debug.Log("null color set");
             }
-            startup();
+            Startup();
         }
     }
 
@@ -46,17 +49,26 @@ public class LevelManager : MonoBehaviour
         Debug.Log("level loaded");
         if (OGobj)
         {
-            startup();
+            Startup();
         }
     }
 
-    void startup()
+    void Startup()
     {
+        loading.GetComponent<LoadingScreen>().renOn();
         Debug.Log("level start " + currentColor);
         doors = GameObject.FindGameObjectsWithTag("Door");
         colorTiles = GameObject.FindWithTag("Tiles").GetComponent<Tilemap>();
+
+        //generate level
+        colorTiles.ClearAllTiles();
+        Vector3 playerspawn = this.GetComponent<LevelGenerator>().BuildFloor();
+        Debug.Log(playerspawn);
+        player.transform.position = playerspawn;
         setTiles();
         setDoors();
+        loading.GetComponent<LoadingScreen>().renOff();
+        player.GetComponent<PlayerController>().canMove = true;
     }
 
     // Update is called once per frame
@@ -142,7 +154,8 @@ public class LevelManager : MonoBehaviour
 
     public void LoadNewLevel(string color)
     {
-      currentColor = color;
+        player.GetComponent<PlayerController>().canMove = false;
+        currentColor = color;
       Debug.Log("load new color " + currentColor);
       OGobj = true;
       SceneManager.LoadScene("basic-level");//
