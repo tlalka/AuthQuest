@@ -10,10 +10,12 @@ public class AttackDelay : MonoBehaviour
     float currentScale;
     void Start()
     {
-        bar = transform.Find("Bar");
+        bar = transform.Find("Bar1");
         bar.Find("BarSprite").GetComponent<SpriteRenderer>().color = Color.green;
         
     }
+
+    
 
     public void TakeDamage(float damageValueNormalized)
     {
@@ -32,10 +34,11 @@ public class AttackDelay : MonoBehaviour
         }
         if(currentScale <= 0)
         {
-            bar.localScale = new Vector3(0f, 1f);
-            //Destroy(player);
+        
         }
     }
+
+    
 
     // Update is called once per frame
     void Update()

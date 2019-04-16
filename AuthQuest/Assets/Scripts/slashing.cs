@@ -2,14 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class slashing : MonoBehaviour
 {
     public bool isAttacking;
     protected Coroutine attackRoutine;
     public Animator myanimator;
 
+    public int weaponSpeed;
+    private float cooldownTime;
+    private bool isCooldown;
+
+    private float coolingdownCounter = 1;
+
+    private bool coolingdown = false;
+
+   
     // Start is called before the first frame update
-    void Start()
+
+        void Start()
     {
         isAttacking = false;
         myanimator.SetBool("slashing", isAttacking);
@@ -20,13 +31,30 @@ public class slashing : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+
+        
+            if (Input.GetMouseButtonDown(0))
         {
             attackRoutine = StartCoroutine(Attack());
             // StartCoroutine(Attack());
-
+        }
+        
+    }
+    /*
+    public IEnumerator Cooldown() {
+        GameObject weapon;
+        int speed = weapon.GetComponent<WeaponStats>().weaponSpeed;
+        if (speed > speed * 3) {
+            StopAttack();
+            
+            
+            
+        } else {
+            Attack();
         }
     }
+    */
+   
 
     private IEnumerator Attack()
     {
@@ -46,6 +74,8 @@ public class slashing : MonoBehaviour
             StopAttack();
         }
     }
+
+    
     public void StopAttack()
     {
         if (attackRoutine != null)
@@ -55,5 +85,8 @@ public class slashing : MonoBehaviour
             myanimator.SetBool("slashing", isAttacking);
         }
     }
+
+    
+
 
 }

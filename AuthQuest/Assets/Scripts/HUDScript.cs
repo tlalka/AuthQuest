@@ -9,6 +9,10 @@ public class HUDScript : MonoBehaviour
     public GameObject InventoryA;
 
     public GameObject InventoryB;
+
+    public GameObject AttackDelay1;
+
+    public GameObject AttackDelay2;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +27,10 @@ public class HUDScript : MonoBehaviour
         
     }
 
+    public void bargodown() {
+       
+    }
+    
     public void ChangeWeapon(GameObject weapon)
     {
 
