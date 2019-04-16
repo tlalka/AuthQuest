@@ -26,6 +26,7 @@ public class LevelGenerator : MonoBehaviour
     public TileBase wallTile;    // make an array if you want a few types
     public TileBase grassTile;   // make an array if you want a few types
     public TileBase roofTile;
+    //public GameObject player;
 
     public Vector3 Spawn;
 
@@ -155,6 +156,12 @@ public class LevelGenerator : MonoBehaviour
         int yPos = Mathf.RoundToInt(rooms[0].yPos  + rooms[0].roomHeight / 2f); //lowest tile
         Debug.Log(xPos+" "+yPos);
         tiles[xPos][yPos] = TileType.Grass;
+
+        GridLayout gridLayout = colorTiles.layoutGrid;
+        Vector3Int position = new Vector3Int(xPos, yPos, 0);
+        Spawn = gridLayout.CellToWorld(position);
+        Debug.Log(Spawn);
+        
 
         //set user to spawn here
         //Vector3 playerPos = new Vector3(xPos, yPos, 0);
