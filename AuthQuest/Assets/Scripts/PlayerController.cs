@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
-        moveSpeed = 10;//PlayerStats = GetComponent<CharacterStat>(); 
+        moveSpeed = 10 + (GetComponent<PlayerStats>().Speed * 2);//PlayerStats = GetComponent<CharacterStat>(); 
         keyDelay = .2; //PlayerStats = GetComponent<CharacterStat>();
         isSprint = false;
         timeSinceKeyPressLast = -1;
@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update() //characer movment
     {
+        moveSpeed = 10 + (GetComponent<PlayerStats>().Speed * 2);
         SprintCheck();
         if (canMove)
         {

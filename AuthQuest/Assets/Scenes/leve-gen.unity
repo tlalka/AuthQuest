@@ -938,7 +938,7 @@ PrefabInstance:
     - target: {fileID: 569161750341726974, guid: f6c566aa7044ad143a7784e035b1643c,
         type: 3}
       propertyPath: m_Name
-      value: player
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 569161750341726969, guid: f6c566aa7044ad143a7784e035b1643c,
         type: 3}
@@ -1310,6 +1310,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1561910036}
   - component: {fileID: 1561910035}
+  - component: {fileID: 1561910037}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -1344,12 +1345,42 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1561910037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561910034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 041dc07e0d214864e9df10839f0c57dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1586696502 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 569161750341726974, guid: f6c566aa7044ad143a7784e035b1643c,
     type: 3}
   m_PrefabInstance: {fileID: 1322813668}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1586696510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1586696502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c65eb65c9748724ead289598926ed86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MeleeAttack: 0
+  MeleeDefense: 0
+  RangeAttack: 0
+  RangeDefense: 0
+  Speed: 0
+  Health: 0
 --- !u!1 &1588214247
 GameObject:
   m_ObjectHideFlags: 0
@@ -14937,6 +14968,7 @@ MonoBehaviour:
   loading: {fileID: 0}
   colorTiles: {fileID: 1894488155}
   OGobj: 0
+  currentColor: blue
 --- !u!4 &1950533663
 Transform:
   m_ObjectHideFlags: 0
@@ -15011,7 +15043,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1953787653}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 100.4, y: 41.38, z: 0.20136128}
+  m_LocalPosition: {x: 7, y: 1, z: 0.20136128}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1588214248}
@@ -15188,7 +15220,7 @@ PrefabInstance:
         type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1586696502}
     - target: {fileID: 1385143937360494751, guid: bbc1c7a3697c43a4797bf01446472a75,
         type: 3}
       propertyPath: orthographic size
