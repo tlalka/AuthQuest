@@ -58,6 +58,7 @@ public class HealthBarScript : MonoBehaviour
 
     public void HealthRegenerate(float regenValueNormalized)
     {
+        //DON'T LET HEALTH GO ABOVE MAX
         bar.localScale = new Vector3(currentScale + regenValueNormalized, 1f);
         currentScale = bar.localScale.x;
         if (currentScale <= .3)

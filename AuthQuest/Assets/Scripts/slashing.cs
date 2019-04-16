@@ -32,7 +32,7 @@ public class slashing : MonoBehaviour
     void Update()
     {
 
-        
+        //!!!!!!get rid of this, make player call slashing
             if (Input.GetMouseButtonDown(0))
         {
             attackRoutine = StartCoroutine(Attack());

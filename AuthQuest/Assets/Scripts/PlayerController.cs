@@ -85,9 +85,11 @@ public class PlayerController : MonoBehaviour
         movePlayer();
         checkSave();
         coolDown();
-
+        //Debug.Log(cool1);
+        //REMEBER TO ADD WEAPON 2 FOR ATTACK BUTTON 1
         if (Input.GetMouseButtonDown(0) && cool1 <= 0)
         {
+            //Debug.Log("AAAAAAAAAAAAA");
             CoolBar1.GetComponent<HealthBarScript>().HealthRegenerate(1);
             cool1 = meleeWeapon.GetComponent < WeaponStats > ().weaponSpeed;
             attackRoutine = StartCoroutine(Attack());
@@ -258,14 +260,23 @@ public class PlayerController : MonoBehaviour
     }
     public void coolDown()
     {
-        cool1--;
-        cool2--;
-        float math1 = .001f; //meleeWeapon.GetComponent<WeaponStats>().weaponSpeed;
-        float math2 = .001f; //rangeWeapon.GetComponent<WeaponStats>().weaponSpeed;
+        if(cool1 > 0)
+        {
+            cool1--;
+        }
+
+        if (cool2 > 0)
+        {
+            cool2--;
+        }
+
+        //ADD CORRECT MATH HERE
+        float math1 = .005f; //meleeWeapon.GetComponent<WeaponStats>().weaponSpeed;
+        float math2 = .005f; //rangeWeapon.GetComponent<WeaponStats>().weaponSpeed;
         CoolBar1.GetComponent<HealthBarScript>().TakeDamage(math1);
         CoolBar2.GetComponent<HealthBarScript>().TakeDamage(math2);
 
-        Debug.Log(math1);
+        //Debug.Log(math1);
 
     }
 
