@@ -158,7 +158,7 @@ public class LevelManager : MonoBehaviour
         currentColor = color;
       Debug.Log("load new color " + currentColor);
       OGobj = true;
-      SceneManager.LoadScene("basic-level");//
+      SceneManager.LoadScene("leve-gen");//
     }
 
 }

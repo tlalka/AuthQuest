@@ -10,8 +10,9 @@ public class HUDScript : MonoBehaviour
 
     public GameObject InventoryB;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        DontDestroyOnLoad(gameObject);
         InventoryA = GameObject.Find("ItemImage1");
 
         InventoryB = GameObject.Find("ItemImage2");
