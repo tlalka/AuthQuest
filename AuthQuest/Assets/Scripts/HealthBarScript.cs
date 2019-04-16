@@ -10,6 +10,7 @@ public class HealthBarScript : MonoBehaviour
     GameObject player;
     GameObject theCamera;
     public GameObject DeathUI;
+    public bool isDeath;
     // Start is called before the first frame update
     private void Start()
     {
@@ -25,7 +26,7 @@ public class HealthBarScript : MonoBehaviour
     {
         transform.position = theCamera.transform.position + offset;
 
-        if(currentScale <= 0)
+        if(currentScale <= 0 && isDeath)
         {
             Debug.Log("You are dead!");
             Destroy(player, 2f);

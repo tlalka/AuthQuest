@@ -44,7 +44,10 @@ public class PlayerController : MonoBehaviour
     public GameObject attackIndicator;
 
     public GameObject HUD;
-
+    public GameObject CoolBar1;
+    public int cool1;
+    public GameObject CoolBar2;
+    public int cool2;
 
     // Start is called before the first frame update
     void Start()
@@ -69,6 +72,10 @@ public class PlayerController : MonoBehaviour
         attackIndicator = GameObject.FindGameObjectWithTag("attack");
 
         HUD = GameObject.Find("HUD");
+        CoolBar1 = GameObject.Find("CoolDownBar1");
+        CoolBar2 = GameObject.Find("CoolDownBar2");
+        cool1 = 0;
+        cool2 = 0;
     }
 
     // Update is called once per frame
@@ -77,9 +84,12 @@ public class PlayerController : MonoBehaviour
         SprintCheck();
         movePlayer();
         checkSave();
+        coolDown();
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && cool1 <= 0)
         {
+            CoolBar1.GetComponent<HealthBarScript>().HealthRegenerate(1);
+            cool1 = meleeWeapon.GetComponent < WeaponStats > ().weaponSpeed;
             attackRoutine = StartCoroutine(Attack());
             // StartCoroutine(Attack());
 
@@ -244,6 +254,18 @@ public class PlayerController : MonoBehaviour
             Debug.Log(attackIndicator.transform.eulerAngles);
             Debug.Log("sprite should change");
         }
+
+    }
+    public void coolDown()
+    {
+        cool1--;
+        cool2--;
+        float math1 = .001f; //meleeWeapon.GetComponent<WeaponStats>().weaponSpeed;
+        float math2 = .001f; //rangeWeapon.GetComponent<WeaponStats>().weaponSpeed;
+        CoolBar1.GetComponent<HealthBarScript>().TakeDamage(math1);
+        CoolBar2.GetComponent<HealthBarScript>().TakeDamage(math2);
+
+        Debug.Log(math1);
 
     }
 
