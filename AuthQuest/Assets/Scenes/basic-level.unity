@@ -778,7 +778,7 @@ PrefabInstance:
     - target: {fileID: 4869076566774371307, guid: 2658a1286a4e14d4a98fcea1894bbb62,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4869076566774371307, guid: 2658a1286a4e14d4a98fcea1894bbb62,
         type: 3}
@@ -1179,6 +1179,7 @@ GameObject:
   - component: {fileID: 958715875}
   - component: {fileID: 958715877}
   - component: {fileID: 958715876}
+  - component: {fileID: 958715878}
   m_Layer: 0
   m_Name: Inventory 2
   m_TagString: Untagged
@@ -1243,6 +1244,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 958715874}
   m_CullTransparentMesh: 0
+--- !u!114 &958715878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 958715874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1434a3cae82040848bdd9fb3a6bf8fe4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRange: 1
+  player: {fileID: 221627352}
+  canvas: {fileID: 1920396603}
 --- !u!1 &989904241
 GameObject:
   m_ObjectHideFlags: 0
