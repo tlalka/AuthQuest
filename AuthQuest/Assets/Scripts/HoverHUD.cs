@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class HoverHUD : MonoBehaviour, IPointerEnterHandler
+public class HoverHUD : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public bool isRange;
     public GameObject player;
     //public GameObject parent;
     public Canvas canvas;
-    private Text text;
+    private GameObject textGO;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,13 +19,13 @@ public class HoverHUD : MonoBehaviour, IPointerEnterHandler
         canvas = GameObject.Find("HUD").GetComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
 
-        GameObject textGO = new GameObject();
+        textGO = new GameObject();
         textGO.transform.parent = this.transform;
         textGO.AddComponent<Text>();
 
-        text = textGO.GetComponent<Text>();
+        Text text = textGO.GetComponent<Text>();
         text.font = arial;
-        text.text = "Press space key";
+        text.text = "";
         text.fontSize = 22;
         text.fontStyle = FontStyle.Bold;
         //text.alignment = TextAnchor.LowerLeft;
@@ -33,9 +33,20 @@ public class HoverHUD : MonoBehaviour, IPointerEnterHandler
         //parent = GameObject.Find("Inventory 1");
         RectTransform rectTransform;
         //rectTransform = this.GetComponent<RectTransform>();
-        rectTransform = text.GetComponent<RectTransform>();
-        rectTransform.localPosition = new Vector3(120, 0, 0);
-        rectTransform.sizeDelta = new Vector2(100, 100);
+
+
+        if (isRange)
+        {
+            rectTransform = text.GetComponent<RectTransform>();
+            rectTransform.localPosition = new Vector3(110, 0, 0);
+            rectTransform.sizeDelta = new Vector2(100, 100);
+        }
+        else
+        {
+            rectTransform = text.GetComponent<RectTransform>();
+            rectTransform.localPosition = new Vector3(110, 0, 0);
+            rectTransform.sizeDelta = new Vector2(100, 100);
+        }
 
     }
 
@@ -43,6 +54,12 @@ public class HoverHUD : MonoBehaviour, IPointerEnterHandler
     void Update()
     {
         
+    }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        //textGO.SetActive(false);
+        textGO.GetComponent<Text>().text = " ";
+        Debug.Log("Mouse is NOT over GameObject.");
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -60,6 +77,8 @@ public class HoverHUD : MonoBehaviour, IPointerEnterHandler
 
         int attack = weapon.GetComponent<WeaponStats>().weaponAttack;
         int speed = weapon.GetComponent<WeaponStats>().weaponSpeed;
+
+        textGO.GetComponent<Text>().text = "ATK:" + attack+ "\n" + "SPD:" + speed;
 
     }
 }
