@@ -154,8 +154,9 @@ public class LevelManager : MonoBehaviour
 
     public void LoadNewLevel(string color)
     {
-        player.GetComponent<PlayerController>().canMove = false;
-        currentColor = color;
+      player.GetComponent<PlayerController>().canMove = false;
+        player.GetComponent<PlayerStats>().LevelUp(color);
+      currentColor = color;
       Debug.Log("load new color " + currentColor);
       OGobj = true;
       SceneManager.LoadScene("leve-gen");//
