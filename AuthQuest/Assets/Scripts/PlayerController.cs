@@ -26,11 +26,6 @@ public class PlayerController : MonoBehaviour
 
     public bool isOpened;
 
-    public List<int> chestNumber = new List<int>();
-    public List<int> choice = new List<int>();
-    public List<bool> success = new List<bool>();
-    public List<string> itemReceived = new List<string>();
-
     // Start is called before the first frame update
     void Start()
     {
@@ -52,8 +47,6 @@ public class PlayerController : MonoBehaviour
     void Update() //characer movment
     {
         movePlayer();
-        checkSave();
-
         if (Input.GetMouseButtonDown(0))
         {
             attackRoutine = StartCoroutine(Attack());
@@ -66,32 +59,46 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private Save CreateSaveGameObject()
+
+    public void Save()
     {
-        Save save = new Save();
-        for(int i=0; i < chestNumber.Count; i++)
+        Debug.Log("saved!");
+        Vector3 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+        UIAppear uia = new UIAppear();
+        int chest1choice = uia.chest1choice;
+        bool chest1success = uia.chest1success;
+        string chest1item = uia.chest1item;
+
+        SaveObject saveObject = new SaveObject
         {
-            save.chestNumber.Add(chestNumber[i]);
-            save.choice.Add(choice[i]);
-            save.success.Add(success[i]);
-            save.itemReceived.Add(itemReceived[i]);
-        }
-
-        return save;
+            goldAmount = 5,
+            playerPosition = playerPosition,
+            chest1choice = chest1choice,
+            chest1success = chest1success,
+            chest1item = chest1item
+        };
+        string json = JsonUtility.ToJson(saveObject);
+        File.WriteAllText(Application.dataPath + "/save.json", json);
+        Debug.Log(json);
     }
 
-    public void SaveGame()
+    public void Load()
     {
-        // 1
-        Save save = CreateSaveGameObject();
+        string saveString = File.ReadAllText(Application.dataPath + "/save.json");
 
-        // 2
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/gamesave.json");
-        bf.Serialize(file, save);
-        file.Close();
-        Debug.Log("Game Saved");
+        SaveObject saveObject = JsonUtility.FromJson<SaveObject>(saveString);
+        GameObject.FindGameObjectWithTag("Player").transform.position = saveObject.playerPosition;
     }
+
+    public class SaveObject
+    {
+        public int goldAmount;
+        public Vector3 playerPosition;
+        public int chest1choice;
+        public bool chest1success;
+        public string chest1item;
+    }
+
 
     private void movePlayer()
     {
@@ -107,13 +114,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void checkSave()
-    {
-        if (Input.GetKeyDown("escape"))
-        {
-            SaveGame();
-        }
-    }
 
     private IEnumerator Attack()
     {
