@@ -7,6 +7,7 @@ TagManager:
   - Door
   - Tiles
   - levelM
+  - attack
   layers:
   - Default
   - TransparentFX

@@ -38,6 +38,14 @@ public class PlayerController : MonoBehaviour
     public List<bool> success = new List<bool>();
     public List<string> itemReceived = new List<string>();
 
+    public GameObject meleeWeapon;
+    public GameObject rangeWeapon;
+
+    public GameObject attackIndicator;
+
+    public GameObject HUD;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +65,10 @@ public class PlayerController : MonoBehaviour
         isSprint = false;
         timeSinceKeyPressLast = -1;
         timeSinceKeyPressThis = 0;
+
+        attackIndicator = GameObject.FindGameObjectWithTag("attack");
+
+        HUD = GameObject.Find("HUD");
     }
 
     // Update is called once per frame
@@ -204,6 +216,33 @@ public class PlayerController : MonoBehaviour
         else
         {
             isSprint = false;
+        }
+
+    }
+
+    public void EquipWeapon(GameObject weaponToEquip)
+    {
+        Debug.Log("equipped weapon");
+        WeaponStats weaponstats = weaponToEquip.GetComponent<WeaponStats>();
+
+        HUD.GetComponent<HUDScript>().ChangeWeapon(weaponToEquip);
+        if (weaponstats.isRange)
+        {
+            rangeWeapon = weaponToEquip;
+        }
+        else
+        {
+            meleeWeapon = weaponToEquip;
+            //Equipping equ = attackIndicator.GetComponent<Equipping>();
+            //equ.ChangeSprite(meleeWeapon.GetComponent<SpriteRenderer>().sprite);
+            Sprite newSprite = meleeWeapon.GetComponent<SpriteRenderer>().sprite;
+            attackIndicator.GetComponent<Equipping>().ChangeSprite(newSprite);
+            attackIndicator.transform.localRotation = meleeWeapon.GetComponent<WeaponStats>().rotation;
+            attackIndicator.transform.localScale = meleeWeapon.GetComponent<WeaponStats>().scale / 1.5F;
+
+            Debug.Log(meleeWeapon.GetComponent<WeaponStats>().rotation);
+            Debug.Log(attackIndicator.transform.eulerAngles);
+            Debug.Log("sprite should change");
         }
 
     }
