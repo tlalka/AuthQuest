@@ -14996,6 +14996,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colorTiles: {fileID: 0}
+  doorPrefab: {fileID: 2128766292360619153, guid: 2155235104e744d4da19e05f515c504a,
+    type: 3}
   columns: 200
   rows: 200
   numRooms:

@@ -80,7 +80,6 @@ public class LevelManager : MonoBehaviour
     {
         loading.GetComponent<LoadingScreen>().renOn();
         Debug.Log("level start " + currentColor);
-        doors = GameObject.FindGameObjectsWithTag("Door");
 
         //generate level
         colorTiles.ClearAllTiles();
@@ -89,6 +88,7 @@ public class LevelManager : MonoBehaviour
         player.transform.position = playerspawn;
 
         colorTiles = GameObject.FindWithTag("Tiles").GetComponent<Tilemap>();
+        doors = GameObject.FindGameObjectsWithTag("Door");
         setDoors();
 
         loading.GetComponent<LoadingScreen>().renOff();

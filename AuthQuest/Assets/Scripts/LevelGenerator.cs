@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -7,7 +8,7 @@ public class LevelGenerator : MonoBehaviour
 {
     public enum TileType
     {
-        Wall, Floor, Grass, Roof
+        Wall, Floor, Grass, Roof, Sand
     }
 
     private TileType[][] tiles;
@@ -15,6 +16,8 @@ public class LevelGenerator : MonoBehaviour
     private Corridor[] corridors;
     private GameObject boardHolder;
     public Tilemap colorTiles;
+
+    public GameObject doorPrefab;
 
     public int columns;
     public int rows;
@@ -25,6 +28,7 @@ public class LevelGenerator : MonoBehaviour
     public TileBase floorTile;   // make an array if you want a few types                       
     public TileBase wallTile;    // make an array if you want a few types
     public TileBase grassTile;   // make an array if you want a few types
+    public TileBase sandTile;   // make an array if you want a few types
     public TileBase roofTile;
     //public GameObject player;
 
@@ -63,6 +67,7 @@ public class LevelGenerator : MonoBehaviour
         } while (coverage < .15 && attempts < 10);
         SetTilesValuesForCorridors();
         InstantiateTiles();
+        AddObjects();
         //TODO Instantiate walls and roofs
         //Instantaiate entance and exit doors
         //Remove unneded walls
@@ -94,7 +99,7 @@ public class LevelGenerator : MonoBehaviour
         rooms[0].SetupRoom(roomWidth, roomHeight, columns - 1, rows - 3);
 
         // Setup the first corridor using the first room.
-        corridors[0].SetupCorridor(rooms[0], corridorLength, roomWidth, roomHeight, columns - 1, rows - 3, true);
+        corridors[0].SetupCorridor(rooms[0], corridorLength, roomWidth, roomHeight, columns - 1, rows - 3, true, false);
 
         for (int i = 1; i < rooms.Length; i++)
         {
@@ -102,7 +107,16 @@ public class LevelGenerator : MonoBehaviour
             rooms[i] = new Room();
 
             // Setup the room based on the previous corridor.
-            rooms[i].SetupRoom(roomWidth, roomHeight, columns - 1, rows - 3, corridors[i - 1]);
+            //last room needs to be at least 12 wide 
+            if (i == rooms.Length - 1)
+            {
+                Debug.Log(i + "last room");
+                rooms[i].SetupRoom(new IntRange(12,17), roomHeight, columns - 1, rows - 3, corridors[i - 1]);
+            }
+            else
+            {
+                rooms[i].SetupRoom(roomWidth, roomHeight, columns - 1, rows - 3, corridors[i - 1]);
+            }
 
             // If we haven't reached the end of the corridors array...
             if (i < corridors.Length)
@@ -111,7 +125,15 @@ public class LevelGenerator : MonoBehaviour
                 corridors[i] = new Corridor();
 
                 // Setup the corridor based on the room that was just created.
-                corridors[i].SetupCorridor(rooms[i], corridorLength, roomWidth, roomHeight, columns - 1, rows - 3, false);
+                if (i == corridors.Length - 1)
+                {//last cooridor is special
+                    Debug.Log("last corridor");
+                    corridors[i].SetupCorridor(rooms[i], new IntRange(10,15), roomWidth, roomHeight, columns - 1, rows - 3, false, true);
+                }
+                else
+                {
+                    corridors[i].SetupCorridor(rooms[i], corridorLength, roomWidth, roomHeight, columns - 1, rows - 3, false, false);
+                }
             }
 
             //if (i == rooms.Length * .5f)
@@ -147,7 +169,16 @@ public class LevelGenerator : MonoBehaviour
                     }
 
                     // The coordinates in the jagged array are based on the room's position and it's width and height.
-                    tiles[xCoord][yCoord] = TileType.Floor;
+                    if(i == rooms.Length - 1)
+                    {
+                        //Debug.Log(i + "last room");
+                        tiles[xCoord][yCoord] = TileType.Sand;
+                    }
+                    else
+                    {
+                        tiles[xCoord][yCoord] = TileType.Floor;
+                    }
+                    
                 }
             }
         }
@@ -156,12 +187,17 @@ public class LevelGenerator : MonoBehaviour
         int yPos = Mathf.RoundToInt(rooms[0].yPos  + rooms[0].roomHeight / 2f); //lowest tile
         Debug.Log(xPos+" "+yPos);
         tiles[xPos][yPos] = TileType.Grass;
-
         GridLayout gridLayout = colorTiles.layoutGrid;
         Vector3Int position = new Vector3Int(xPos, yPos, 0);
         Spawn = gridLayout.CellToWorld(position);
         Debug.Log(Spawn);
-        
+
+        //set the center of the last room to be sandstone
+        int len = rooms.Length - 1;
+        xPos = Mathf.RoundToInt(rooms[len].xPos + rooms[len].roomWidth / 2f); //leftmost tile
+        yPos = Mathf.RoundToInt(rooms[len].yPos + rooms[len].roomHeight / 2f); //lowest tile
+        Debug.Log(xPos + " " + yPos);
+        tiles[xPos][yPos] = TileType.Grass;
 
         //set user to spawn here
         //Vector3 playerPos = new Vector3(xPos, yPos, 0);
@@ -224,16 +260,18 @@ public class LevelGenerator : MonoBehaviour
             for (int j = 0; j < tiles[i].Length; j++)
             {
                 // If the tile type is a floor
-                if (tiles[i][j] == TileType.Floor || tiles[i][j] == TileType.Grass)
+                if (tiles[i][j] == TileType.Floor || tiles[i][j] == TileType.Grass || tiles[i][j] == TileType.Sand)
                 {
 
                     //check if our current tile must be grass or normal
                     if (tiles[i][j] == TileType.Grass)
                     {
                         InstantiateFromArray(grassTile, i, j);
-                        Vector3Int coord;
-                        ITilemap map;
-                        TileData data;
+                        //colorTiles.GetTile(new Vector3Int(i, j, 0)).GetTileData(coord, map, ref data);
+                    }
+                    else if (tiles[i][j] == TileType.Sand)
+                    {
+                        InstantiateFromArray(sandTile, i, j);
                         //colorTiles.GetTile(new Vector3Int(i, j, 0)).GetTileData(coord, map, ref data);
                     }
                     else
@@ -242,7 +280,7 @@ public class LevelGenerator : MonoBehaviour
                     }
 
                     //check if there is a floor below it
-                    if (tiles[i][j - 1] != TileType.Floor && tiles[i][j - 1] != TileType.Grass)
+                    if (tiles[i][j - 1] != TileType.Floor && tiles[i][j - 1] != TileType.Grass && tiles[i][j - 1] != TileType.Sand)
                     {
                         //then we need a roof below
                         InstantiateFromArray(roofTile, i, (j - 1));
@@ -255,7 +293,7 @@ public class LevelGenerator : MonoBehaviour
                         }
                         //check if we need a roof to the rigt of this roof set
                         //if current tile is NOT a floor and there is NOT a floor below it
-                        if(tiles[i+1][j - 1] != TileType.Floor && tiles[i+1][j - 1] != TileType.Grass && tiles[i + 1][j] != TileType.Floor && tiles[i + 1][j] != TileType.Grass)
+                        if(tiles[i+1][j - 1] != TileType.Floor && tiles[i+1][j - 1] != TileType.Grass && tiles[i + 1][j - 1] != TileType.Sand && tiles[i + 1][j] != TileType.Floor && tiles[i + 1][j] != TileType.Grass && tiles[i + 1][j] != TileType.Sand)
                         {
                             InstantiateFromArray(roofTile, (i + 1), (j - 1));
                         }
@@ -263,7 +301,7 @@ public class LevelGenerator : MonoBehaviour
                     }
 
                     //check if there is a floor above it
-                    if (tiles[i][j + 1] != TileType.Floor && tiles[i][j + 1] != TileType.Grass)
+                    if (tiles[i][j + 1] != TileType.Floor && tiles[i][j + 1] != TileType.Grass && tiles[i][j + 1] != TileType.Sand)
                     {
                         //how to prevent >2 walls in a column?
                         //we go from bottom to top, so if a wall is below us, make current block roof and cut yout losses
@@ -294,7 +332,7 @@ public class LevelGenerator : MonoBehaviour
                         }
                         //check if we need roofs to the right
                         //that means, if the next tile is NOT a floor, and does NOT have floor above it
-                        if(tiles[i+1][j + 1] != TileType.Floor && tiles[i+1][j + 1] != TileType.Grass && tiles[i+1][j] != TileType.Floor && tiles[i+1][j] != TileType.Grass)
+                        if(tiles[i+1][j + 1] != TileType.Floor && tiles[i+1][j + 1] != TileType.Grass && tiles[i + 1][j + 1] != TileType.Sand && tiles[i+1][j] != TileType.Floor && tiles[i+1][j] != TileType.Grass && tiles[i + 1][j] != TileType.Sand)
                         {
                             InstantiateFromArray(roofTile, (i + 1), (j + 1));
                             InstantiateFromArray(roofTile, (i + 1), (j + 2));
@@ -304,13 +342,13 @@ public class LevelGenerator : MonoBehaviour
 
                     //check if we need a roof to the right
                     //these are over-writting the top walls
-                    if (tiles[i + 1][j] != TileType.Floor && tiles[i + 1][j] != TileType.Grass)
+                    if (tiles[i + 1][j] != TileType.Floor && tiles[i + 1][j] != TileType.Grass && tiles[i + 1][j] != TileType.Sand)
                     {
                         InstantiateFromArray(roofTile, (i + 1), j);
                     }
 
                     //check if we need a roof to the left
-                    if (tiles[i - 1][j] != TileType.Floor && tiles[i - 1][j] != TileType.Grass)
+                    if (tiles[i - 1][j] != TileType.Floor && tiles[i - 1][j] != TileType.Grass && tiles[i - 1][j] != TileType.Sand)
                     {
                         InstantiateFromArray(roofTile, (i - 1), j);
                     }
@@ -349,6 +387,32 @@ public class LevelGenerator : MonoBehaviour
     {
         Vector3Int position = new Vector3Int(xCoord, yCoord, 0);        
         colorTiles.SetTile(position, null);
+    }
+
+    void AddObjects()
+    {
+        //add doors
+        //get position of last room and put doors directly north of it.
+        int len = rooms.Length-1;
+        int xpos = rooms[len].xPos + 2;
+        int ypos = rooms[len].yPos + rooms[len].roomHeight + 1; //top left area of room
+        Debug.Log("x and y " + xpos +" "+ ypos);
+
+        int width3 = (int)Math.Floor((double)rooms[len].roomWidth/3);
+
+        GridLayout gridLayout = colorTiles.layoutGrid;
+        Vector3Int position = new Vector3Int(xpos, ypos, 0);
+        Vector3 worldcoord = gridLayout.CellToWorld(position);
+        Instantiate(doorPrefab, worldcoord, Quaternion.identity);
+        Debug.Log(worldcoord);
+
+        position = new Vector3Int(xpos + width3, ypos, 0);
+        worldcoord = gridLayout.CellToWorld(position);
+        Instantiate(doorPrefab, worldcoord, Quaternion.identity);
+
+        position = new Vector3Int(xpos + width3 * 2, ypos, 0);
+        worldcoord = gridLayout.CellToWorld(position);
+        Instantiate(doorPrefab, worldcoord, Quaternion.identity);
     }
 
 

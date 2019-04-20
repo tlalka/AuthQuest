@@ -42,10 +42,17 @@ public class Corridor
     }
 
 
-    public void SetupCorridor(Room room, IntRange length, IntRange roomWidth, IntRange roomHeight, int columns, int rows, bool firstCorridor)
+    public void SetupCorridor(Room room, IntRange length, IntRange roomWidth, IntRange roomHeight, int columns, int rows, bool firstCorridor, bool lastCorridor)
     {
         // Set a random direction (a random index from 0 to 3, cast to Direction).
-        direction = (Direction)Random.Range(0, 4);
+        if (lastCorridor)
+        {
+            direction = (Direction)1;
+        }
+        else
+        {
+            direction = (Direction)Random.Range(0, 4);
+        }
 
         // Find the direction opposite to the one entering the room this corridor is leaving from.
         // Cast the previous corridor's direction to an int between 0 and 3 and add 2 (a number between 2 and 5).
@@ -85,6 +92,7 @@ public class Corridor
                 maxLength = rows - startYPos - roomHeight.m_Min;
                 break;
             case Direction.East:
+                Debug.Log("East");
                 startXPos = room.xPos + room.roomWidth;
                 startYPos = Random.Range(room.yPos, room.yPos + room.roomHeight - 1);
                 maxLength = columns - startXPos - roomWidth.m_Min;
