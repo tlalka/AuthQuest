@@ -40,6 +40,7 @@ public class LevelGenerator : MonoBehaviour
 
     void Awake()
     {
+        Debug.Log("level Generator awake");
         boardHolder = new GameObject("BoardHolder");
         colorTiles = GameObject.FindWithTag("Tiles").GetComponent<Tilemap>();
         columns = 100;
@@ -58,11 +59,14 @@ public class LevelGenerator : MonoBehaviour
         float coverage;
         do //if a certian number of tiles aren't covered, run again
         {
+            colorTiles.ClearAllTiles();
+
+
             SetupTilesArray();
             CreateRoomsAndCorridors();
             tilescovered = SetTilesValuesForRooms();
             coverage = ((float)tilescovered / (float)(columns * rows));
-            Debug.Log(tilescovered + " / " + columns * rows + " = " + coverage);
+            Debug.Log("tiles covered: " + tilescovered + " / " + columns * rows + " = " + coverage);
             attempts++;
         } while (coverage < .15 && attempts < 10);
         SetTilesValuesForCorridors();
@@ -110,7 +114,7 @@ public class LevelGenerator : MonoBehaviour
             //last room needs to be at least 12 wide 
             if (i == rooms.Length - 1)
             {
-                Debug.Log(i + "last room");
+                //Debug.Log(i + "last room");
                 rooms[i].SetupRoom(new IntRange(12,17), roomHeight, columns - 1, rows - 3, corridors[i - 1]);
             }
             else
@@ -127,7 +131,7 @@ public class LevelGenerator : MonoBehaviour
                 // Setup the corridor based on the room that was just created.
                 if (i == corridors.Length - 1)
                 {//last cooridor is special
-                    Debug.Log("last corridor");
+                    //Debug.Log("last corridor");
                     corridors[i].SetupCorridor(rooms[i], new IntRange(10,15), roomWidth, roomHeight, columns - 1, rows - 3, false, true);
                 }
                 else
@@ -185,18 +189,18 @@ public class LevelGenerator : MonoBehaviour
         //set the center of the first room to be green
         int xPos = Mathf.RoundToInt(rooms[0].xPos  + rooms[0].roomWidth / 2f); //leftmost tile
         int yPos = Mathf.RoundToInt(rooms[0].yPos  + rooms[0].roomHeight / 2f); //lowest tile
-        Debug.Log(xPos+" "+yPos);
+        //Debug.Log(xPos+" "+yPos);
         tiles[xPos][yPos] = TileType.Grass;
         GridLayout gridLayout = colorTiles.layoutGrid;
         Vector3Int position = new Vector3Int(xPos, yPos, 0);
         Spawn = gridLayout.CellToWorld(position);
-        Debug.Log(Spawn);
+        //Debug.Log(Spawn);
 
         //set the center of the last room to be sandstone
         int len = rooms.Length - 1;
         xPos = Mathf.RoundToInt(rooms[len].xPos + rooms[len].roomWidth / 2f); //leftmost tile
         yPos = Mathf.RoundToInt(rooms[len].yPos + rooms[len].roomHeight / 2f); //lowest tile
-        Debug.Log(xPos + " " + yPos);
+        //Debug.Log(xPos + " " + yPos);
         tiles[xPos][yPos] = TileType.Grass;
 
         //set user to spawn here
@@ -309,7 +313,7 @@ public class LevelGenerator : MonoBehaviour
                         if (test == wallTile)
                         {
                             //do nothing?
-                            Debug.Log("too many walls");
+                            //Debug.Log("too many walls");
                         }
                         else
                         {
@@ -391,28 +395,32 @@ public class LevelGenerator : MonoBehaviour
 
     void AddObjects()
     {
+        Debug.Log("Make 3 doors");
         //add doors
         //get position of last room and put doors directly north of it.
         int len = rooms.Length-1;
         int xpos = rooms[len].xPos + 2;
         int ypos = rooms[len].yPos + rooms[len].roomHeight + 1; //top left area of room
-        Debug.Log("x and y " + xpos +" "+ ypos);
+        //Debug.Log("x and y " + xpos +" "+ ypos);
 
+        
         int width3 = (int)Math.Floor((double)rooms[len].roomWidth/3);
 
         GridLayout gridLayout = colorTiles.layoutGrid;
         Vector3Int position = new Vector3Int(xpos, ypos, 0);
         Vector3 worldcoord = gridLayout.CellToWorld(position);
         Instantiate(doorPrefab, worldcoord, Quaternion.identity);
-        Debug.Log(worldcoord);
-
+        //Debug.Log(worldcoord);
+        
         position = new Vector3Int(xpos + width3, ypos, 0);
         worldcoord = gridLayout.CellToWorld(position);
         Instantiate(doorPrefab, worldcoord, Quaternion.identity);
 
+        
         position = new Vector3Int(xpos + width3 * 2, ypos, 0);
         worldcoord = gridLayout.CellToWorld(position);
         Instantiate(doorPrefab, worldcoord, Quaternion.identity);
+        //Instantiate
     }
 
 

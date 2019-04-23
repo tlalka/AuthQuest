@@ -31,6 +31,7 @@ public class AreaExit : MonoBehaviour
         if(other.tag == "Player")
         {
             string color = this.GetComponent<DoorProperties>().color;
+            Destroy(this);
             levelManager.GetComponent<LevelManager>().LoadNewLevel(color);
         }
     }

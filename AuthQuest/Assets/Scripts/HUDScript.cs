@@ -3,15 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+
 public class HUDScript : MonoBehaviour
 {
-
+    public static HUDScript instance;
     public GameObject InventoryA;
-
     public GameObject InventoryB;
     // Start is called before the first frame update
     void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         DontDestroyOnLoad(gameObject);
         InventoryA = GameObject.Find("ItemImage1");
 

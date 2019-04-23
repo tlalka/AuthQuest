@@ -92,7 +92,7 @@ public class Corridor
                 maxLength = rows - startYPos - roomHeight.m_Min;
                 break;
             case Direction.East:
-                Debug.Log("East");
+                //Debug.Log("East");
                 startXPos = room.xPos + room.roomWidth;
                 startYPos = Random.Range(room.yPos, room.yPos + room.roomHeight - 1);
                 maxLength = columns - startXPos - roomWidth.m_Min;
