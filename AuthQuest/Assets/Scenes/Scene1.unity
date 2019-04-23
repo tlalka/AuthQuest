@@ -112,9 +112,8 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &9556623
+--- !u!1 &9556623 stripped
 GameObject:
-  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 5658451225586884627, guid: cdc331146d8aa7242b4379347392ddca,
     type: 3}
   m_PrefabInstance: {fileID: 674443180}
@@ -625,7 +624,7 @@ SpriteRenderer:
   m_Size: {x: 0.875, y: 0.875}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &167944698
@@ -1700,7 +1699,7 @@ SpriteRenderer:
   m_Size: {x: 24, y: 24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &643382960
@@ -2252,7 +2251,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 8718046117894682134}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1155401908}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18aa194f10c7bb94296f0c8925d88918, type: 3}
@@ -3215,7 +3214,7 @@ SpriteRenderer:
   m_Size: {x: 0.875, y: 0.875}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &1360199010
@@ -3870,7 +3869,7 @@ PrefabInstance:
     - target: {fileID: 404074962961616049, guid: f633da1c262214f509741517c4d8912f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -10.97
+      value: -4.1723948
       objectReference: {fileID: 0}
     - target: {fileID: 404074962961616049, guid: f633da1c262214f509741517c4d8912f,
         type: 3}
