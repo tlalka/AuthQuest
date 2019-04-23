@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour
     public Tilemap colorTiles;
     public bool OGobj;
     public string currentColor;
+    public GameObject[] items;
 
     public static LevelManager instance;
 
@@ -22,42 +23,17 @@ public class LevelManager : MonoBehaviour
     Color purple = new Color(114f / 255f, 77f / 255f, 199f / 255f);
     Color pink = new Color(233f / 255f, 152f / 255f, 228f / 255f);
 
-    void Start()
+    private void Awake()
     {
         OGobj = false;
+    }
+
+    void Start()
+    {
         player = GameObject.Find("Player");
         loading = GameObject.Find("Canvas");
         colorTiles = GameObject.FindWithTag("Tiles").GetComponent<Tilemap>();
-        Debug.Log("awake");
-
-        /*
-        GameObject[] objs = GameObject.FindGameObjectsWithTag("levelM");
-        if (objs.Length > 1)
-        {
-            Destroy(this.gameObject);
-            Debug.Log("obj destoyed");
-        }
-        else
-        {
-            DontDestroyOnLoad(gameObject);
-            if (currentColor == null)
-            {
-                currentColor = "blue";
-                Debug.Log("null color set");
-            }
-            Startup();
-        }
-        */
-
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
+        Debug.Log("level manager start");
         DontDestroyOnLoad(gameObject);
         if (currentColor == null)
         {
@@ -70,29 +46,51 @@ public class LevelManager : MonoBehaviour
     void OnLevelWasLoaded()
     {
         Debug.Log("level loaded");
-        if (OGobj)
+
+        /* this gets rid of the old one and we want the old one
+        if (instance == null)
         {
-            Startup();
+            instance = this;
         }
+        else
+        {
+            Destroy(gameObject);
+        }
+        */
+        GameObject[] items2 = GameObject.FindGameObjectsWithTag("levelM");
+        if (items2.Length > 1) {
+            if (!OGobj)
+            {
+                Destroy(gameObject);
+            }
+        }
+        Startup();
     }
 
     void Startup()
     {
         loading.GetComponent<LoadingScreen>().renOn();
         Debug.Log("level start " + currentColor);
-        doors = GameObject.FindGameObjectsWithTag("Door");
 
-        //generate level
-        colorTiles.ClearAllTiles();
+        //clear old stuff
+        colorTiles.ClearAllTiles();        
         Vector3 playerspawn = this.GetComponent<LevelGenerator>().BuildFloor();
-        Debug.Log("move player to "+playerspawn);
-        player.transform.position = playerspawn;
 
         colorTiles = GameObject.FindWithTag("Tiles").GetComponent<Tilemap>();
+        doors = GameObject.FindGameObjectsWithTag("Door");
         setDoors();
-
         loading.GetComponent<LoadingScreen>().renOff();
         player.GetComponent<PlayerController>().canMove = true;
+
+        items = GameObject.FindGameObjectsWithTag("Player");
+        for(int i = 0; i < items.Length; i++)
+        {
+            items[i].GetComponent<PlayerController>().MovePlayer(playerspawn);
+            player.transform.position = playerspawn;
+            Debug.Log(items.Length);
+            Debug.Log("move player to " + playerspawn);
+        }
+        loading.GetComponent<LoadingScreen>().renOff();
     }
 
     // Update is called once per frame
@@ -110,7 +108,7 @@ public class LevelManager : MonoBehaviour
             DoorProperties door = doors[i].GetComponent<DoorProperties>();
             string color = "black";
             int caseSwitch = Random.Range(1, 6);
-            while (used[caseSwitch] && i < 6) //if i>6 we have more doors than colors and this loop would go forever
+            while (used[caseSwitch] && i < 5) //if i>6 we have more doors than colors and this loop would go forever
             {
                 caseSwitch = Random.Range(1, 6);
             }
@@ -178,8 +176,14 @@ public class LevelManager : MonoBehaviour
 
     public void LoadNewLevel(string color)
     {
-      player.GetComponent<PlayerController>().canMove = false;
-      player.GetComponent<PlayerStats>().LevelUp(color);
+        loading.GetComponent<LoadingScreen>().renOn();
+        player.GetComponent<PlayerController>().canMove = false;
+        for (int i = 0; i < doors.Length; i++)
+        {
+            Debug.Log("destroy door");
+            Destroy(doors[i]);
+        }
+        player.GetComponent<PlayerStats>().LevelUp(color);
       currentColor = color;
       Debug.Log("load new color " + currentColor);
       OGobj = true;

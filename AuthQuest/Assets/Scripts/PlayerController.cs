@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
     public Image sword;
 
     public bool isOpened;
+    public bool moveme;
+    public Vector3 moveto;
 
     public List<int> chestNumber = new List<int>();
     public List<int> choice = new List<int>();
@@ -48,19 +50,22 @@ public class PlayerController : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        isOpened = false;
-        isAttacking = false;
+        Debug.Log("Player Awake");
         if (instance == null)
         {
             instance = this;
         } else
         {
+            Debug.Log("destroy player");
             Destroy(gameObject);
         }
-
+        moveme = false;
         DontDestroyOnLoad(gameObject);
+        isOpened = false;
+        isAttacking = false;
+
         moveSpeed = 10 + (GetComponent<PlayerStats>().Speed * 2);//PlayerStats = GetComponent<CharacterStat>(); 
         keyDelay = .2; //PlayerStats = GetComponent<CharacterStat>();
         isSprint = false;
@@ -75,6 +80,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update() //characer movment
     {
+        if (moveme)
+        {
+            transform.position = moveto;
+            moveme = false;
+        }
+
         moveSpeed = 10 + (GetComponent<PlayerStats>().Speed * 2);
         SprintCheck();
         if (canMove)
@@ -98,7 +109,7 @@ public class PlayerController : MonoBehaviour
     private Save CreateSaveGameObject()
     {
         Save save = new Save();
-        for(int i=0; i < chestNumber.Count; i++)
+        for (int i = 0; i < chestNumber.Count; i++)
         {
             save.chestNumber.Add(chestNumber[i]);
             save.choice.Add(choice[i]);
@@ -250,6 +261,12 @@ public class PlayerController : MonoBehaviour
             Debug.Log("sprite should change");
         }
 
+    }
+
+    public void MovePlayer(Vector3 moveto2){
+        Debug.Log("set to location");
+        moveme = true;
+        moveto = moveto2;
     }
 
 }
