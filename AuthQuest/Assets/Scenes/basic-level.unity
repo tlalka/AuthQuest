@@ -483,6 +483,7 @@ GameObject:
   m_Component:
   - component: {fileID: 264987196}
   - component: {fileID: 264987197}
+  - component: {fileID: 264987198}
   m_Layer: 0
   m_Name: CoolDownBar1
   m_TagString: Untagged
@@ -498,7 +499,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 264987195}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -965.9, y: -371.2, z: -0.76810515}
+  m_LocalPosition: {x: -970, y: -510, z: -0.76810515}
   m_LocalScale: {x: 2.411303, y: 2.411303, z: 3.0141287}
   m_Children:
   - {fileID: 14977364}
@@ -514,9 +515,23 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 264987195}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aba3fdd2528f94c51a708af68b0e8405, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DeathUI: {fileID: 0}
+  isDeath: 0
+--- !u!114 &264987198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 264987195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4d09050ca9c74b80b8067abed89a4d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   DeathUI: {fileID: 0}
@@ -2142,7 +2157,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: f50579ad7ceee08488b3c114361cae99, type: 3}
-  m_Color: {r: 0.23113209, g: 1, b: 0.23441833, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2410,7 +2425,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: f50579ad7ceee08488b3c114361cae99, type: 3}
-  m_Color: {r: 0.23113209, g: 1, b: 0.23441833, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2772,6 +2787,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1816124820}
   - component: {fileID: 1816124821}
+  - component: {fileID: 1816124822}
   m_Layer: 0
   m_Name: CoolDownBar2
   m_TagString: Untagged
@@ -2787,7 +2803,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1816124819}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -966.4, y: -368, z: -0.76810515}
+  m_LocalPosition: {x: -950, y: -510, z: -0.76810515}
   m_LocalScale: {x: 2.411303, y: 2.411303, z: 3.0141287}
   m_Children:
   - {fileID: 150334023}
@@ -2803,9 +2819,23 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1816124819}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aba3fdd2528f94c51a708af68b0e8405, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DeathUI: {fileID: 0}
+  isDeath: 0
+--- !u!114 &1816124822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1816124819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4d09050ca9c74b80b8067abed89a4d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   DeathUI: {fileID: 0}

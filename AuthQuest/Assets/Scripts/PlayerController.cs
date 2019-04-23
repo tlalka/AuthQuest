@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && cool1 <= 0)
         {
             //Debug.Log("AAAAAAAAAAAAA");
-            CoolBar1.GetComponent<HealthBarScript>().HealthRegenerate(1);
+            CoolBar1.GetComponent<Cooldown>().HealthRegenerate(1);
             cool1 = meleeWeapon.GetComponent < WeaponStats > ().weaponSpeed;
             attackRoutine = StartCoroutine(Attack());
             // StartCoroutine(Attack());
@@ -273,8 +273,8 @@ public class PlayerController : MonoBehaviour
         //ADD CORRECT MATH HERE
         float math1 = .005f; //meleeWeapon.GetComponent<WeaponStats>().weaponSpeed;
         float math2 = .005f; //rangeWeapon.GetComponent<WeaponStats>().weaponSpeed;
-        CoolBar1.GetComponent<HealthBarScript>().TakeDamage(math1);
-        CoolBar2.GetComponent<HealthBarScript>().TakeDamage(math2);
+        CoolBar1.GetComponent<Cooldown>().TakeDamage(math1);
+        CoolBar2.GetComponent<Cooldown>().TakeDamage(math2);
 
         //Debug.Log(math1);
 
