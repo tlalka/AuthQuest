@@ -283,10 +283,12 @@ public class LevelGenerator : MonoBehaviour
                         InstantiateFromArray(floorTile, i, j);
                     }
 
+                    //remember not to over-write anything if it is a floor
                     //check if there is a floor below it
                     if (tiles[i][j - 1] != TileType.Floor && tiles[i][j - 1] != TileType.Grass && tiles[i][j - 1] != TileType.Sand)
                     {
                         //then we need a roof below
+
                         InstantiateFromArray(roofTile, i, (j - 1));
 
                         //check if we need a roof to the left of this roof set
@@ -383,7 +385,11 @@ public class LevelGenerator : MonoBehaviour
         }
         else
         {
-            colorTiles.SetTile(position, tile);
+            //if tile to write is on top of a floor, don't put it
+            if (tiles[xCoord][yCoord] != TileType.Floor || tiles[xCoord][yCoord] != TileType.Grass || tiles[xCoord][yCoord] != TileType.Sand)
+            {
+                colorTiles.SetTile(position, tile);
+            }
         }
     }
 
