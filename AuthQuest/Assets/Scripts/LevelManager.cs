@@ -207,7 +207,7 @@ public class LevelManager : MonoBehaviour
         OGobj = true;
 
         //if third room, load boss room instead
-        if (levelcount == 1 )
+        if (levelcount == 3 )
         {
             levelcount = 1;
             bosslevel = true;
@@ -219,7 +219,10 @@ public class LevelManager : MonoBehaviour
         else
         {
             if (bosslevel)
-            {               
+            {
+                //GameObject grid = GameObject.Find("Grid");
+                //Destroy(grid);
+                bosslevel = false;
                 levelcount = 1;
             }
             else
