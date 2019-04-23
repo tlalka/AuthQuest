@@ -14,6 +14,8 @@ public class LevelManager : MonoBehaviour
     public string currentColor;
     public GameObject[] items;
 
+    public int levelcount;
+
     public static LevelManager instance;
 
     Color blue = new Color(126f/255f, 160f / 255f, 224f / 255f);
@@ -30,6 +32,7 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
+        levelcount = 1;
         player = GameObject.Find("Player");
         loading = GameObject.Find("Canvas");
         colorTiles = GameObject.FindWithTag("Tiles").GetComponent<Tilemap>();
@@ -184,10 +187,19 @@ public class LevelManager : MonoBehaviour
             Destroy(doors[i]);
         }
         player.GetComponent<PlayerStats>().LevelUp(color);
-      currentColor = color;
-      Debug.Log("load new color " + currentColor);
-      OGobj = true;
-      SceneManager.LoadScene("leve-gen");//
-    }
+        currentColor = color;
+        Debug.Log("load new color " + currentColor);
+        OGobj = true;
+
+        //if third room, load boss room instead
+        if (levelcount == 3 )
+        {
+            SceneManager.LoadScene("Boss-Level");//
+        }
+        else
+        {
+            SceneManager.LoadScene("Basic-Level");
+        }
+        }
 
 }
