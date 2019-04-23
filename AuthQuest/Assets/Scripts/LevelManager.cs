@@ -15,6 +15,7 @@ public class LevelManager : MonoBehaviour
     public GameObject[] items;
 
     public int levelcount;
+    public bool bosslevel;
 
     public static LevelManager instance;
 
@@ -33,9 +34,9 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         levelcount = 1;
+        bosslevel = false;
         player = GameObject.Find("Player");
         loading = GameObject.Find("Canvas");
-        colorTiles = GameObject.FindWithTag("Tiles").GetComponent<Tilemap>();
         Debug.Log("level manager start");
         DontDestroyOnLoad(gameObject);
         if (currentColor == null)
@@ -48,18 +49,8 @@ public class LevelManager : MonoBehaviour
 
     void OnLevelWasLoaded()
     {
+        colorTiles = GameObject.FindWithTag("Tiles").GetComponent<Tilemap>();
         Debug.Log("level loaded");
-
-        /* this gets rid of the old one and we want the old one
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-        */
         GameObject[] items2 = GameObject.FindGameObjectsWithTag("levelM");
         if (items2.Length > 1) {
             if (!OGobj)
@@ -67,10 +58,35 @@ public class LevelManager : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        Startup();
+        if (bosslevel)
+        {
+            BossStartup();
+        }
+        else
+        {
+            Startup();
+        }
     }
 
-    void Startup()
+    void BossStartup()
+    {
+        colorTiles = GameObject.FindWithTag("Tiles").GetComponent<Tilemap>();
+        doors = GameObject.FindGameObjectsWithTag("Door");
+        setDoors();
+        player.GetComponent<PlayerController>().canMove = true;
+        items = GameObject.FindGameObjectsWithTag("Player");
+        for (int i = 0; i < items.Length; i++)
+        {
+            Vector3 playerspawn = new Vector3(0, 0, 0);
+            items[i].GetComponent<PlayerController>().MovePlayer(playerspawn);
+            player.transform.position = playerspawn;
+            Debug.Log(items.Length);
+            Debug.Log("move player to " + playerspawn);
+        }
+        loading.GetComponent<LoadingScreen>().renOff();
+    }
+
+        void Startup()
     {
         loading.GetComponent<LoadingScreen>().renOn();
         Debug.Log("level start " + currentColor);
@@ -82,7 +98,6 @@ public class LevelManager : MonoBehaviour
         colorTiles = GameObject.FindWithTag("Tiles").GetComponent<Tilemap>();
         doors = GameObject.FindGameObjectsWithTag("Door");
         setDoors();
-        loading.GetComponent<LoadingScreen>().renOff();
         player.GetComponent<PlayerController>().canMove = true;
 
         items = GameObject.FindGameObjectsWithTag("Player");
@@ -186,20 +201,33 @@ public class LevelManager : MonoBehaviour
             Debug.Log("destroy door");
             Destroy(doors[i]);
         }
-        player.GetComponent<PlayerStats>().LevelUp(color);
+        player.GetComponent<PlayerStats>().LevelUp(currentColor);
         currentColor = color;
         Debug.Log("load new color " + currentColor);
         OGobj = true;
 
         //if third room, load boss room instead
-        if (levelcount == 3 )
+        if (levelcount == 1 )
         {
+            levelcount = 1;
+            bosslevel = true;
+            //destory our old grid
+            GameObject grid = GameObject.Find("Grid");
+            Destroy(grid);
             SceneManager.LoadScene("Boss-Level");//
         }
         else
         {
+            if (bosslevel)
+            {               
+                levelcount = 1;
+            }
+            else
+            {
+                levelcount++;
+            }
             SceneManager.LoadScene("Basic-Level");
         }
-        }
+    }
 
 }

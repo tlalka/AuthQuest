@@ -205,7 +205,7 @@ RectTransform:
   m_Children:
   - {fileID: 605654167}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -276,7 +276,7 @@ PrefabInstance:
     - target: {fileID: 460462721115814655, guid: e09c552f8396fb04f8385bd363d3261b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 460462721115814655, guid: e09c552f8396fb04f8385bd363d3261b,
         type: 3}
@@ -434,50 +434,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &989904241
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 989904243}
-  - component: {fileID: 989904242}
-  m_Layer: 0
-  m_Name: LevelStart
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &989904242
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 989904241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18aa194f10c7bb94296f0c8925d88918, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transitionName: 
---- !u!4 &989904243
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 989904241}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1322813668
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -528,7 +484,7 @@ PrefabInstance:
     - target: {fileID: 569161750341726969, guid: f6c566aa7044ad143a7784e035b1643c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 569161750341726969, guid: f6c566aa7044ad143a7784e035b1643c,
         type: 3}
@@ -690,7 +646,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1494701066
 GameObject:
@@ -14182,91 +14138,6 @@ TilemapCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 1
   m_Offset: {x: 0, y: 0}
---- !u!1 &1950533661
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1950533663}
-  - component: {fileID: 1950533662}
-  - component: {fileID: 1950533664}
-  m_Layer: 0
-  m_Name: LevelManager
-  m_TagString: levelM
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1950533662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1950533661}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 184763c15961bf14ebc55a0ecb39f5cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doors: []
-  player: {fileID: 1586696502}
-  loading: {fileID: 0}
-  colorTiles: {fileID: 1894488155}
-  OGobj: 0
-  currentColor: blue
---- !u!4 &1950533663
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1950533661}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 98.99912, y: 21.141024, z: 0.05281817}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1950533664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1950533661}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7196c037e1b48af43886d3e269b98e5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colorTiles: {fileID: 0}
-  doorPrefab: {fileID: 2128766292360619153, guid: 2155235104e744d4da19e05f515c504a,
-    type: 3}
-  columns: 200
-  rows: 200
-  numRooms:
-    m_Min: 0
-    m_Max: 0
-  roomWidth:
-    m_Min: 0
-    m_Max: 0
-  roomHeight:
-    m_Min: 0
-    m_Max: 0
-  corridorLength:
-    m_Min: 0
-    m_Max: 0
-  floorTile: {fileID: 11400000, guid: 4b854cfac587c054582b62862d17364f, type: 2}
-  wallTile: {fileID: 11400000, guid: 6e4320e68319dec43821af9b2020aa93, type: 2}
-  grassTile: {fileID: 11400000, guid: 2a801f676335d6b4ca2713c2e2207110, type: 2}
-  sandTile: {fileID: 11400000, guid: feb16a029281fcb4286de0e194d16cd5, type: 2}
-  roofTile: {fileID: 11400000, guid: 979b5613589e65941806d1cab71d6e1a, type: 2}
-  Spawn: {x: 0, y: 0, z: 0}
 --- !u!1001 &1385143936362325172
 PrefabInstance:
   m_ObjectHideFlags: 0
