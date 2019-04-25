@@ -15,6 +15,7 @@ public class LevelGenerator : MonoBehaviour
     private Room[] rooms;
     private Corridor[] corridors;
     private GameObject boardHolder;
+    public GameObject[] weapons;
     public Tilemap colorTiles;
 
     public GameObject doorPrefab;
@@ -404,6 +405,10 @@ public class LevelGenerator : MonoBehaviour
 
     void AddObjects(bool nextisboss)
     {
+        //spawn one random weapon in on eof the middle rooms
+
+
+
         //if next is boss, only make one door
         if (nextisboss) //one door
         {
@@ -419,7 +424,7 @@ public class LevelGenerator : MonoBehaviour
             Instantiate(doorPrefab, worldcoord, Quaternion.identity);
 
         }
-        else //thre doors
+        else //three doors
         {
             //Debug.Log("Make 3 doors");
             //add doors
