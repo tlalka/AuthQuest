@@ -264,7 +264,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void MovePlayer(Vector3 moveto2){
-        Debug.Log("set to location");
+        //Debug.Log("set to location");
         moveme = true;
         moveto = moveto2;
     }

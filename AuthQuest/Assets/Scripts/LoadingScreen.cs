@@ -7,9 +7,18 @@ public class LoadingScreen : MonoBehaviour
     public GameObject Mcamera;
     private Vector3 offset;
     public Renderer rend;
+    public static LoadingScreen instance;
     // Start is called before the first frame update
     void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         DontDestroyOnLoad(gameObject);
         Mcamera = GameObject.Find("Main Camera");
         offset = transform.position - Mcamera.transform.position;
