@@ -14,6 +14,8 @@ public class GridControl : MonoBehaviour
         }
         else
         {
+
+            Debug.Log("destory grid");
             Destroy(gameObject);
         }
 

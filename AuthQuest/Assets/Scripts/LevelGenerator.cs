@@ -50,18 +50,21 @@ public class LevelGenerator : MonoBehaviour
         roomHeight = new IntRange(6, 17);
         corridorLength = new IntRange(5, 15);
         //player = GameObject.Find("Player");
+        //Debug.Log(colorTiles);
     }
 
     public Vector3 BuildFloor()
     {
+        if (colorTiles == null) { //double check that we have our tiles
+            colorTiles = GameObject.FindWithTag("Tiles").GetComponent<Tilemap>();
+        }
+        //Debug.Log(colorTiles);
         int tilescovered;
         int attempts = 0;
         float coverage;
         do //if a certian number of tiles aren't covered, run again
         {
             colorTiles.ClearAllTiles();
-
-
             SetupTilesArray();
             CreateRoomsAndCorridors();
             tilescovered = SetTilesValuesForRooms();
@@ -401,7 +404,7 @@ public class LevelGenerator : MonoBehaviour
 
     void AddObjects()
     {
-        Debug.Log("Make 3 doors");
+        //Debug.Log("Make 3 doors");
         //add doors
         //get position of last room and put doors directly north of it.
         int len = rooms.Length-1;

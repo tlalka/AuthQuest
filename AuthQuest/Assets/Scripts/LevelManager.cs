@@ -55,6 +55,7 @@ public class LevelManager : MonoBehaviour
         if (items2.Length > 1) {
             if (!OGobj)
             {
+                Debug.Log("destroy this Level Manager");
                 Destroy(gameObject);
             }
         }
@@ -80,7 +81,7 @@ public class LevelManager : MonoBehaviour
             Vector3 playerspawn = new Vector3(0, 0, 0);
             items[i].GetComponent<PlayerController>().MovePlayer(playerspawn);
             player.transform.position = playerspawn;
-            Debug.Log(items.Length);
+            //Debug.Log(items.Length);
             Debug.Log("move player to " + playerspawn);
         }
         loading.GetComponent<LoadingScreen>().renOff();
@@ -92,20 +93,22 @@ public class LevelManager : MonoBehaviour
         Debug.Log("level start " + currentColor);
 
         //clear old stuff
-        colorTiles.ClearAllTiles();        
+        colorTiles.ClearAllTiles();
+        Debug.Log("cleared old tiles, trying to build");
         Vector3 playerspawn = this.GetComponent<LevelGenerator>().BuildFloor();
-
+        
         colorTiles = GameObject.FindWithTag("Tiles").GetComponent<Tilemap>();
         doors = GameObject.FindGameObjectsWithTag("Door");
         setDoors();
         player.GetComponent<PlayerController>().canMove = true;
+        Debug.Log("set doors");
 
         items = GameObject.FindGameObjectsWithTag("Player");
         for(int i = 0; i < items.Length; i++)
         {
             items[i].GetComponent<PlayerController>().MovePlayer(playerspawn);
             player.transform.position = playerspawn;
-            Debug.Log(items.Length);
+            //Debug.Log(items.Length);
             Debug.Log("move player to " + playerspawn);
         }
         loading.GetComponent<LoadingScreen>().renOff();
@@ -198,7 +201,7 @@ public class LevelManager : MonoBehaviour
         player.GetComponent<PlayerController>().canMove = false;
         for (int i = 0; i < doors.Length; i++)
         {
-            Debug.Log("destroy door");
+            //Debug.Log("destroy door");
             Destroy(doors[i]);
         }
         player.GetComponent<PlayerStats>().LevelUp(currentColor);
@@ -216,12 +219,12 @@ public class LevelManager : MonoBehaviour
             Destroy(grid);
             SceneManager.LoadScene("Boss-Level");//
         }
-        else
+        else //load basic level
         {
             if (bosslevel)
             {
-                //GameObject grid = GameObject.Find("Grid");
-                //Destroy(grid);
+                GameObject grid = GameObject.Find("Grid");
+                Destroy(grid);
                 bosslevel = false;
                 levelcount = 1;
             }
