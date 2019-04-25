@@ -405,22 +405,29 @@ public class LevelGenerator : MonoBehaviour
 
     void AddObjects(bool nextisboss)
     {
-        //spawn one random weapon in on eof the middle rooms
-
+        //spawn one random weapon in one of the middle rooms
+        int pickone = UnityEngine.Random.Range(0, (weapons.Length-1));
+        GameObject weapontospawn = weapons[pickone];
+        int len = (int)Math.Floor((float)rooms.Length / 2);
+        int xpos = Mathf.RoundToInt(rooms[len].xPos + rooms[len].roomWidth / 2f); 
+        int ypos = Mathf.RoundToInt(rooms[len].yPos + rooms[len].roomHeight / 2f);
+        GridLayout gridLayout = colorTiles.layoutGrid;
+        Vector3Int position = new Vector3Int(xpos, ypos, 0);
+        Vector3 worldcoord = gridLayout.CellToWorld(position);
+        Instantiate(weapontospawn, worldcoord, Quaternion.identity);
 
 
         //if next is boss, only make one door
         if (nextisboss) //one door
         {
-            int len = rooms.Length - 1;
-            int xpos = rooms[len].xPos + 2;
-            int ypos = rooms[len].yPos + rooms[len].roomHeight + 1; //top left area of room
+            len = rooms.Length - 1;
+            xpos = rooms[len].xPos + 2;
+            ypos = rooms[len].yPos + rooms[len].roomHeight + 1; //top left area of room
                                                                     //Debug.Log("x and y " + xpos +" "+ ypos);
             int width3 = (int)Math.Floor((double)rooms[len].roomWidth / 3);
-
-            GridLayout gridLayout = colorTiles.layoutGrid;
-            Vector3Int position = new Vector3Int(xpos, ypos, 0);
-            Vector3 worldcoord = gridLayout.CellToWorld(position);
+            
+            position = new Vector3Int(xpos, ypos, 0);
+            worldcoord = gridLayout.CellToWorld(position);
             Instantiate(doorPrefab, worldcoord, Quaternion.identity);
 
         }
@@ -429,15 +436,14 @@ public class LevelGenerator : MonoBehaviour
             //Debug.Log("Make 3 doors");
             //add doors
             //get position of last room and put doors directly north of it.
-            int len = rooms.Length - 1;
-            int xpos = rooms[len].xPos + 2;
-            int ypos = rooms[len].yPos + rooms[len].roomHeight + 1; //top left area of room
+            len = rooms.Length - 1;
+            xpos = rooms[len].xPos + 2;
+            ypos = rooms[len].yPos + rooms[len].roomHeight + 1; //top left area of room
                                                                     //Debug.Log("x and y " + xpos +" "+ ypos);
             int width3 = (int)Math.Floor((double)rooms[len].roomWidth / 3);
-
-            GridLayout gridLayout = colorTiles.layoutGrid;
-            Vector3Int position = new Vector3Int(xpos, ypos, 0);
-            Vector3 worldcoord = gridLayout.CellToWorld(position);
+            
+            position = new Vector3Int(xpos, ypos, 0);
+            worldcoord = gridLayout.CellToWorld(position);
             Instantiate(doorPrefab, worldcoord, Quaternion.identity);
             //Debug.Log(worldcoord);
 
