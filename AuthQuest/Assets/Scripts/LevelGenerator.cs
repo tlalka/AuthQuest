@@ -53,7 +53,7 @@ public class LevelGenerator : MonoBehaviour
         //Debug.Log(colorTiles);
     }
 
-    public Vector3 BuildFloor()
+    public Vector3 BuildFloor(bool nextisboss)
     {
         if (colorTiles == null) { //double check that we have our tiles
             colorTiles = GameObject.FindWithTag("Tiles").GetComponent<Tilemap>();
@@ -74,7 +74,7 @@ public class LevelGenerator : MonoBehaviour
         } while (coverage < .15 && attempts < 10);
         SetTilesValuesForCorridors();
         InstantiateTiles();
-        AddObjects();
+        AddObjects(nextisboss);
         //TODO Instantiate walls and roofs
         //Instantaiate entance and exit doors
         //Remove unneded walls
@@ -402,34 +402,50 @@ public class LevelGenerator : MonoBehaviour
         colorTiles.SetTile(position, null);
     }
 
-    void AddObjects()
+    void AddObjects(bool nextisboss)
     {
-        //Debug.Log("Make 3 doors");
-        //add doors
-        //get position of last room and put doors directly north of it.
-        int len = rooms.Length-1;
-        int xpos = rooms[len].xPos + 2;
-        int ypos = rooms[len].yPos + rooms[len].roomHeight + 1; //top left area of room
-        //Debug.Log("x and y " + xpos +" "+ ypos);
+        //if next is boss, only make one door
+        if (nextisboss) //one door
+        {
+            int len = rooms.Length - 1;
+            int xpos = rooms[len].xPos + 2;
+            int ypos = rooms[len].yPos + rooms[len].roomHeight + 1; //top left area of room
+                                                                    //Debug.Log("x and y " + xpos +" "+ ypos);
+            int width3 = (int)Math.Floor((double)rooms[len].roomWidth / 3);
 
-        
-        int width3 = (int)Math.Floor((double)rooms[len].roomWidth/3);
+            GridLayout gridLayout = colorTiles.layoutGrid;
+            Vector3Int position = new Vector3Int(xpos, ypos, 0);
+            Vector3 worldcoord = gridLayout.CellToWorld(position);
+            Instantiate(doorPrefab, worldcoord, Quaternion.identity);
 
-        GridLayout gridLayout = colorTiles.layoutGrid;
-        Vector3Int position = new Vector3Int(xpos, ypos, 0);
-        Vector3 worldcoord = gridLayout.CellToWorld(position);
-        Instantiate(doorPrefab, worldcoord, Quaternion.identity);
-        //Debug.Log(worldcoord);
-        
-        position = new Vector3Int(xpos + width3, ypos, 0);
-        worldcoord = gridLayout.CellToWorld(position);
-        Instantiate(doorPrefab, worldcoord, Quaternion.identity);
+        }
+        else //thre doors
+        {
+            //Debug.Log("Make 3 doors");
+            //add doors
+            //get position of last room and put doors directly north of it.
+            int len = rooms.Length - 1;
+            int xpos = rooms[len].xPos + 2;
+            int ypos = rooms[len].yPos + rooms[len].roomHeight + 1; //top left area of room
+                                                                    //Debug.Log("x and y " + xpos +" "+ ypos);
+            int width3 = (int)Math.Floor((double)rooms[len].roomWidth / 3);
 
-        
-        position = new Vector3Int(xpos + width3 * 2, ypos, 0);
-        worldcoord = gridLayout.CellToWorld(position);
-        Instantiate(doorPrefab, worldcoord, Quaternion.identity);
-        //Instantiate
+            GridLayout gridLayout = colorTiles.layoutGrid;
+            Vector3Int position = new Vector3Int(xpos, ypos, 0);
+            Vector3 worldcoord = gridLayout.CellToWorld(position);
+            Instantiate(doorPrefab, worldcoord, Quaternion.identity);
+            //Debug.Log(worldcoord);
+
+            position = new Vector3Int(xpos + width3, ypos, 0);
+            worldcoord = gridLayout.CellToWorld(position);
+            Instantiate(doorPrefab, worldcoord, Quaternion.identity);
+
+
+            position = new Vector3Int(xpos + width3 * 2, ypos, 0);
+            worldcoord = gridLayout.CellToWorld(position);
+            Instantiate(doorPrefab, worldcoord, Quaternion.identity);
+            //Instantiate
+        }
     }
 
 

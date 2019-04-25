@@ -95,11 +95,23 @@ public class LevelManager : MonoBehaviour
         //clear old stuff
         colorTiles.ClearAllTiles();
         Debug.Log("cleared old tiles, trying to build");
-        Vector3 playerspawn = this.GetComponent<LevelGenerator>().BuildFloor();
-        
-        colorTiles = GameObject.FindWithTag("Tiles").GetComponent<Tilemap>();
-        doors = GameObject.FindGameObjectsWithTag("Door");
-        setDoors();
+
+        Vector3 playerspawn;
+        //if next level is boss level, only one door, no color
+        if (levelcount == 3)
+        {
+            playerspawn = this.GetComponent<LevelGenerator>().BuildFloor(true);
+            colorTiles = GameObject.FindWithTag("Tiles").GetComponent<Tilemap>();
+            doors = GameObject.FindGameObjectsWithTag("Door");
+            setOneDoor();
+        }
+        else
+        {
+            playerspawn = this.GetComponent<LevelGenerator>().BuildFloor(false);
+            colorTiles = GameObject.FindWithTag("Tiles").GetComponent<Tilemap>();
+            doors = GameObject.FindGameObjectsWithTag("Door");
+            setDoors();
+        }
         player.GetComponent<PlayerController>().canMove = true;
         Debug.Log("set doors");
 
@@ -118,6 +130,43 @@ public class LevelManager : MonoBehaviour
     void Update()
     {
         setTiles();//I don't want this here but whatever
+    }
+
+    void setOneDoor()
+    {
+        string color = "black";
+        Color NewColor = Color.black;
+        DoorProperties door = doors[0].GetComponent<DoorProperties>();
+        switch (currentColor)
+        {
+            case "red":
+                color = "red";
+                NewColor = Color.red;//new Color(0f, 0f, 0f, 1f)
+                break;
+            case "yellow":
+                color = "yellow";
+                NewColor = Color.yellow;
+                break;
+            case "green":
+                color = "green";
+                NewColor = Color.green;
+                break;
+            case "blue":
+                color = "blue";
+                NewColor = Color.blue;
+                break;
+            case "pink":
+                color = "pink";
+                NewColor = Color.white;
+                break;
+            case "purple":
+                color = "purple";
+                NewColor = Color.magenta;
+                break;
+        }
+        door.color = color;
+        doors[0].GetComponent<SpriteRenderer>().color = NewColor;
+
     }
 
     void setDoors()
@@ -204,14 +253,14 @@ public class LevelManager : MonoBehaviour
             //Debug.Log("destroy door");
             Destroy(doors[i]);
         }
-        player.GetComponent<PlayerStats>().LevelUp(currentColor);
-        currentColor = color;
-        Debug.Log("load new color " + currentColor);
-        OGobj = true;
 
         //if third room, load boss room instead
         if (levelcount == 3 )
         {
+            player.GetComponent<PlayerStats>().LevelUp(currentColor);
+            currentColor = color;
+            Debug.Log("load new color " + currentColor);
+            OGobj = true;
             levelcount = 1;
             bosslevel = true;
             //destory our old grid
@@ -221,8 +270,11 @@ public class LevelManager : MonoBehaviour
         }
         else //load basic level
         {
-            if (bosslevel)
+            if (bosslevel) //do not level up if this was a boss level
             {
+                currentColor = color;
+                Debug.Log("load new color " + currentColor);
+                OGobj = true;
                 GameObject grid = GameObject.Find("Grid");
                 Destroy(grid);
                 bosslevel = false;
@@ -230,6 +282,10 @@ public class LevelManager : MonoBehaviour
             }
             else
             {
+                player.GetComponent<PlayerStats>().LevelUp(currentColor);
+                currentColor = color;
+                Debug.Log("load new color " + currentColor);
+                OGobj = true;
                 levelcount++;
             }
             SceneManager.LoadScene("Basic-Level");
