@@ -13985,6 +13985,10 @@ MonoBehaviour:
   - {fileID: 322177365815338856, guid: c38c8665dfca57446ab4cc9724760965, type: 3}
   - {fileID: 6157300988865374629, guid: 82648f4898559d141a2422ea5a45b2ee, type: 3}
   - {fileID: 1674293196811253326, guid: b6d1c6f06de24574199b83d2eb6d6db1, type: 3}
+  enemies:
+  - {fileID: 3323136425768121534, guid: 6ed4b5a71d47d42cd9e8584fcaa0382d, type: 3}
+  - {fileID: 404074962961616053, guid: f633da1c262214f509741517c4d8912f, type: 3}
+  bosses: []
   colorTiles: {fileID: 0}
   doorPrefab: {fileID: 2128766292360619153, guid: 2155235104e744d4da19e05f515c504a,
     type: 3}

@@ -16,6 +16,8 @@ public class LevelGenerator : MonoBehaviour
     private Corridor[] corridors;
     private GameObject boardHolder;
     public GameObject[] weapons;
+    public GameObject[] enemies;
+    public GameObject[] bosses;
     public Tilemap colorTiles;
 
     public GameObject doorPrefab;
@@ -415,6 +417,23 @@ public class LevelGenerator : MonoBehaviour
         Vector3Int position = new Vector3Int(xpos, ypos, 0);
         Vector3 worldcoord = gridLayout.CellToWorld(position);
         Instantiate(weapontospawn, worldcoord, Quaternion.identity);
+
+        // 1 to 3 enemies in 5 random rooms, none in start, duplicates allowed. 
+        int numberofroomswithenemies = 8;
+        for (int i = 0; i < numberofroomswithenemies; i++)
+        {
+            len = UnityEngine.Random.Range(1, (rooms.Length - 1));
+            int numberOfGuys = UnityEngine.Random.Range(1, 3);
+            int typeOfGuy = UnityEngine.Random.Range(0, enemies.Length-1);
+            for (int j = 1; j <= numberOfGuys; j++)
+            {
+                xpos = UnityEngine.Random.Range(rooms[len].xPos, rooms[len].xPos + rooms[len].roomWidth); 
+                ypos = UnityEngine.Random.Range(rooms[len].yPos, rooms[len].yPos + rooms[len].roomHeight); //Spawn them randomly in the room
+                position = new Vector3Int(xpos, ypos, 0);
+                worldcoord = gridLayout.CellToWorld(position);
+                Instantiate(enemies[typeOfGuy], worldcoord, Quaternion.identity);
+            }
+        }
 
 
         //if next is boss, only make one door

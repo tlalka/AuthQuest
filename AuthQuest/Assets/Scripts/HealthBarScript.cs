@@ -29,7 +29,7 @@ public class HealthBarScript : MonoBehaviour
         {
             Debug.Log("You are dead!");
             Destroy(player, 2f);
-            DeathUI.gameObject.SetActive(true);
+            //DeathUI.gameObject.SetActive(true);
         }
     }
 
