@@ -17,8 +17,8 @@ public class CameraController : MonoBehaviour
             Destroy(this.gameObject);
         }
         DontDestroyOnLoad(gameObject);
-        offset = transform.position - player.transform.position;
         player = GameObject.Find("Player");
+        offset = transform.position - player.transform.position;
     }
 
     // Update is called once per frame
