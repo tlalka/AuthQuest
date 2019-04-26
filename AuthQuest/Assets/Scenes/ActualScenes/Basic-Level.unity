@@ -131,7 +131,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &335452299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13949,6 +13949,8 @@ MonoBehaviour:
   OGobj: 0
   currentColor: blue
   items: []
+  bosses:
+  - {fileID: 3323136425768121534, guid: 6ed4b5a71d47d42cd9e8584fcaa0382d, type: 3}
   levelcount: 0
   bosslevel: 0
 --- !u!4 &1950533663
@@ -13988,8 +13990,6 @@ MonoBehaviour:
   enemies:
   - {fileID: 3323136425768121534, guid: 6ed4b5a71d47d42cd9e8584fcaa0382d, type: 3}
   - {fileID: 404074962961616053, guid: f633da1c262214f509741517c4d8912f, type: 3}
-  bosses:
-  - {fileID: 3323136425768121534, guid: 6ed4b5a71d47d42cd9e8584fcaa0382d, type: 3}
   colorTiles: {fileID: 0}
   doorPrefab: {fileID: 2128766292360619153, guid: 2155235104e744d4da19e05f515c504a,
     type: 3}

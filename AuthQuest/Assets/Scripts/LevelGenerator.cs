@@ -484,5 +484,46 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
+    public void ClearPathToChest()
+    {
+        Vector3Int position = new Vector3Int(62, 0, 0);
+        colorTiles.SetTile(position, wallTile);
+
+        position = new Vector3Int(62, 2, 0);
+        colorTiles.SetTile(position, wallTile);
+
+        position = new Vector3Int(62, 1, 0);
+        colorTiles.SetTile(position, sandTile);
+    }
+
+    public void ClearPathToDoor()
+    {
+        Vector3Int position = new Vector3Int(77, 5, 0);
+        colorTiles.SetTile(position, floorTile);
+
+        position = new Vector3Int(77, 4, 0);
+        colorTiles.SetTile(position, floorTile);
+
+        position = new Vector3Int(77, 3, 0);
+        colorTiles.SetTile(position, floorTile);
+
+        position = new Vector3Int(79, 5, 0);
+        colorTiles.SetTile(position, floorTile);
+
+        position = new Vector3Int(79, 4, 0);
+        colorTiles.SetTile(position, floorTile);
+
+        position = new Vector3Int(79, 3, 0);
+        colorTiles.SetTile(position, floorTile);
+
+        position = new Vector3Int(78, 5, 0);
+        colorTiles.SetTile(position, sandTile);
+
+        position = new Vector3Int(78, 4, 0);
+        colorTiles.SetTile(position, sandTile);
+
+        position = new Vector3Int(78, 3, 0);
+        colorTiles.SetTile(position, sandTile);
+    }
 
 }
