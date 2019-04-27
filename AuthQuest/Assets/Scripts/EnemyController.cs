@@ -47,7 +47,7 @@ public class EnemyController : MonoBehaviour
     }
     void CheckIfInRange()
     {
-        if (Vector2.Distance(enemyPosition, playerPosition) <= 8)
+        if (Vector2.Distance(enemyPosition, playerPosition) <= 30)
         {
             withinRangeOfPlayer = true;
         }

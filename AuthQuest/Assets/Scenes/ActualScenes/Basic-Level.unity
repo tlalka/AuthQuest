@@ -14508,7 +14508,11 @@ MonoBehaviour:
   currentColor: blue
   items: []
   bosses:
-  - {fileID: 3323136425768121534, guid: 6ed4b5a71d47d42cd9e8584fcaa0382d, type: 3}
+  - {fileID: 2051319970, guid: 091652a2ccdb640758686a46430b5986, type: 3}
+  - {fileID: 1395773998, guid: d7ec7de326daa450eab3a690a7b31214, type: 3}
+  - {fileID: 2048910105861229608, guid: 12b91767a855f484d9c114927b8397ed, type: 3}
+  - {fileID: 6010687074599052769, guid: 2190044da2ed24d71932f3e05f3b6a37, type: 3}
+  - {fileID: 1856359529, guid: a7567e48bea72467cb49463c7bb6f33d, type: 3}
   levelcount: 0
   bosslevel: 0
 --- !u!4 &1950533663
