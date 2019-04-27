@@ -4,7 +4,7 @@ public class HealthPickUp : MonoBehaviour
 {
     GameObject player;
     GameObject playerHealthBar;
-    public float healthRegen = 1.5f;
+    public int healthRegen = 20;
     public GameObject oneUp;
 
     void Start()

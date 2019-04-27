@@ -36,8 +36,8 @@ public class EnemyController2 : MonoBehaviour
         playerHealthBar = GameObject.Find("HealthBar");
         playerWeapon = GameObject.Find("slash");
         enemyHealthBar = transform.GetChild(0).gameObject;
-        enemyAttack = 12; // + [levelNumber];
-        enemyHealth = 1; // + [levelNumber];
+        enemyAttack = 11 + player.GetComponent<PlayerStats>().currentLevel;
+        enemyHealth = player.GetComponent<PlayerStats>().currentLevel;
         enemySpeed = 2;
     }
 
@@ -65,7 +65,7 @@ public class EnemyController2 : MonoBehaviour
             withinRangeOfPlayer = true;
         }
     }
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionStay2D(Collision2D collision)
     {
         Debug.Log("collision with " + collision.gameObject.name);
         if (collision.gameObject.tag == "Player")
@@ -73,9 +73,17 @@ public class EnemyController2 : MonoBehaviour
             enemyDamage = enemyAttack - player.GetComponent<PlayerStats>().MeleeDefense;
             playerHealthBar.GetComponent<HealthBarScript>().TakeDamage(enemyDamage);
 
-            Knockback();
+            //Knockback();
         }
 
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Knockback();
+        }
     }
 
     public void GemTouchedVirus(GameObject gem)

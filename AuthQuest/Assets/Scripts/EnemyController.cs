@@ -39,14 +39,14 @@ public class EnemyController : MonoBehaviour
         playerWeapon = GameObject.Find("slash");
         enemyHealthBar = transform.GetChild(0).gameObject;
         if(gameObject.tag == "Boss") {
-        enemyAttack = 13; //+ [levelNumber];
-        enemyHealth = 7; //+ [levelNumber*3];
+        enemyAttack = 12 + player.GetComponent<PlayerStats>().currentLevel;
+        enemyHealth = 4 + player.GetComponent<PlayerStats>().currentLevel * 3;
         enemySpeed = 2;
         }
         else 
         {
-        enemyAttack = 11; // + [levelNumber];
-        enemyHealth = 2; // + [levelNumber];
+        enemyAttack = 10 + player.GetComponent<PlayerStats>().currentLevel;
+        enemyHealth = 1 + player.GetComponent<PlayerStats>().currentLevel;
         enemySpeed = 3;
         }
         
@@ -71,21 +71,29 @@ public class EnemyController : MonoBehaviour
             withinRangeOfPlayer = true;
         }
     }
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionStay2D(Collision2D collision)
     {
-        Debug.Log("enemy trigger " + collision.gameObject.name);
+       // Debug.Log("enemy trigger " + collision.gameObject.name);
         if (collision.gameObject.tag == "Player")
         {
             enemyDamage = (enemyAttack - player.GetComponent<PlayerStats>().MeleeDefense);
             playerHealthBar.GetComponent<HealthBarScript>().TakeDamage(enemyDamage);
 
-            Knockback();
+            //Knockback();
         }
 
     }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Knockback();
+        }
+    }
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("enemy trigger " + other.gameObject.name);
+       // Debug.Log("enemy trigger " + other.gameObject.name);
 
     }
 

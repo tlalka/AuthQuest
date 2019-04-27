@@ -36,6 +36,8 @@ public class HealthBarScript : MonoBehaviour
 
     public void TakeDamage(int damageValue)
     {
+        if(!player.GetComponent<PlayerController>().CheckIfInvincible())
+        {
         float damageValueNormalized = ((float)damageValue)/((float)(player.GetComponent<PlayerStats>().Health));
         bar.localScale = new Vector3(currentScale - damageValueNormalized, 1f);
         //Debug.Log("damage value = " + damageValueNormalized);
@@ -55,12 +57,20 @@ public class HealthBarScript : MonoBehaviour
             bar.localScale = new Vector3(0f, 1f);
             //Destroy(player);
         }
+        }
     }
 
     public void HealthRegenerate(float regenValue)
     {
         float regenValueNormalized = ((float)regenValue)/((float)(player.GetComponent<PlayerStats>().Health));
+        if((currentScale + regenValueNormalized) > 1f)
+        {
+            bar.localScale = new Vector3(1f, 1f);
+        }
+        else
+        {
         bar.localScale = new Vector3(currentScale + regenValueNormalized, 1f);
+        }
         currentScale = bar.localScale.x;
         if (currentScale <= .3)
         {
