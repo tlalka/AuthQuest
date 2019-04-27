@@ -13949,6 +13949,8 @@ MonoBehaviour:
   OGobj: 0
   currentColor: blue
   items: []
+  bosses:
+  - {fileID: 3323136425768121534, guid: 6ed4b5a71d47d42cd9e8584fcaa0382d, type: 3}
   levelcount: 0
   bosslevel: 0
 --- !u!4 &1950533663
@@ -13977,6 +13979,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7196c037e1b48af43886d3e269b98e5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weapons:
+  - {fileID: 6992247652351249961, guid: 73bc1c0eeb423734a84b6f1ad4cf6218, type: 3}
+  - {fileID: 1487325324809454065, guid: 9a33ed1e75709834f92d12936f39b53d, type: 3}
+  - {fileID: 1687885340401727292, guid: ed6159b5c70d840468d4ae361991ed5a, type: 3}
+  - {fileID: 5423032143384957862, guid: bffde61c015a65d46b8b11175c05bab4, type: 3}
+  - {fileID: 322177365815338856, guid: c38c8665dfca57446ab4cc9724760965, type: 3}
+  - {fileID: 6157300988865374629, guid: 82648f4898559d141a2422ea5a45b2ee, type: 3}
+  - {fileID: 1674293196811253326, guid: b6d1c6f06de24574199b83d2eb6d6db1, type: 3}
+  enemies:
+  - {fileID: 3323136425768121534, guid: 6ed4b5a71d47d42cd9e8584fcaa0382d, type: 3}
+  - {fileID: 404074962961616053, guid: f633da1c262214f509741517c4d8912f, type: 3}
   colorTiles: {fileID: 0}
   doorPrefab: {fileID: 2128766292360619153, guid: 2155235104e744d4da19e05f515c504a,
     type: 3}

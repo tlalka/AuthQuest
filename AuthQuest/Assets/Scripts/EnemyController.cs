@@ -29,22 +29,31 @@ public class EnemyController : MonoBehaviour
         playerHealthBar = GameObject.Find("HealthBar");
     }
 
+    
     // Update is called once per frame
     void Update()
     {
-        //if(enemyHealth == 0)
-        //{
-            // Destroy(this.gameObject);
-        //}
+        /*
+        if(enemyHealth == 0)
+        {
+             Destroy(this.gameObject);
+        }
+        */
+
         playerPosition = player.transform.position;
         enemyPosition = this.gameObject.transform.position;
+
         CheckIfInRange();
+     
         if(withinRangeOfPlayer)
         {
             enemyRB2D.AddForce((playerPosition - enemyPosition) * 3);
         }
-        player.GetComponent<Rigidbody2D>().Sleep();
+
+        //player.GetComponent<Rigidbody2D>().Sleep();   
     }
+
+    
     void CheckIfInRange()
     {
         if(Vector2.Distance(enemyPosition, playerPosition) <= 8)
@@ -52,6 +61,7 @@ public class EnemyController : MonoBehaviour
             withinRangeOfPlayer = true;
         }
     }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Player")
@@ -91,5 +101,5 @@ public class EnemyController : MonoBehaviour
   //  {
 
   //  }
-
+  
 }

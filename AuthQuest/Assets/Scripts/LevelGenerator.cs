@@ -15,6 +15,8 @@ public class LevelGenerator : MonoBehaviour
     private Room[] rooms;
     private Corridor[] corridors;
     private GameObject boardHolder;
+    public GameObject[] weapons;
+    public GameObject[] enemies;
     public Tilemap colorTiles;
 
     public GameObject doorPrefab;
@@ -53,7 +55,7 @@ public class LevelGenerator : MonoBehaviour
         //Debug.Log(colorTiles);
     }
 
-    public Vector3 BuildFloor(bool nextisboss)
+    public Vector3 BuildFloor(bool nextisboss, bool thisisboss)
     {
         if (colorTiles == null) { //double check that we have our tiles
             colorTiles = GameObject.FindWithTag("Tiles").GetComponent<Tilemap>();
@@ -74,7 +76,7 @@ public class LevelGenerator : MonoBehaviour
         } while (coverage < .15 && attempts < 10);
         SetTilesValuesForCorridors();
         InstantiateTiles();
-        AddObjects(nextisboss);
+        AddObjects(nextisboss, thisisboss);
         //TODO Instantiate walls and roofs
         //Instantaiate entance and exit doors
         //Remove unneded walls
@@ -402,37 +404,71 @@ public class LevelGenerator : MonoBehaviour
         colorTiles.SetTile(position, null);
     }
 
-    void AddObjects(bool nextisboss)
+    void AddObjects(bool nextisboss, bool thisisboss)
     {
+        int pickone;
+        int len;
+        int xpos;
+        int ypos;
+        Vector3Int position;
+        Vector3 worldcoord;
+        GridLayout gridLayout = colorTiles.layoutGrid;
+
+            Debug.Log("generate enemies");
+            //spawn one random weapon in one of the middle rooms
+            pickone = UnityEngine.Random.Range(0, (weapons.Length - 1));
+            GameObject weapontospawn = weapons[pickone];
+            len = (int)Math.Floor((float)rooms.Length / 2);
+            xpos = Mathf.RoundToInt(rooms[len].xPos + rooms[len].roomWidth / 2f);
+            ypos = Mathf.RoundToInt(rooms[len].yPos + rooms[len].roomHeight / 2f);
+            position = new Vector3Int(xpos, ypos, 0);
+            worldcoord = gridLayout.CellToWorld(position);
+            Instantiate(weapontospawn, worldcoord, Quaternion.identity);
+
+            // 1 to 3 enemies in 5 random rooms, none in start, duplicates allowed. 
+            int numberofroomswithenemies = 8;
+            for (int i = 0; i < numberofroomswithenemies; i++)
+            {
+                len = UnityEngine.Random.Range(1, (rooms.Length - 1));
+                int numberOfGuys = UnityEngine.Random.Range(1, 3);
+                int typeOfGuy = UnityEngine.Random.Range(0, enemies.Length - 1);
+                for (int j = 1; j <= numberOfGuys; j++)
+                {
+                    xpos = UnityEngine.Random.Range(rooms[len].xPos, rooms[len].xPos + rooms[len].roomWidth);
+                    ypos = UnityEngine.Random.Range(rooms[len].yPos, rooms[len].yPos + rooms[len].roomHeight); //Spawn them randomly in the room
+                    position = new Vector3Int(xpos, ypos, 0);
+                    worldcoord = gridLayout.CellToWorld(position);
+                    Instantiate(enemies[typeOfGuy], worldcoord, Quaternion.identity);
+                }
+            }
+
         //if next is boss, only make one door
         if (nextisboss) //one door
         {
-            int len = rooms.Length - 1;
-            int xpos = rooms[len].xPos + 2;
-            int ypos = rooms[len].yPos + rooms[len].roomHeight + 1; //top left area of room
+            len = rooms.Length - 1;
+            xpos = rooms[len].xPos + 2;
+            ypos = rooms[len].yPos + rooms[len].roomHeight + 1; //top left area of room
                                                                     //Debug.Log("x and y " + xpos +" "+ ypos);
             int width3 = (int)Math.Floor((double)rooms[len].roomWidth / 3);
-
-            GridLayout gridLayout = colorTiles.layoutGrid;
-            Vector3Int position = new Vector3Int(xpos, ypos, 0);
-            Vector3 worldcoord = gridLayout.CellToWorld(position);
+            
+            position = new Vector3Int(xpos, ypos, 0);
+            worldcoord = gridLayout.CellToWorld(position);
             Instantiate(doorPrefab, worldcoord, Quaternion.identity);
 
         }
-        else //thre doors
+        else //three doors
         {
             //Debug.Log("Make 3 doors");
             //add doors
             //get position of last room and put doors directly north of it.
-            int len = rooms.Length - 1;
-            int xpos = rooms[len].xPos + 2;
-            int ypos = rooms[len].yPos + rooms[len].roomHeight + 1; //top left area of room
+            len = rooms.Length - 1;
+            xpos = rooms[len].xPos + 2;
+            ypos = rooms[len].yPos + rooms[len].roomHeight + 1; //top left area of room
                                                                     //Debug.Log("x and y " + xpos +" "+ ypos);
             int width3 = (int)Math.Floor((double)rooms[len].roomWidth / 3);
-
-            GridLayout gridLayout = colorTiles.layoutGrid;
-            Vector3Int position = new Vector3Int(xpos, ypos, 0);
-            Vector3 worldcoord = gridLayout.CellToWorld(position);
+            
+            position = new Vector3Int(xpos, ypos, 0);
+            worldcoord = gridLayout.CellToWorld(position);
             Instantiate(doorPrefab, worldcoord, Quaternion.identity);
             //Debug.Log(worldcoord);
 
@@ -448,5 +484,46 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
+    public void ClearPathToChest()
+    {
+        Vector3Int position = new Vector3Int(62, 0, 0);
+        colorTiles.SetTile(position, wallTile);
+
+        position = new Vector3Int(62, 2, 0);
+        colorTiles.SetTile(position, wallTile);
+
+        position = new Vector3Int(62, 1, 0);
+        colorTiles.SetTile(position, sandTile);
+    }
+
+    public void ClearPathToDoor()
+    {
+        Vector3Int position = new Vector3Int(77, 5, 0);
+        colorTiles.SetTile(position, floorTile);
+
+        position = new Vector3Int(77, 4, 0);
+        colorTiles.SetTile(position, floorTile);
+
+        position = new Vector3Int(77, 3, 0);
+        colorTiles.SetTile(position, floorTile);
+
+        position = new Vector3Int(79, 5, 0);
+        colorTiles.SetTile(position, floorTile);
+
+        position = new Vector3Int(79, 4, 0);
+        colorTiles.SetTile(position, floorTile);
+
+        position = new Vector3Int(79, 3, 0);
+        colorTiles.SetTile(position, floorTile);
+
+        position = new Vector3Int(78, 5, 0);
+        colorTiles.SetTile(position, sandTile);
+
+        position = new Vector3Int(78, 4, 0);
+        colorTiles.SetTile(position, sandTile);
+
+        position = new Vector3Int(78, 3, 0);
+        colorTiles.SetTile(position, sandTile);
+    }
 
 }

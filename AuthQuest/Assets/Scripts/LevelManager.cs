@@ -14,6 +14,8 @@ public class LevelManager : MonoBehaviour
     public string currentColor;
     public GameObject[] items;
 
+    public GameObject[] bosses;
+
     public int levelcount;
     public bool bosslevel;
 
@@ -85,6 +87,7 @@ public class LevelManager : MonoBehaviour
             Debug.Log("move player to " + playerspawn);
         }
         loading.GetComponent<LoadingScreen>().renOff();
+        LoadBoss();
     }
 
         void Startup()
@@ -98,16 +101,17 @@ public class LevelManager : MonoBehaviour
 
         Vector3 playerspawn;
         //if next level is boss level, only one door, no color
+        Debug.Log("boss level " + bosslevel);
         if (levelcount == 3)
         {
-            playerspawn = this.GetComponent<LevelGenerator>().BuildFloor(true);
+            playerspawn = this.GetComponent<LevelGenerator>().BuildFloor(true, bosslevel);
             colorTiles = GameObject.FindWithTag("Tiles").GetComponent<Tilemap>();
             doors = GameObject.FindGameObjectsWithTag("Door");
             setOneDoor();
         }
         else
         {
-            playerspawn = this.GetComponent<LevelGenerator>().BuildFloor(false);
+            playerspawn = this.GetComponent<LevelGenerator>().BuildFloor(false, bosslevel);
             colorTiles = GameObject.FindWithTag("Tiles").GetComponent<Tilemap>();
             doors = GameObject.FindGameObjectsWithTag("Door");
             setDoors();
@@ -130,6 +134,13 @@ public class LevelManager : MonoBehaviour
     void Update()
     {
         setTiles();//I don't want this here but whatever
+    }
+
+    void LoadBoss()
+    {
+        Debug.Log("generate boss");
+        int pickone = UnityEngine.Random.Range(0, (bosses.Length - 1));
+        Instantiate(bosses[pickone], new Vector3Int(100, 0, 0), Quaternion.identity);
     }
 
     void setOneDoor()
@@ -240,6 +251,7 @@ public class LevelManager : MonoBehaviour
                 NewColor = purple;
                 break;
         }
+        //colorTiles = GameObject.FindWithTag("Tiles").GetComponent<Tilemap>();
         colorTiles.color = NewColor;
         //Debug.Log("set room color" + colorTiles.color);
     }
@@ -263,6 +275,7 @@ public class LevelManager : MonoBehaviour
             OGobj = true;
             levelcount = 1;
             bosslevel = true;
+            //Debug.Log("set bosslevel to true");
             //destory our old grid
             GameObject grid = GameObject.Find("Grid");
             Destroy(grid);
