@@ -19,8 +19,10 @@ public class WeaponStats : MonoBehaviour
     {
         player = GameObject.Find("Player");
         rotation = transform.rotation;
+        Debug.Log(rotation);
         scale = transform.localScale;
         transform.rotation = Quaternion.Euler(0, 0, 0);
+        GetRot();
     }
 
     // Update is called once per frame
@@ -37,5 +39,28 @@ public class WeaponStats : MonoBehaviour
             player.GetComponent<PlayerController>().EquipWeapon(this.gameObject);
             //now the weapon is equipped, we need to move it to the UI
         }
+    }
+
+    void GetRot()
+    {
+        switch (weaponName)
+        {
+            case "Garnet Spike":
+                rotation = Quaternion.Euler(0, 0, 315);
+                break;
+            case "Proton Sword":
+                rotation = Quaternion.Euler(0, 0, 45);
+                break;
+            case "Sapphire Mace":
+                rotation = Quaternion.Euler(0, 0, 315);
+                break;
+            case "Water Staff":
+                rotation = Quaternion.Euler(0, 0, 315);
+                break;
+            default:
+                Debug.Log("range weapon");
+                break;
+        }
+        
     }
 }
