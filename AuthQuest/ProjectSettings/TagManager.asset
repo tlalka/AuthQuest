@@ -11,6 +11,7 @@ TagManager:
   - thwomp
   - Enemy
   - Weapon
+  - Virus1
   layers:
   - Default
   - TransparentFX

@@ -14,17 +14,20 @@ public class EnemyController2 : MonoBehaviour
     private Vector2 enemyDirection;
     private Rigidbody2D enemyRB2D;
     //public float range = 8;
-    private float enemyDamage = .1f;
-    private float enemyHealth;
+    private int enemyDamage;
+    
     private Vector2 lastCollisionPosition;
     private bool invincible;
     private SpriteRenderer spriteRenderer;
     private GameObject enemyHealthBar;
+    public int enemyAttack;
+    public int enemyHealth;
+    public int enemySpeed;
 
     // Start is called before the first frame update
     void Start()
     {
-        enemyHealth = 1f;
+        //enemyHealth = 1f;
         invincible = false;
         withinRangeOfPlayer = false;
         enemyRB2D = GetComponentInParent<Rigidbody2D>();
@@ -33,6 +36,9 @@ public class EnemyController2 : MonoBehaviour
         playerHealthBar = GameObject.Find("HealthBar");
         playerWeapon = GameObject.Find("slash");
         enemyHealthBar = transform.GetChild(0).gameObject;
+        enemyAttack = 12; // + [levelNumber];
+        enemyHealth = 1; // + [levelNumber];
+        enemySpeed = 2;
     }
 
     // Update is called once per frame
@@ -64,7 +70,7 @@ public class EnemyController2 : MonoBehaviour
         Debug.Log("collision with " + collision.gameObject.name);
         if (collision.gameObject.tag == "Player")
         {
-
+            enemyDamage = enemyAttack - player.GetComponent<PlayerStats>().MeleeDefense;
             playerHealthBar.GetComponent<HealthBarScript>().TakeDamage(enemyDamage);
 
             Knockback();
@@ -79,7 +85,8 @@ public class EnemyController2 : MonoBehaviour
             if (!invincible)
             {
                 invincible = true;
-                enemyHealthBar.GetComponent<EnemyHealthBar>().TakeDamage(.4f);
+
+                enemyHealthBar.GetComponent<EnemyHealthBar>().TakeDamage(player.GetComponent<PlayerStats>().MeleeAttack);
                 Knockback();
                 StartCoroutine(FlashInvisible());
             }

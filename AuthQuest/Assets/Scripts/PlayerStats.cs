@@ -19,7 +19,7 @@ public class PlayerStats : MonoBehaviour
         RangeAttack = 1;
         RangeDefense = 1;
         Speed = 1;
-        Health = 1;
+        Health = 100;
 
 }
 

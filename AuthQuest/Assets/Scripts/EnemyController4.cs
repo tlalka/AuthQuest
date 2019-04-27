@@ -10,7 +10,7 @@ public class EnemyController4 : MonoBehaviour
     private Vector3 enemyPosition;
     private bool goRight;
     public int enemyHealth;
-    private float enemyDamage = .1f;
+    private int enemyDamage = 1;
     private bool invincible;
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D enemyRB2D;

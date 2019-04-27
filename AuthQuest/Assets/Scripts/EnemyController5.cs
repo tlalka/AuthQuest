@@ -11,7 +11,7 @@ public class EnemyController5 : MonoBehaviour
     private Rigidbody2D enemyRB2D;
     private bool goUp;
     public int enemyHealth;
-    private float enemyDamage = .1f;
+    private int enemyDamage = 1;
     private bool invincible;
     private SpriteRenderer spriteRenderer;
     // Start is called before the first frame update

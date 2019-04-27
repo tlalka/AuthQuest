@@ -12,7 +12,7 @@ public class EnemyController3 : MonoBehaviour
     private Vector2 enemyPosition;
     private Rigidbody2D enemyRB2D;
     //public float range = 8;
-    private float enemyDamage = .25f;
+    private int enemyDamage = 1;
     public int enemyHealth;
     private Vector2 enemyDirection;
     private Vector2 lastCollisionPosition;

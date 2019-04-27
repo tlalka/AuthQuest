@@ -14,11 +14,18 @@ public class EnemyController : MonoBehaviour
     private Vector2 enemyPosition;
     private Rigidbody2D enemyRB2D;
     //public float range = 8;
-    private float enemyDamage = .1f;
-    private float enemyHealth = 1f;
+    private int enemyDamage;
+    private int playerDamage;
+    //private int enemyHealth;
     private bool invincible;
     private SpriteRenderer spriteRenderer;
     GameObject enemyHealthBar;
+    public int enemyAttack;
+    public int enemyHealth = 1;
+    public int enemySpeed;
+    //public Component enemyStats;
+    
+    //PlayerStats playerStats;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +38,18 @@ public class EnemyController : MonoBehaviour
         playerHealthBar = GameObject.Find("HealthBar");
         playerWeapon = GameObject.Find("slash");
         enemyHealthBar = transform.GetChild(0).gameObject;
+        if(gameObject.tag == "Boss") {
+        enemyAttack = 13; //+ [levelNumber];
+        enemyHealth = 7; //+ [levelNumber*3];
+        enemySpeed = 2;
+        }
+        else 
+        {
+        enemyAttack = 11; // + [levelNumber];
+        enemyHealth = 2; // + [levelNumber];
+        enemySpeed = 3;
+        }
+        
     }
 
     // Update is called once per frame
@@ -57,7 +76,7 @@ public class EnemyController : MonoBehaviour
         Debug.Log("enemy trigger " + collision.gameObject.name);
         if (collision.gameObject.tag == "Player")
         {
-
+            enemyDamage = (enemyAttack - player.GetComponent<PlayerStats>().MeleeDefense);
             playerHealthBar.GetComponent<HealthBarScript>().TakeDamage(enemyDamage);
 
             Knockback();
@@ -77,7 +96,8 @@ public class EnemyController : MonoBehaviour
             if (!invincible)
             {
                 invincible = true;
-                enemyHealthBar.GetComponent<EnemyHealthBar>().TakeDamage(.4f);
+                
+                enemyHealthBar.GetComponent<EnemyHealthBar>().TakeDamage(player.GetComponent<PlayerStats>().MeleeAttack);
                 Knockback();
                 StartCoroutine(FlashInvisible());
 

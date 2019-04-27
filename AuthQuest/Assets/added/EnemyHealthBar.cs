@@ -10,6 +10,7 @@ public class EnemyHealthBar : MonoBehaviour
     private Transform barBackground;
     private Transform barBorder;
     GameObject enemy;
+    Component enemysStats;
     //GameObject theCamera;
     //public GameObject DeathUI;
     // Start is called before the first frame update
@@ -28,6 +29,7 @@ public class EnemyHealthBar : MonoBehaviour
         bar.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
         barBackground.GetComponent<SpriteRenderer>().enabled = false;
         barBorder.GetComponent<SpriteRenderer>().enabled = false;
+        
 
     }
 
@@ -38,8 +40,17 @@ public class EnemyHealthBar : MonoBehaviour
         
     }
 
-    public void TakeDamage(float damageValueNormalized)
+    public void TakeDamage(int damageValue)
     {
+        float damageValueNormalized = 1f;
+        if(enemy.tag == "Virus1" || enemy.tag == "Boss")
+        {
+        damageValueNormalized = ((float)damageValue)/((float)(enemy.GetComponent<EnemyController>().enemyHealth));
+        }
+        else
+        {
+        damageValueNormalized = ((float)damageValue)/((float)(enemy.GetComponent<EnemyController2>().enemyHealth));
+        }
         bar.localScale = new Vector3(currentScale - damageValueNormalized, 1f);
         //Debug.Log("damage value = " + damageValueNormalized);
        // Debug.Log("currentScale = " + currentScale);
