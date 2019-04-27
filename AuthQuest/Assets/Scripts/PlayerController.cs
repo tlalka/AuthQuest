@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public bool isAttacking;
     public bool IsMoving;
     public bool canMove;
+    private bool invincible;
     protected Coroutine attackRoutine;
 
     public bool isSprint;
@@ -47,6 +48,7 @@ public class PlayerController : MonoBehaviour
     public GameObject attackIndicator;
 
     public GameObject HUD;
+    public SpriteRenderer playerSpriteRenderer;
 
 
     // Start is called before the first frame update
@@ -65,6 +67,7 @@ public class PlayerController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         isOpened = false;
         isAttacking = false;
+        invincible = false;
 
         moveSpeed = 10 + (GetComponent<PlayerStats>().Speed * 2);//PlayerStats = GetComponent<CharacterStat>(); 
         keyDelay = .2; //PlayerStats = GetComponent<CharacterStat>();
@@ -75,6 +78,8 @@ public class PlayerController : MonoBehaviour
         attackIndicator = GameObject.FindGameObjectWithTag("attack");
 
         HUD = GameObject.Find("HUD");
+
+        playerSpriteRenderer = GetComponentInParent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -269,4 +274,36 @@ public class PlayerController : MonoBehaviour
         moveto = moveto2;
     }
 
+void OnCollisionEnter2D(Collision2D collision)
+    {
+
+        if(collision.gameObject.tag == "Enemy")
+        {
+            if(!invincible)
+            {
+                invincible = true;
+                StartCoroutine(FlashInvisible());
+            }
+        }
+
+    }
+    IEnumerator FlashInvisible() {
+           //Debug.Log("flash");
+           for(int i = 0; i < 5; i++)
+           {
+                playerSpriteRenderer.enabled = true;
+                yield return new WaitForSeconds(.1f);
+                Debug.Log("flash");
+                playerSpriteRenderer.enabled = false;
+                yield return new WaitForSeconds(.1f);
+           }
+            playerSpriteRenderer.enabled = true;
+            invincible = false;
+       }
+        
+    public bool CheckIfInvincible() {
+        return invincible;
+    }
+     
 }
+

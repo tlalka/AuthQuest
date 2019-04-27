@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyController2 : MonoBehaviour
 {
     GameObject player;
+    GameObject playerWeapon;
     GameObject playerHealthBar;
     public bool withinRangeOfPlayer;
     //public int multiplier = 5;
@@ -14,28 +15,29 @@ public class EnemyController2 : MonoBehaviour
     private Rigidbody2D enemyRB2D;
     //public float range = 8;
     private float enemyDamage = .1f;
-    public int enemyHealth;
+    private float enemyHealth;
     private Vector2 lastCollisionPosition;
     private bool invincible;
     private SpriteRenderer spriteRenderer;
+    private GameObject enemyHealthBar;
     
     // Start is called before the first frame update
     void Start()
     {
+        enemyHealth = 1f;
+        invincible = false;
         withinRangeOfPlayer = false;
         enemyRB2D = GetComponentInParent<Rigidbody2D>();
         spriteRenderer = GetComponentInParent<SpriteRenderer>();
         player = GameObject.Find("Player");
         playerHealthBar = GameObject.Find("HealthBar");
+        playerWeapon = GameObject.Find("slash");
+        enemyHealthBar = transform.GetChild(0).gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if(enemyHealth == 0)
-        //{
-            // Destroy(this.gameObject);
-        //}
         playerPosition = player.transform.position;
         enemyPosition = this.gameObject.transform.position;
         enemyDirection = (playerPosition - enemyPosition).normalized;
@@ -44,7 +46,7 @@ public class EnemyController2 : MonoBehaviour
         {
             transform.position = Vector2.MoveTowards(enemyPosition, playerPosition, Time.deltaTime * 4);
         }
-        player.GetComponent<Rigidbody2D>().Sleep();
+        //player.GetComponent<Rigidbody2D>().Sleep();
         if(lastCollisionPosition != null && Vector2.Distance(enemyPosition, lastCollisionPosition) >= 3)
         {
             enemyRB2D.velocity = Vector2.zero;
@@ -59,34 +61,52 @@ public class EnemyController2 : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log("collision with "+collision.gameObject.name);
         if(collision.gameObject.tag == "Player")
         {
+
             playerHealthBar.GetComponent<HealthBarScript>().TakeDamage(enemyDamage);
             
-            enemyRB2D.AddForce(-enemyDirection * 600);
-            lastCollisionPosition = playerPosition;
+            Knockback();
         }
-        //else if(collision.gameObject.tag == "Weapon")
-       // {
-          // if(!invincible)
-        // {
-        //  enemyHealth--;
-        //  invincible = true;
-        //  StartCoroutine(FlashInvisible());
-        //  invincible = false;
-        // }
-       // }
+    
+    }  
 
-       //IEnumerator FlashInvisible() {
-          // for(int i = 0, i < 5, i++)
-         //  {
-             //   spriteRenderer.enabled = true;
-             //   yield return WaitForSeconds(.1f);
-             //   spriteRenderer.enabled = false;
-             //   yield return WaitForSeconds(.1f);
-         //  }
-           // spriteRenderer.enabled = true;
-       //}
+    public void GemTouchedVirus(GameObject gem){
+        if(gem.gameObject.tag == "Weapon" && playerWeapon.GetComponent<slashing>().isAttacking)
+        {
+            if(!invincible)
+         {
+          invincible = true;
+          enemyHealthBar.GetComponent<EnemyHealthBar>().TakeDamage(.4f);
+          Knockback();
+          StartCoroutine(FlashInvisible());
+         }
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        
+    } 
+
+       IEnumerator FlashInvisible() {
+           for(int i = 0; i < 5; i++)
+           {
+                spriteRenderer.enabled = true;
+                yield return new WaitForSeconds(.1f);
+                spriteRenderer.enabled = false;
+                yield return new WaitForSeconds(.1f);
+           }
+            spriteRenderer.enabled = true;
+            invincible = false;
+       }
+    
+
+    void Knockback()
+    {
+        enemyRB2D.AddForce(-enemyDirection * 600);
+        lastCollisionPosition = playerPosition;
     }
 
     
