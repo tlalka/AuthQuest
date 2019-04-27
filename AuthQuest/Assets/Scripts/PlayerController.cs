@@ -317,10 +317,10 @@ public class PlayerController : MonoBehaviour
         CoolBar1.GetComponent<CoolDown>().TakeDamage(math1);
         CoolBar2.GetComponent<CoolDown>().TakeDamage(math2);
     }
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionStay2D(Collision2D collision)
     {
 
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Virus1" || collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Boss")
         {
             if (!invincible)
             {

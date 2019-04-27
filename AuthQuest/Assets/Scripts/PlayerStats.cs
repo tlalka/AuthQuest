@@ -10,6 +10,7 @@ public class PlayerStats : MonoBehaviour
     public int RangeDefense;
     public int Speed;
     public int Health;
+    public int currentLevel;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,7 @@ public class PlayerStats : MonoBehaviour
         RangeDefense = 1;
         Speed = 1;
         Health = 100;
+        currentLevel = 1;
 
 }
 
@@ -52,5 +54,6 @@ public class PlayerStats : MonoBehaviour
                 RangeDefense++;
                 break;
         }
+        currentLevel++;
     }
 }
