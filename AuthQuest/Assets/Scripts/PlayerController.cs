@@ -48,6 +48,11 @@ public class PlayerController : MonoBehaviour
 
     public GameObject HUD;
 
+    public GameObject CoolBar1;
+    public int cool1;
+    public GameObject CoolBar2;
+    public int cool2;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -75,6 +80,10 @@ public class PlayerController : MonoBehaviour
         attackIndicator = GameObject.FindGameObjectWithTag("attack");
 
         HUD = GameObject.Find("HUD");
+        CoolBar1 = GameObject.Find("CoolBar1");
+        CoolBar2 = GameObject.Find("CoolBar2");
+        cool1 = 0;
+        cool2 = 0;
     }
 
     // Update is called once per frame
@@ -93,16 +102,25 @@ public class PlayerController : MonoBehaviour
             movePlayer();
         }
         checkSave();
-
+        /* 
         if (Input.GetMouseButtonDown(0))
         {
             attackRoutine = StartCoroutine(Attack());
             // StartCoroutine(Attack());
 
         }
+        */
         if (Input.GetKey("escape"))
         {
             Application.Quit();
+        }
+        
+        coolDown();
+        if(Input.GetMouseButtonDown(0) && cool1 <= 0) 
+        {
+            CoolBar1.GetComponent<Cooldown>().HealthRegenerate(1);
+            cool1 = meleeWeapon.GetComponent<WeaponStats>().weaponSpeed;
+            attackRoutine = StartCoroutine(Attack());
         }
     }
 
@@ -267,6 +285,24 @@ public class PlayerController : MonoBehaviour
         Debug.Log("set to location");
         moveme = true;
         moveto = moveto2;
+    }
+
+    public void coolDown()
+    {
+        if (cool1 > 0)
+        {
+            cool1--;
+        }
+
+        if (cool2 > 0) 
+        {
+
+        }
+
+        float math1 = .005f;
+        float math2 = .005f;
+        CoolBar1.GetComponent<Cooldown>().TakeDamage(math1);
+        CoolBar2.GetComponent<Cooldown>().TakeDamage(math2);
     }
 
 }
