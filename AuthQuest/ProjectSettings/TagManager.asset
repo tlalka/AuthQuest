@@ -8,6 +8,9 @@ TagManager:
   - Tiles
   - levelM
   - attack
+  - thwomp
+  - Enemy
+  - Weapon
   layers:
   - Default
   - TransparentFX

@@ -14,7 +14,9 @@ public class PlayerController : MonoBehaviour
     public bool isAttacking;
     public bool IsMoving;
     public bool canMove;
+    private bool invincible;
     protected Coroutine attackRoutine;
+    public SpriteRenderer playerSpriteRenderer;
 
     public bool isSprint;
     private KeyCode LastKey;
@@ -74,6 +76,8 @@ public class PlayerController : MonoBehaviour
         isSprint = false;
         timeSinceKeyPressLast = -1;
         timeSinceKeyPressThis = 0;
+        playerSpriteRenderer = GetComponentInParent<SpriteRenderer>();
+        invincible = false;
 
         attackIndicator = GameObject.FindGameObjectWithTag("attack");
 
@@ -295,4 +299,37 @@ public class PlayerController : MonoBehaviour
         CoolBar1.GetComponent<CoolDown>().TakeDamage(math1);
         CoolBar2.GetComponent<CoolDown>().TakeDamage(math2);
     }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+
+        if (collision.gameObject.tag == "Enemy")
+        {
+            if (!invincible)
+            {
+                invincible = true;
+                StartCoroutine(FlashInvisible());
+            }
+        }
+
+    }
+    IEnumerator FlashInvisible()
+    {
+        //Debug.Log("flash");
+        for (int i = 0; i < 5; i++)
+        {
+            playerSpriteRenderer.enabled = true;
+            yield return new WaitForSeconds(.1f);
+            Debug.Log("flash");
+            playerSpriteRenderer.enabled = false;
+            yield return new WaitForSeconds(.1f);
+        }
+        playerSpriteRenderer.enabled = true;
+        invincible = false;
+    }
+
+    public bool CheckIfInvincible()
+    {
+        return invincible;
+    }
+
 }

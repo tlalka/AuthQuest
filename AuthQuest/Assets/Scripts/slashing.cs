@@ -56,4 +56,20 @@ public class slashing : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay2D(Collider2D other)
+    {
+
+        EnemyController ec = other.gameObject.GetComponent<EnemyController>();
+        if (ec)
+        {
+            ec.GemTouchedVirus(this.gameObject);
+        }
+        else
+        {
+            EnemyController2 ec2 = other.gameObject.GetComponent<EnemyController2>();
+            ec2.GemTouchedVirus(this.gameObject);
+        }
+
+    }
+
 }

@@ -222,6 +222,49 @@ Transform:
   m_Father: {fileID: 1557842063}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &57284350 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 569161751161748314, guid: f6c566aa7044ad143a7784e035b1643c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1322813668}
+  m_PrefabAsset: {fileID: 0}
+--- !u!58 &57284352
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57284350}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.10042853, y: -0.007532224}
+  serializedVersion: 2
+  m_Radius: 0.60598993
+--- !u!50 &57284355
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57284350}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &335452298
 GameObject:
   m_ObjectHideFlags: 0
@@ -774,6 +817,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 569161751161748314, guid: f6c566aa7044ad143a7784e035b1643c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Weapon
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6c566aa7044ad143a7784e035b1643c, type: 3}
@@ -14498,8 +14546,8 @@ MonoBehaviour:
   - {fileID: 6157300988865374629, guid: 82648f4898559d141a2422ea5a45b2ee, type: 3}
   - {fileID: 1674293196811253326, guid: b6d1c6f06de24574199b83d2eb6d6db1, type: 3}
   enemies:
-  - {fileID: 3323136425768121534, guid: 6ed4b5a71d47d42cd9e8584fcaa0382d, type: 3}
-  - {fileID: 404074962961616053, guid: f633da1c262214f509741517c4d8912f, type: 3}
+  - {fileID: 914363274453543434, guid: 3c7f736d6d538694f87dc66b2e760c7f, type: 3}
+  - {fileID: 1836000203905774020, guid: cdaebcc030df6d647a547212bff60a48, type: 3}
   colorTiles: {fileID: 0}
   doorPrefab: {fileID: 2128766292360619153, guid: 2155235104e744d4da19e05f515c504a,
     type: 3}
