@@ -110,3 +110,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthRegen: 0.1
+  oneUp: {fileID: 4919156281613139436, guid: 48e3dced7b15d164581e2591c76393de, type: 3}

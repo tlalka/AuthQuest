@@ -20,10 +20,11 @@ public class HealthPickUp : MonoBehaviour
             playerHealthBar.GetComponent<HealthBarScript>().HealthRegenerate(healthRegen);
             Instantiate(oneUp,
                 new Vector3(transform.position.x,
-                            transform.position.y + 1.5f,
+                            transform.position.y + 3f,
                             transform.position.z),
                             Quaternion.identity);
+
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
     }
 }

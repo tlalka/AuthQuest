@@ -19,6 +19,7 @@ public class BossScript : MonoBehaviour
 
     void OnDestroy()
     {
+        Debug.Log("boss was killed");
         levelmanager.GetComponent<LevelGenerator>().ClearPathToChest();
     }
 }
