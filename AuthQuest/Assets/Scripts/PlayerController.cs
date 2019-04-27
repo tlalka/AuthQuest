@@ -258,10 +258,26 @@ public class PlayerController : MonoBehaviour
         HUD.GetComponent<HUDScript>().ChangeWeapon(weaponToEquip);
         if (weaponstats.isRange)
         {
+            //if(rangeWeapon) 
+            {
+                Debug.Log("drop ranged weapon");
+                Vector3 position = this.transform.position + new Vector3(5, 5, 0);
+                rangeWeapon.transform.position = position;
+                //Instantiate(rangeWeapon, position, Quaternion.identity);
+                rangeWeapon.gameObject.SetActive(true);
+            }
             rangeWeapon = weaponToEquip;
         }
         else
         {
+            //if (meleeWeapon)
+            {
+                Debug.Log("drop melee weapon");
+                Vector3 position = this.transform.position + new Vector3(5, 5, 0);
+                meleeWeapon.transform.position = position;
+                //Instantiate(meleeWeapon, position, Quaternion.identity);
+                meleeWeapon.gameObject.SetActive(true);
+            }
             meleeWeapon = weaponToEquip;
             //Equipping equ = attackIndicator.GetComponent<Equipping>();
             //equ.ChangeSprite(meleeWeapon.GetComponent<SpriteRenderer>().sprite);
@@ -274,6 +290,8 @@ public class PlayerController : MonoBehaviour
             Debug.Log(attackIndicator.transform.eulerAngles);
             Debug.Log("sprite should change");
         }
+
+        weaponToEquip.gameObject.SetActive(false);
 
     }
 
