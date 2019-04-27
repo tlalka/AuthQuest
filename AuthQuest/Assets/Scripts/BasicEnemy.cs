@@ -19,8 +19,12 @@ public class BasicEnemy : MonoBehaviour
 
     void OnDestroy()
     {
-        Debug.Log("enemy was killed");
-        Vector3 position = this.transform.position;
-        Instantiate(heart, position, Quaternion.identity);
+        int drop = UnityEngine.Random.Range(0, 3);
+        if (drop == 1)
+        {
+            Debug.Log("drop health");
+            Vector3 position = this.transform.position;
+            Instantiate(heart, position, Quaternion.identity);
+        }
     }
 }

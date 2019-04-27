@@ -19,6 +19,7 @@ public class HealthBarScript : MonoBehaviour
         currentScale = 1f;
         bar = transform.Find("Bar");
         bar.Find("BarSprite").GetComponent<SpriteRenderer>().color = Color.green;
+        DeathUI.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -28,8 +29,8 @@ public class HealthBarScript : MonoBehaviour
         if(currentScale <= 0)
         {
             Debug.Log("You are dead!");
+            DeathUI.gameObject.SetActive(true);
             Destroy(player, 2f);
-            //DeathUI.gameObject.SetActive(true);
         }
     }
 
