@@ -434,8 +434,8 @@ public class LevelGenerator : MonoBehaviour
                 int typeOfGuy = UnityEngine.Random.Range(0, enemies.Length - 1);
                 for (int j = 1; j <= numberOfGuys; j++)
                 {
-                    xpos = UnityEngine.Random.Range(rooms[len].xPos, rooms[len].xPos + rooms[len].roomWidth);
-                    ypos = UnityEngine.Random.Range(rooms[len].yPos, rooms[len].yPos + rooms[len].roomHeight); //Spawn them randomly in the room
+                    xpos = UnityEngine.Random.Range(rooms[len].xPos + 1, rooms[len].xPos + rooms[len].roomWidth - 1);
+                    ypos = UnityEngine.Random.Range(rooms[len].yPos + 1, rooms[len].yPos + rooms[len].roomHeight - 1); //Spawn them randomly in the room
                     position = new Vector3Int(xpos, ypos, 0);
                     worldcoord = gridLayout.CellToWorld(position);
                     Instantiate(enemies[typeOfGuy], worldcoord, Quaternion.identity);
