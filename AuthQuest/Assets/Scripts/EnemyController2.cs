@@ -44,7 +44,7 @@ public class EnemyController2 : MonoBehaviour
         {
             transform.position = Vector2.MoveTowards(enemyPosition, playerPosition, Time.deltaTime * 4);
         }
-        player.GetComponent<Rigidbody2D>().Sleep();
+        //player.GetComponent<Rigidbody2D>().Sleep();
         if(lastCollisionPosition != null && Vector2.Distance(enemyPosition, lastCollisionPosition) >= 3)
         {
             enemyRB2D.velocity = Vector2.zero;

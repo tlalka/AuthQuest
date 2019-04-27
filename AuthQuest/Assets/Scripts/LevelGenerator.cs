@@ -414,7 +414,7 @@ public class LevelGenerator : MonoBehaviour
         Vector3 worldcoord;
         GridLayout gridLayout = colorTiles.layoutGrid;
 
-            Debug.Log("generate enemies");
+            Debug.Log("generate objects");
             //spawn one random weapon in one of the middle rooms
             pickone = UnityEngine.Random.Range(0, (weapons.Length - 1));
             GameObject weapontospawn = weapons[pickone];
@@ -431,7 +431,7 @@ public class LevelGenerator : MonoBehaviour
             {
                 len = UnityEngine.Random.Range(1, (rooms.Length - 1));
                 int numberOfGuys = UnityEngine.Random.Range(1, 3);
-                int typeOfGuy = UnityEngine.Random.Range(0, enemies.Length - 1);
+                int typeOfGuy = UnityEngine.Random.Range(0, enemies.Length);
                 for (int j = 1; j <= numberOfGuys; j++)
                 {
                     xpos = UnityEngine.Random.Range(rooms[len].xPos + 1, rooms[len].xPos + rooms[len].roomWidth - 1);
