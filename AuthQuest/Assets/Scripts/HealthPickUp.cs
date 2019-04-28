@@ -12,13 +12,14 @@ public class HealthPickUp : MonoBehaviour
         player = GameObject.Find("Player");
         playerHealthBar = GameObject.Find("HealthBar");
     }
+
+    private void OnLevelLoaded()
+    {
+        Destroy(this);
+    }
+
     private void Update()
     {
-        GameObject LevelManager = GameObject.Find("LevelManager");
-        if (LevelManager.GetComponent<LevelManager>().bosslevel)
-        {
-            Destroy(this);
-        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)

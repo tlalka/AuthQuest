@@ -19,12 +19,21 @@ public class BasicEnemy : MonoBehaviour
 
     void OnDestroy()
     {
-        int drop = UnityEngine.Random.Range(0, 3);
-        if (drop == 1)
+        GameObject LevelManager = GameObject.Find("LevelManager");
+        if (LevelManager.GetComponent<LevelManager>().isShuttingDown)
         {
-            Debug.Log("drop health");
-            Vector3 position = this.transform.position;
-            Instantiate(heart, position, Quaternion.identity);
+            Debug.Log("don't drop");
+            //Destroy(this);
+        }
+        else
+        {
+            int drop = UnityEngine.Random.Range(0, 3);
+            if (drop == 1)
+            {
+                Debug.Log("drop health");
+                Vector3 position = this.transform.position;
+                Instantiate(heart, position, Quaternion.identity);
+            }
         }
     }
 }

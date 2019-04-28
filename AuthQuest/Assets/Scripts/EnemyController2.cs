@@ -67,7 +67,7 @@ public class EnemyController2 : MonoBehaviour
     }
     void OnCollisionStay2D(Collision2D collision)
     {
-        Debug.Log("collision with " + collision.gameObject.name);
+        //Debug.Log("collision with " + collision.gameObject.name);
         if (collision.gameObject.tag == "Player")
         {
             enemyDamage = enemyAttack - player.GetComponent<PlayerStats>().MeleeDefense;

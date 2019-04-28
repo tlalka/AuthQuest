@@ -383,19 +383,23 @@ public class LevelGenerator : MonoBehaviour
         // Set the tile's parent to the board holder.
         //tileInstance.transform.parent = boardHolder.transform;   
 
-        //tiles will not be over-written
-        if (colorTiles.HasTile(position))
+        //if tile will be floor, or already written to, don't write
+        if (tiles[xCoord][yCoord] != TileType.Floor || tiles[xCoord][yCoord] != TileType.Grass || tiles[xCoord][yCoord] != TileType.Sand)
         {
-            //Debug.Log(position);
-        }
-        else
-        {
-            //if tile to write is on top of a floor, don't put it
-            if (tiles[xCoord][yCoord] != TileType.Floor || tiles[xCoord][yCoord] != TileType.Grass || tiles[xCoord][yCoord] != TileType.Sand)
+            if (!colorTiles.HasTile(position))
             {
                 colorTiles.SetTile(position, tile);
             }
+            else //UNLESS current tile is roof and next tile is wall
+            {
+                if(tiles[xCoord][yCoord] == TileType.Roof && tile == wallTile)
+                {
+                    colorTiles.SetTile(position, tile);
+                }
+            }
         }
+        
+        
     }
 
     void RemoveFromArray(int xCoord, int yCoord)
