@@ -105,6 +105,7 @@ public class PlayerController : MonoBehaviour
             movePlayer();
         }
 
+
         if (Input.GetMouseButtonDown(0) && cool1 <= 0)
         {
             CoolBar1.GetComponent<CoolDown>().HealthRegenerate(1);
@@ -117,6 +118,38 @@ public class PlayerController : MonoBehaviour
         {
             Application.Quit();
         }
+    }
+
+    private void movePlayer()
+    {
+
+        float speed;
+
+        if (isSprint)
+
+        {
+            speed = moveSpeed * 2;
+        }
+        else
+        {
+            speed = moveSpeed;
+        }
+
+
+        return save;
+    }
+
+    public void SaveGame()
+    {
+        // 1
+        Save save = CreateSaveGameObject();
+
+        // 2
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Create(Application.persistentDataPath + "/gamesave.json");
+        bf.Serialize(file, save);
+        file.Close();
+        Debug.Log("Game Saved");
     }
 
     private void movePlayer()
