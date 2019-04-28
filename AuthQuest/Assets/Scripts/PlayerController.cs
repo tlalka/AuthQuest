@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
         {
             movePlayer();
         }
-        checkSave();
+
 
         if (Input.GetMouseButtonDown(0) && cool1 <= 0)
         {
@@ -120,16 +120,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private Save CreateSaveGameObject()
+    private void movePlayer()
     {
-        Save save = new Save();
-        for (int i = 0; i < chestNumber.Count; i++)
+
+        float speed;
+
+        if (isSprint)
+
         {
-            save.chestNumber.Add(chestNumber[i]);
-            save.choice.Add(choice[i]);
-            save.success.Add(success[i]);
-            save.itemReceived.Add(itemReceived[i]);
+            speed = moveSpeed * 2;
         }
+        else
+        {
+            speed = moveSpeed;
+        }
+
 
         return save;
     }
@@ -171,14 +176,6 @@ public class PlayerController : MonoBehaviour
         {
             myAnim.SetFloat("lastMoveX", Input.GetAxisRaw("Horizontal"));
             myAnim.SetFloat("lastMoveY", Input.GetAxisRaw("Vertical"));
-        }
-    }
-
-    private void checkSave()
-    {
-        if (Input.GetKeyDown("escape"))
-        {
-            SaveGame();
         }
     }
 
