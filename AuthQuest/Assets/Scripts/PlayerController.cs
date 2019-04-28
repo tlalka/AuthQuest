@@ -61,7 +61,8 @@ public class PlayerController : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-        } else
+        }
+        else
         {
             Debug.Log("destroy player");
             Destroy(gameObject);
@@ -105,7 +106,6 @@ public class PlayerController : MonoBehaviour
             movePlayer();
         }
 
-
         if (Input.GetMouseButtonDown(0) && cool1 <= 0)
         {
             CoolBar1.GetComponent<CoolDown>().HealthRegenerate(1);
@@ -118,38 +118,6 @@ public class PlayerController : MonoBehaviour
         {
             Application.Quit();
         }
-    }
-
-    private void movePlayer()
-    {
-
-        float speed;
-
-        if (isSprint)
-
-        {
-            speed = moveSpeed * 2;
-        }
-        else
-        {
-            speed = moveSpeed;
-        }
-
-
-        return save;
-    }
-
-    public void SaveGame()
-    {
-        // 1
-        Save save = CreateSaveGameObject();
-
-        // 2
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/gamesave.json");
-        bf.Serialize(file, save);
-        file.Close();
-        Debug.Log("Game Saved");
     }
 
     private void movePlayer()
@@ -292,7 +260,8 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void MovePlayer(Vector3 moveto2){
+    public void MovePlayer(Vector3 moveto2)
+    {
         //Debug.Log("set to location");
         moveme = true;
         moveto = moveto2;
@@ -300,7 +269,7 @@ public class PlayerController : MonoBehaviour
 
     public void coolDown()
     {
-        if(cool1 > 0)
+        if (cool1 > 0)
         {
             cool1--;
         }
