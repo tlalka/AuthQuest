@@ -498,7 +498,7 @@ public class LevelGenerator : MonoBehaviour
         colorTiles.SetTile(position, wallTile);
 
         position = new Vector3Int(62, 1, 0);
-        colorTiles.SetTile(position, sandTile);
+        colorTiles.SetTile(position, wallTile);
     }
 
     public void ClearPathToDoor()
