@@ -122,7 +122,7 @@ public class EnemyController2 : MonoBehaviour
 
     void Knockback()
     {
-        enemyRB2D.AddForce(-enemyDirection * 600);
+        enemyRB2D.AddForce(-enemyDirection * 2000);
         lastCollisionPosition = playerPosition;
     }
 
