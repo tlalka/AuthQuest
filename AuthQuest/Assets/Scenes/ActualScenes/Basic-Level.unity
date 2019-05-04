@@ -545,16 +545,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: HUD
       objectReference: {fileID: 0}
-    - target: {fileID: 5039962500152485310, guid: e09c552f8396fb04f8385bd363d3261b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5039962500152485310, guid: e09c552f8396fb04f8385bd363d3261b,
-        type: 3}
-      propertyPath: m_Name
-      value: Image
-      objectReference: {fileID: 0}
     - target: {fileID: 460462721115814655, guid: e09c552f8396fb04f8385bd363d3261b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -684,6 +674,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039962500152485310, guid: e09c552f8396fb04f8385bd363d3261b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039962500152485310, guid: e09c552f8396fb04f8385bd363d3261b,
+        type: 3}
+      propertyPath: m_Name
+      value: Image
       objectReference: {fileID: 0}
     - target: {fileID: 5039962500152485310, guid: e09c552f8396fb04f8385bd363d3261b,
         type: 3}
@@ -2230,7 +2230,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 28d25327f132c4209be1e908ebd957ae, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15433,6 +15433,7 @@ MonoBehaviour:
   OGobj: 0
   currentColor: blue
   items: []
+  isShuttingDown: 0
   bosses:
   - {fileID: 2051319970, guid: 091652a2ccdb640758686a46430b5986, type: 3}
   - {fileID: 1395773998, guid: d7ec7de326daa450eab3a690a7b31214, type: 3}
