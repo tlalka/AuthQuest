@@ -12,6 +12,7 @@ TagManager:
   - Enemy
   - Weapon
   - Virus1
+  - Boss
   layers:
   - Default
   - TransparentFX

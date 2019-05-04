@@ -61,7 +61,8 @@ public class PlayerController : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-        } else
+        }
+        else
         {
             Debug.Log("destroy player");
             Destroy(gameObject);
@@ -104,7 +105,6 @@ public class PlayerController : MonoBehaviour
         {
             movePlayer();
         }
-        checkSave();
 
         if (Input.GetMouseButtonDown(0) && cool1 <= 0)
         {
@@ -118,33 +118,6 @@ public class PlayerController : MonoBehaviour
         {
             Application.Quit();
         }
-    }
-
-    private Save CreateSaveGameObject()
-    {
-        Save save = new Save();
-        for (int i = 0; i < chestNumber.Count; i++)
-        {
-            save.chestNumber.Add(chestNumber[i]);
-            save.choice.Add(choice[i]);
-            save.success.Add(success[i]);
-            save.itemReceived.Add(itemReceived[i]);
-        }
-
-        return save;
-    }
-
-    public void SaveGame()
-    {
-        // 1
-        Save save = CreateSaveGameObject();
-
-        // 2
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/gamesave.json");
-        bf.Serialize(file, save);
-        file.Close();
-        Debug.Log("Game Saved");
     }
 
     private void movePlayer()
@@ -171,14 +144,6 @@ public class PlayerController : MonoBehaviour
         {
             myAnim.SetFloat("lastMoveX", Input.GetAxisRaw("Horizontal"));
             myAnim.SetFloat("lastMoveY", Input.GetAxisRaw("Vertical"));
-        }
-    }
-
-    private void checkSave()
-    {
-        if (Input.GetKeyDown("escape"))
-        {
-            SaveGame();
         }
     }
 
@@ -295,7 +260,8 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void MovePlayer(Vector3 moveto2){
+    public void MovePlayer(Vector3 moveto2)
+    {
         //Debug.Log("set to location");
         moveme = true;
         moveto = moveto2;
@@ -303,7 +269,7 @@ public class PlayerController : MonoBehaviour
 
     public void coolDown()
     {
-        if(cool1 > 0)
+        if (cool1 > 0)
         {
             cool1--;
         }

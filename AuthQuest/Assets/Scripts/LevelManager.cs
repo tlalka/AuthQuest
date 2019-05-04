@@ -13,6 +13,7 @@ public class LevelManager : MonoBehaviour
     public bool OGobj;
     public string currentColor;
     public GameObject[] items;
+    public bool isShuttingDown;
 
     public GameObject[] bosses;
 
@@ -69,6 +70,7 @@ public class LevelManager : MonoBehaviour
         {
             Startup();
         }
+        isShuttingDown = false;
     }
 
     void BossStartup()
@@ -168,7 +170,7 @@ public class LevelManager : MonoBehaviour
                 break;
             case "pink":
                 color = "pink";
-                NewColor = Color.white;
+                NewColor = pink;
                 break;
             case "purple":
                 color = "purple";
@@ -215,7 +217,7 @@ public class LevelManager : MonoBehaviour
                     break;
                 case 5:
                     color = "pink";
-                    NewColor = Color.white;
+                    NewColor = pink;
                     break;
                 case 6:
                     color = "purple";
@@ -258,6 +260,7 @@ public class LevelManager : MonoBehaviour
 
     public void LoadNewLevel(string color)
     {
+        isShuttingDown = true;
         loading.GetComponent<LoadingScreen>().renOn();
         player.GetComponent<PlayerController>().canMove = false;
         for (int i = 0; i < doors.Length; i++)

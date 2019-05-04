@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 8529801113814629607}
   m_Layer: 0
   m_Name: Spyware
-  m_TagString: Enemy
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -282,6 +282,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   withinRangeOfPlayer: 0
+  enemyAttack: 0
+  enemyHealth: 1
+  enemySpeed: 0
 --- !u!1 &6410861417873562919
 GameObject:
   m_ObjectHideFlags: 0
