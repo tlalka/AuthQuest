@@ -5,6 +5,8 @@ using UnityEngine;
 public class slashing : MonoBehaviour
 {
     public bool isAttacking;
+public CoolDown isCoolin;
+   
     protected Coroutine attackRoutine;
     public Animator myanimator;
 
@@ -20,6 +22,11 @@ public class slashing : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+        if (isCoolin.isCoolingDown) {
+
+        } 
+        if (!isCoolin.isCoolingDown) {
         if (Input.GetMouseButtonDown(0))
         {
             attackRoutine = StartCoroutine(Attack());
@@ -27,8 +34,9 @@ public class slashing : MonoBehaviour
 
         }
     }
+    }
 
-    private IEnumerator Attack()
+        private IEnumerator Attack()
     {
         Debug.Log("Attack");
         if (!isAttacking)

@@ -10,7 +10,8 @@ public class CoolDown : MonoBehaviour
     float currentScale;
     GameObject player;
     GameObject theCamera;
-    public GameObject DeathUI;
+   public bool isCoolingDown;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -20,6 +21,7 @@ public class CoolDown : MonoBehaviour
         currentScale = 1f;
         bar = transform.Find("Bar");
         bar.Find("BarSprite").GetComponent<SpriteRenderer>().color = Color.white;
+        isCoolingDown = false;
     }
 
     private void Update()
@@ -35,7 +37,6 @@ public class CoolDown : MonoBehaviour
             currentScale = 1;
         }
     }
-
     public void TakeDamage(float damageValueNormalized)
     {
         bar.localScale = new Vector3(currentScale - damageValueNormalized, 1f);
@@ -43,6 +44,9 @@ public class CoolDown : MonoBehaviour
        // Debug.Log("currentScale = " + currentScale);
        // Debug.Log((currentScale - damageValueNormalized) + " damage taken");
         currentScale = bar.localScale.x;
+        if(currentScale == 1) {
+            isCoolingDown = true;
+        }
         if(currentScale <= .3)
         {
             bar.Find("BarSprite").GetComponent<SpriteRenderer>().color = Color.white;
@@ -51,8 +55,9 @@ public class CoolDown : MonoBehaviour
         {
             bar.Find("BarSprite").GetComponent<SpriteRenderer>().color = Color.white;
         }
-        if(currentScale <= 0)
+        if(currentScale == 0)
         {
+            isCoolingDown = false;
             bar.localScale = new Vector3(0f, 1f);
             //Destroy(player);
         }
@@ -68,6 +73,9 @@ public class CoolDown : MonoBehaviour
             currentScale = 0;
         }
 
+        if (currentScale == 1) {
+            isCoolingDown = true;
+        }
         currentScale = bar.localScale.x;
         if (currentScale <= .3)
         {

@@ -105,15 +105,18 @@ public class PlayerController : MonoBehaviour
         {
             movePlayer();
         }
-
+ 
         if (Input.GetMouseButtonDown(0) && cool1 <= 0)
         {
             CoolBar1.GetComponent<CoolDown>().HealthRegenerate(1);
             cool1 = meleeWeapon.GetComponent<WeaponStats>().weaponSpeed;
-            attackRoutine = StartCoroutine(Attack());
+            /* 
+            attackRoutine = StartCoroutine(Attack());*/
             // StartCoroutine(Attack());
 
         }
+
+
         if (Input.GetKey("escape"))
         {
             Application.Quit();
@@ -146,7 +149,7 @@ public class PlayerController : MonoBehaviour
             myAnim.SetFloat("lastMoveY", Input.GetAxisRaw("Vertical"));
         }
     }
-
+/*
     private IEnumerator Attack()
     {
         Debug.Log("Attack");
@@ -173,6 +176,7 @@ public class PlayerController : MonoBehaviour
             //myanimator.SetBool("attack", isAttacking);
         }
     }
+    */
     private void SprintCheck()
     {
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
