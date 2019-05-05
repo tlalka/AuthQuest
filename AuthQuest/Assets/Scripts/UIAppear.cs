@@ -43,7 +43,7 @@ public class UIAppear : MonoBehaviour
     public int chest1choice = 1;
     public bool chest1success = true;
     public string chest1item = "Armadyl Godsword";
-
+    public GameObject levelmanager;
     //up down down up left right left up
 
     void Awake()
@@ -71,7 +71,8 @@ public class UIAppear : MonoBehaviour
         successscreen = GameObject.Find("Successscreen");
         failurescreen = GameObject.Find("Failurescreen");
         //Debug.Log(Image);
-      
+        levelmanager = GameObject.FindWithTag("levelM");
+
     }
 
     void Update()
@@ -208,6 +209,8 @@ public class UIAppear : MonoBehaviour
         isCrackChest = true;
         chest1item = "Armadyl Godsword";
         chest1success = true;
+        levelmanager = GameObject.FindWithTag("levelM");
+        levelmanager.GetComponent<LevelGenerator>().ClearPathToDoor();
     }
 
     public void clickForceLock()
@@ -231,7 +234,8 @@ public class UIAppear : MonoBehaviour
         }
 
         //Image.gameObject.SetActive(false);
-
+        levelmanager = GameObject.FindWithTag("levelM");
+        levelmanager.GetComponent<LevelGenerator>().ClearPathToDoor();
         Image = GameObject.Find("Image");
         Image.gameObject.transform.position = new Vector3(1000, 0, 0);
         Destroy(chest);
