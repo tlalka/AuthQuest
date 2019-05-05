@@ -383,11 +383,11 @@ public class LevelGenerator : MonoBehaviour
         // Set the tile's parent to the board holder.
         //tileInstance.transform.parent = boardHolder.transform;   
 
-        //if tile will be floor, or already written to, don't write
-        if (tiles[xCoord][yCoord] != TileType.Floor || tiles[xCoord][yCoord] != TileType.Grass || tiles[xCoord][yCoord] != TileType.Sand)
+        //if tile will be floor, or already written to, don't write UNLESS tile to write is a floor
+        if ((tiles[xCoord][yCoord] != TileType.Floor || tiles[xCoord][yCoord] != TileType.Grass || tiles[xCoord][yCoord] != TileType.Sand))
         {
-            if (!colorTiles.HasTile(position))
-            {
+            if (!colorTiles.HasTile(position) || (tile == floorTile || tile == grassTile || tile == sandTile))//if there isnt already a tile there, but the tile is not a floor type
+            {//this means if the tile to be added IS a floor, we will put it whether or not current tile is taken
                 colorTiles.SetTile(position, tile);
             }
             else //UNLESS current tile is roof and next tile is wall
