@@ -24,55 +24,58 @@ public class HealthBarScript : MonoBehaviour
 
     private void Update()
     {
-        transform.position = theCamera.transform.position + offset;
+        //transform.position = theCamera.transform.position + offset;
 
-        if(currentScale <= 0)
+        if (currentScale <= 0)
         {
             Debug.Log("You are dead!");
             DeathUI.gameObject.SetActive(true);
             Destroy(player, 2f);
+            Time.timeScale = 0f;
+            bar.localScale = new Vector3(0f, 1f, 1f);
+            currentScale = bar.localScale.x;
         }
     }
 
     public void TakeDamage(int damageValue)
     {
-        if(!player.GetComponent<PlayerController>().CheckIfInvincible())
+        if (!player.GetComponent<PlayerController>().CheckIfInvincible())
         {
-        float damageValueNormalized = ((float)damageValue)/((float)(player.GetComponent<PlayerStats>().Health));
-        bar.localScale = new Vector3(currentScale - damageValueNormalized, 1f);
-        //Debug.Log("damage value = " + damageValueNormalized);
-       // Debug.Log("currentScale = " + currentScale);
-       // Debug.Log((currentScale - damageValueNormalized) + " damage taken");
-        currentScale = bar.localScale.x;
-        if(currentScale <= .3)
-        {
-            bar.Find("BarSprite").GetComponent<SpriteRenderer>().color = Color.red;
-        }
-        else
-        {
-            bar.Find("BarSprite").GetComponent<SpriteRenderer>().color = Color.green;
-        }
-        if(currentScale <= 0)
-        {
-            bar.localScale = new Vector3(0f, 1f);
-            //Destroy(player);
-        }
+            float damageValueNormalized = ((float)damageValue) / ((float)(player.GetComponent<PlayerStats>().Health));
+            bar.localScale = new Vector3(currentScale - damageValueNormalized, 1f, 1f);
+            Debug.Log("damage value = " + damageValueNormalized);
+            Debug.Log("currentScale = " + currentScale);
+            Debug.Log((currentScale - damageValueNormalized) + " damage taken");
+            currentScale = bar.localScale.x;
+            if (currentScale <= .3)
+            {
+                bar.Find("BarSprite").GetComponent<SpriteRenderer>().color = Color.red;
+            }
+            else
+            {
+                bar.Find("BarSprite").GetComponent<SpriteRenderer>().color = Color.green;
+            }
+            if (currentScale <= 0)
+            {
+                bar.localScale = new Vector3(0f, 1f);
+                //Destroy(player);
+            }
         }
     }
 
     public void HealthRegenerate(int regenValue)
     {
-        float regenValueNormalized = ((float)regenValue)/((float)(player.GetComponent<PlayerStats>().Health));
-        if((currentScale + regenValueNormalized) > 1f)
+        float regenValueNormalized = ((float)regenValue) / ((float)(player.GetComponent<PlayerStats>().Health));
+        if ((currentScale + regenValueNormalized) > 1f)
         {
             bar.localScale = new Vector3(1f, 1f);
         }
         else
         {
-        bar.localScale = new Vector3(currentScale + regenValueNormalized, 1f);
-        //Debug.Log("regenValue = " + regenValue);
-        //Debug.Log("(float)regenValue = " + (float)regenValue);
-        //Debug.Log("health restored " + regenValueNormalized);
+            bar.localScale = new Vector3(currentScale + regenValueNormalized, 1f);
+            //Debug.Log("regenValue = " + regenValue);
+            //Debug.Log("(float)regenValue = " + (float)regenValue);
+            //Debug.Log("health restored " + regenValueNormalized);
         }
         currentScale = bar.localScale.x;
         if (currentScale <= .3)
