@@ -73,9 +73,9 @@ public class HealthBarScript : MonoBehaviour
         else
         {
             bar.localScale = new Vector3(currentScale + regenValueNormalized, 1f);
-            //Debug.Log("regenValue = " + regenValue);
-            //Debug.Log("(float)regenValue = " + (float)regenValue);
-            //Debug.Log("health restored " + regenValueNormalized);
+            Debug.Log("regenValue = " + regenValue);
+            Debug.Log("(float)regenValue = " + (float)regenValue);
+            Debug.Log("health restored " + regenValueNormalized);
         }
         currentScale = bar.localScale.x;
         if (currentScale <= .3)
