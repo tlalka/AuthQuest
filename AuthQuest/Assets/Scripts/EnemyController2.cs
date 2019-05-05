@@ -38,7 +38,7 @@ public class EnemyController2 : MonoBehaviour
         enemyHealthBar = transform.GetChild(0).gameObject;
         enemyAttack = 11 + player.GetComponent<PlayerStats>().currentLevel;
         enemyHealth = player.GetComponent<PlayerStats>().currentLevel;
-        enemySpeed = 2;
+        //enemySpeed = 2;
     }
 
     // Update is called once per frame

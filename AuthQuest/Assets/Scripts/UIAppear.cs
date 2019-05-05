@@ -43,7 +43,7 @@ public class UIAppear : MonoBehaviour
     public int chest1choice = 1;
     public bool chest1success = true;
     public string chest1item = "Armadyl Godsword";
-
+    public GameObject levelmanager;
     //up down down up left right left up
 
     void Awake()
@@ -71,7 +71,8 @@ public class UIAppear : MonoBehaviour
         successscreen = GameObject.Find("Successscreen");
         failurescreen = GameObject.Find("Failurescreen");
         //Debug.Log(Image);
-      
+        levelmanager = GameObject.FindWithTag("levelM");
+
     }
 
     void Update()
@@ -173,7 +174,7 @@ public class UIAppear : MonoBehaviour
             //Image = GameObject.FindGameObjectWithTag("Image");
             //Image = GameObject.Find("Image");
             Image = GameObject.Find("Image");
-            Image.gameObject.transform.position = new Vector3(0, 0, 0);
+            Image.gameObject.transform.position = new Vector3(700, 300, 0);
             Debug.Log(Image);
             Debug.Log("You have touched it!");
             //Image.gameObject.SetActive(true);
@@ -202,12 +203,14 @@ public class UIAppear : MonoBehaviour
         chest1choice = 1;
         //Image.gameObject.SetActive(false);
         Image = GameObject.Find("Image");
-        Image.gameObject.transform.position = new Vector3(1000, 0, 0);
+        Image.gameObject.transform.position = new Vector3(-1100, -1100, 0);
         Crackchest.gameObject.SetActive(true);
         Debug.Log("successfully opened Crack Chest interface");
         isCrackChest = true;
         chest1item = "Armadyl Godsword";
         chest1success = true;
+        levelmanager = GameObject.FindWithTag("levelM");
+        levelmanager.GetComponent<LevelGenerator>().ClearPathToDoor();
     }
 
     public void clickForceLock()
@@ -231,9 +234,10 @@ public class UIAppear : MonoBehaviour
         }
 
         //Image.gameObject.SetActive(false);
-
+        levelmanager = GameObject.FindWithTag("levelM");
+        levelmanager.GetComponent<LevelGenerator>().ClearPathToDoor();
         Image = GameObject.Find("Image");
-        Image.gameObject.transform.position = new Vector3(1000, 0, 0);
+        Image.gameObject.transform.position = new Vector3(-1100, -1100, 0);
         Destroy(chest);
         Time.timeScale = 1f;
     }

@@ -18,7 +18,7 @@ public class EnemyHealthBar : MonoBehaviour
     {
         enemy = transform.parent.gameObject;
         //theCamera = GameObject.Find("Main Camera");
-        transform.position = new Vector3(enemy.transform.position.x, enemy.transform.position.y + 1);
+        transform.position = new Vector3(enemy.transform.position.x, enemy.transform.position.y + 2);
         offset = transform.position - enemy.transform.position;
         //offset.x = transform.position.x - enemy.transform.position.x;
         //offset.y = transform.position.y - (enemy.transform.position.y + 1);
