@@ -23,6 +23,7 @@ public class EnemyController : MonoBehaviour
     public int enemyAttack;
     public int enemyHealth = 1;
     public int enemySpeed;
+    private float maximumSpeed = 7f;
     //public Component enemyStats;
     
     //PlayerStats playerStats;
@@ -41,13 +42,13 @@ public class EnemyController : MonoBehaviour
         if(gameObject.tag == "Boss") {
         enemyAttack = 12 + player.GetComponent<PlayerStats>().currentLevel;
         enemyHealth = 4 + player.GetComponent<PlayerStats>().currentLevel * 3;
-        enemySpeed = 2;
+        //enemySpeed = 2;
         }
         else 
         {
         enemyAttack = 10 + player.GetComponent<PlayerStats>().currentLevel;
         enemyHealth = 1 + player.GetComponent<PlayerStats>().currentLevel;
-        enemySpeed = 3;
+        //enemySpeed = 3;
         }
         
     }
@@ -61,6 +62,7 @@ public class EnemyController : MonoBehaviour
         if (withinRangeOfPlayer)
         {
             enemyRB2D.AddForce((playerPosition - enemyPosition) * 3);
+            CheckMaxSpeed();
         }
         //player.GetComponent<Rigidbody2D>().Sleep();
     }
@@ -132,6 +134,22 @@ public class EnemyController : MonoBehaviour
         Vector2 velocity = enemyRB2D.velocity;
 
         enemyRB2D.AddForce(-velocity * 300);
+    }
+
+    void CheckMaxSpeed()
+    {
+        float speed = Vector3.Magnitude(enemyRB2D.velocity);
+        if(speed > maximumSpeed)
+        {
+            Debug.Log("current speed: " + speed);
+            float brakeSpeed = speed - maximumSpeed;
+            Debug.Log("brakeSpeed = " + brakeSpeed);
+            Vector2 normalizedVelocity = enemyRB2D.velocity.normalized;
+            Debug.Log("normalizedVelocity = " + normalizedVelocity);
+            Vector2 brakeVelocity = normalizedVelocity * brakeSpeed;
+            Debug.Log("brakeVelocity = " + brakeVelocity);
+            enemyRB2D.AddForce(-brakeVelocity);
+        }
     }
 
 
