@@ -24,7 +24,7 @@ public class HealthBarScript : MonoBehaviour
 
     private void Update()
     {
-        transform.position = theCamera.transform.position + offset;
+        //transform.position = theCamera.transform.position + offset;
 
         if(currentScale <= 0)
         {
