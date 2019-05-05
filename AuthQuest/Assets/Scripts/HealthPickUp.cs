@@ -28,6 +28,7 @@ public class HealthPickUp : MonoBehaviour
         playerHealthBar = GameObject.Find("HealthBar");
         if (collision.gameObject.tag == "Player")
         {
+            Debug.Log("health pickup triggered");
             playerHealthBar.GetComponent<HealthBarScript>().HealthRegenerate(healthRegen);
             Debug.Log("healthRegen = " + healthRegen);
             Instantiate(oneUp,

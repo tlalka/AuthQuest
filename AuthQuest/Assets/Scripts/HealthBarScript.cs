@@ -57,7 +57,7 @@ public class HealthBarScript : MonoBehaviour
             }
             if (currentScale <= 0)
             {
-                bar.localScale = new Vector3(0f, 1f);
+                bar.localScale = new Vector3(0f, 1f, 1f);
                 //Destroy(player);
             }
         }
@@ -65,31 +65,21 @@ public class HealthBarScript : MonoBehaviour
 
     public void HealthRegenerate(int regenValue)
     {
+        Debug.Log("regen start");
         float regenValueNormalized = ((float)regenValue) / ((float)(player.GetComponent<PlayerStats>().Health));
+
         if ((currentScale + regenValueNormalized) > 1f)
         {
-            bar.localScale = new Vector3(1f, 1f);
+            bar.localScale = new Vector3(1f, 1f, 1f);
         }
         else
         {
-            bar.localScale = new Vector3(currentScale + regenValueNormalized, 1f);
+            Debug.Log("add that health");
+            bar.localScale = new Vector3(currentScale + regenValueNormalized, 1f, 1f);
             Debug.Log("regenValue = " + regenValue);
             Debug.Log("(float)regenValue = " + (float)regenValue);
             Debug.Log("health restored " + regenValueNormalized);
         }
         currentScale = bar.localScale.x;
-        if (currentScale <= .3)
-        {
-            bar.Find("BarSprite").GetComponent<SpriteRenderer>().color = Color.red;
-        }
-        else
-        {
-            bar.Find("BarSprite").GetComponent<SpriteRenderer>().color = Color.green;
-        }
-        if (currentScale <= 0)
-        {
-            bar.localScale = new Vector3(0f, 1f);
-            //Destroy(player);
-        }
     }
 }
