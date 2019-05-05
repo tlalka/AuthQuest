@@ -2123,6 +2123,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 569161750341726970, guid: f6c566aa7044ad143a7784e035b1643c,
+        type: 3}
+      propertyPath: rangeWeapon
+      value: 
+      objectReference: {fileID: 3239045045651483334, guid: 17176f3d047ba774f8db15d525e521e3,
+        type: 3}
+    - target: {fileID: 569161750341726970, guid: f6c566aa7044ad143a7784e035b1643c,
+        type: 3}
+      propertyPath: meleeWeapon
+      value: 
+      objectReference: {fileID: 7589663866863542198, guid: babbe6d1d3a6f334db564d46ef64e80a,
+        type: 3}
+    - target: {fileID: 569161750341726970, guid: f6c566aa7044ad143a7784e035b1643c,
+        type: 3}
+      propertyPath: isOpened
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 569161749781234180, guid: f6c566aa7044ad143a7784e035b1643c,
+        type: 3}
+      propertyPath: DeathUI
+      value: 
+      objectReference: {fileID: 1229509281}
+    - target: {fileID: 569161749781234182, guid: f6c566aa7044ad143a7784e035b1643c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1586696502, guid: 9722aa3ea4fd9034f995f2f3f75cc6c5, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2171,30 +2198,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 569161750341726970, guid: f6c566aa7044ad143a7784e035b1643c,
-        type: 3}
-      propertyPath: rangeWeapon
-      value: 
-      objectReference: {fileID: 3239045045651483334, guid: 17176f3d047ba774f8db15d525e521e3,
-        type: 3}
-    - target: {fileID: 569161750341726970, guid: f6c566aa7044ad143a7784e035b1643c,
-        type: 3}
-      propertyPath: meleeWeapon
-      value: 
-      objectReference: {fileID: 7589663866863542198, guid: babbe6d1d3a6f334db564d46ef64e80a,
-        type: 3}
-    - target: {fileID: 569161750341726970, guid: f6c566aa7044ad143a7784e035b1643c,
-        type: 3}
-      propertyPath: isOpened
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 569161749781234180, guid: f6c566aa7044ad143a7784e035b1643c,
-        type: 3}
-      propertyPath: DeathUI
-      value: 
-      objectReference: {fileID: 1229509281}
-    - target: {fileID: 569161749781234182, guid: f6c566aa7044ad143a7784e035b1643c,
-        type: 3}
+    - target: {fileID: 1675828262, guid: 9722aa3ea4fd9034f995f2f3f75cc6c5, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
