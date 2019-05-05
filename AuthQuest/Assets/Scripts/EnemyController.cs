@@ -62,7 +62,7 @@ public class EnemyController : MonoBehaviour
         if (withinRangeOfPlayer)
         {
             enemyRB2D.AddForce((playerPosition - enemyPosition) * 3);
-            CheckMaxSpeed();
+            //CheckMaxSpeed();
         }
         //player.GetComponent<Rigidbody2D>().Sleep();
     }
