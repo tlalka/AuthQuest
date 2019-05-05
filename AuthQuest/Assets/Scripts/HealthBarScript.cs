@@ -31,6 +31,9 @@ public class HealthBarScript : MonoBehaviour
             Debug.Log("You are dead!");
             DeathUI.gameObject.SetActive(true);
             Destroy(player, 2f);
+            Time.timeScale = 0f;
+            bar.localScale = new Vector3(0f, 1f, 1f);
+            currentScale = bar.localScale.x;
         }
     }
 
@@ -39,10 +42,10 @@ public class HealthBarScript : MonoBehaviour
         if (!player.GetComponent<PlayerController>().CheckIfInvincible())
         {
             float damageValueNormalized = ((float)damageValue) / ((float)(player.GetComponent<PlayerStats>().Health));
-            bar.localScale = new Vector3(currentScale - damageValueNormalized, 1f);
-            //Debug.Log("damage value = " + damageValueNormalized);
-            // Debug.Log("currentScale = " + currentScale);
-            // Debug.Log((currentScale - damageValueNormalized) + " damage taken");
+            bar.localScale = new Vector3(currentScale - damageValueNormalized, 1f, 1f);
+            Debug.Log("damage value = " + damageValueNormalized);
+            Debug.Log("currentScale = " + currentScale);
+            Debug.Log((currentScale - damageValueNormalized) + " damage taken");
             currentScale = bar.localScale.x;
             if (currentScale <= .3)
             {
