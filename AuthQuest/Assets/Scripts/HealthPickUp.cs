@@ -2,8 +2,8 @@
 
 public class HealthPickUp : MonoBehaviour
 {
-    GameObject player;
-    GameObject playerHealthBar;
+    public GameObject player;
+    public GameObject playerHealthBar;
     private int healthRegen = 20;
     public GameObject oneUp;
 
@@ -24,10 +24,13 @@ public class HealthPickUp : MonoBehaviour
 
       void OnCollisionEnter2D(Collision2D collision)
     {
+        player = GameObject.Find("Player");
+        playerHealthBar = GameObject.Find("HealthBar");
         if (collision.gameObject.tag == "Player")
         {
+            Debug.Log("health pickup triggered");
             playerHealthBar.GetComponent<HealthBarScript>().HealthRegenerate(healthRegen);
-            //Debug.Log("healthRegen = " + healthRegen);
+            Debug.Log("healthRegen = " + healthRegen);
             Instantiate(oneUp,
                 new Vector3(transform.position.x,
                             transform.position.y + 3f,
