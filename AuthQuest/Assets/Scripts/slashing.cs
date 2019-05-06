@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class slashing : MonoBehaviour
 {
+    public bool MayAttack;
     public bool isAttacking;
     protected Coroutine attackRoutine;
     public Animator myanimator;
+     CoolItDownBro attackstopper;
 
     // Start is called before the first frame update
     void Start()
     {
+        MayAttack = true;
         isAttacking = false;
         myanimator.SetBool("slashing", isAttacking);
         myanimator = GetComponent<Animator>();
@@ -20,6 +23,11 @@ public class slashing : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // this code is not letting player attack!
+        if (attackstopper.BarAmount > 0) {
+            MayAttack = false;
+        } else {MayAttack = true;
+        }
         if (Input.GetMouseButtonDown(0))
         {
             attackRoutine = StartCoroutine(Attack());
@@ -30,12 +38,15 @@ public class slashing : MonoBehaviour
 
     private IEnumerator Attack()
     {
-        Debug.Log("Attack");
-        if (!isAttacking)
-        {
+        if (MayAttack) {
+
+        
+            Debug.Log("Attack");
+            if (!isAttacking)
+            {
 
             isAttacking = true;
-        Debug.Log("attacked");
+            Debug.Log("attacked");
 
             myanimator.SetBool("slashing", isAttacking);
 
@@ -44,6 +55,9 @@ public class slashing : MonoBehaviour
             //Debug.Log("Attack done");
 
             StopAttack();
+            }
+        } else {
+
         }
     }
     public void StopAttack()
