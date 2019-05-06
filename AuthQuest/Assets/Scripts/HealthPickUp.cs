@@ -22,7 +22,7 @@ public class HealthPickUp : MonoBehaviour
     {
     }
 
-      void OnCollisionEnter2D(Collision2D collision)
+    /*   void OnCollisionEnter2D(Collision2D collision)
     {
         player = GameObject.Find("Player");
         playerHealthBar = GameObject.Find("HealthBar");
@@ -39,10 +39,10 @@ public class HealthPickUp : MonoBehaviour
 
             Destroy(gameObject);
         }
-    }
+    } */
     
 
-    /*  void OnTriggerEnter2D(Collider2D collision)
+      void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
@@ -57,5 +57,5 @@ public class HealthPickUp : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    */
+    
 }
