@@ -224,43 +224,45 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("equipped weapon");
         WeaponStats weaponstats = weaponToEquip.GetComponent<WeaponStats>();
+
         HUD.GetComponent<HUDScript>().ChangeWeapon(weaponToEquip);
         if (weaponstats.isRange)
         {
-            Debug.Log("drop range weapon1");
-            Vector3 position = this.transform.position + new Vector3(5, 5, 0);
-            rangeWeapon.transform.position = position;
-            Debug.Log("drop range weapon2");
-            //Instantiate(rangeWeapon, position, Quaternion.identity);
-            rangeWeapon.gameObject.SetActive(true);
-            rangeWeapon.GetComponent<WeaponStats>().unequipped();
+            //if(rangeWeapon) 
+            {
+                Debug.Log("drop ranged weapon");
+                Vector3 position = this.transform.position + new Vector3(5, 5, 0);
+                rangeWeapon.transform.position = position;
+                //Instantiate(rangeWeapon, position, Quaternion.identity);
+                rangeWeapon.gameObject.SetActive(true);
+            }
             rangeWeapon = weaponToEquip;
-            Debug.Log("drop range weapon3");
-            rangeWeapon.GetComponent<WeaponStats>().equipped();
-            weaponToEquip.gameObject.SetActive(false);
-            Debug.Log("drop range weapon4");
         }
         else
         {
-            Debug.Log("drop melee weapon");
-            Vector3 position = this.transform.position + new Vector3(5, 5, 0);
-            meleeWeapon.transform.position = position;
-           //Instantiate(meleeWeapon, position, Quaternion.identity);
-            meleeWeapon.gameObject.SetActive(true);
-            meleeWeapon.GetComponent<WeaponStats>().unequipped();
+            //if (meleeWeapon)
+            {
+                Debug.Log("drop melee weapon");
+                Vector3 position = this.transform.position + new Vector3(5, 5, 0);
+                meleeWeapon.transform.position = position;
+                //Instantiate(meleeWeapon, position, Quaternion.identity);
+                meleeWeapon.gameObject.SetActive(true);
+            }
             meleeWeapon = weaponToEquip;
-            meleeWeapon.GetComponent<WeaponStats>().equipped();
-            weaponToEquip.gameObject.SetActive(false);
-
+            //Equipping equ = attackIndicator.GetComponent<Equipping>();
+            //equ.ChangeSprite(meleeWeapon.GetComponent<SpriteRenderer>().sprite);
             Sprite newSprite = meleeWeapon.GetComponent<SpriteRenderer>().sprite;
             attackIndicator.GetComponent<Equipping>().ChangeSprite(newSprite);
             attackIndicator.transform.localRotation = meleeWeapon.GetComponent<WeaponStats>().rotation;
             attackIndicator.transform.localScale = meleeWeapon.GetComponent<WeaponStats>().scale / 1.5F;
 
-            //Debug.Log(meleeWeapon.GetComponent<WeaponStats>().rotation);
-            //Debug.Log(attackIndicator.transform.eulerAngles);
-            //Debug.Log("sprite should change");
+            Debug.Log(meleeWeapon.GetComponent<WeaponStats>().rotation);
+            Debug.Log(attackIndicator.transform.eulerAngles);
+            Debug.Log("sprite should change");
         }
+
+        weaponToEquip.gameObject.SetActive(false);
+
     }
 
     public void MovePlayer(Vector3 moveto2)

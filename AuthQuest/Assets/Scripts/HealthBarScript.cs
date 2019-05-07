@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HealthBarScript : MonoBehaviour
 {
@@ -28,12 +29,14 @@ public class HealthBarScript : MonoBehaviour
 
         if (currentScale <= 0)
         {
-            Debug.Log("You are dead!");
-            DeathUI.gameObject.SetActive(true);
-            Destroy(player, 2f);
-            Time.timeScale = 0f;
-            bar.localScale = new Vector3(0f, 1f, 1f);
-            currentScale = bar.localScale.x;
+            //Debug.Log("You are dead!");
+            //DeathUI.gameObject.SetActive(true);
+            //Destroy(player, 2f);
+            //Time.timeScale = 0f;
+            //bar.localScale = new Vector3(0f, 1f, 1f);
+            //currentScale = bar.localScale.x;
+
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
         }
     }
 

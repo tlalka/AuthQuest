@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class WeaponStats : MonoBehaviour
 {
@@ -63,14 +62,5 @@ public class WeaponStats : MonoBehaviour
                 break;
         }
         
-    }
-
-    public void equipped()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
-    public void unequipped()
-    {
-        SceneManager.MoveGameObjectToScene(this.gameObject, SceneManager.GetActiveScene());
     }
 }

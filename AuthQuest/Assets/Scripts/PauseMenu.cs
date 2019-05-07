@@ -49,6 +49,8 @@ public class PauseMenu : MonoBehaviour
         {
             goldAmount = 5,
             playerPosition = playerPosition,
+            chestMethod = 1,
+            getItem = false,
         };
         string json = JsonUtility.ToJson(saveObject);
         File.WriteAllText(Application.dataPath + "/save.json", json);
@@ -67,5 +69,14 @@ public class PauseMenu : MonoBehaviour
     {
         public int goldAmount;
         public Vector3 playerPosition;
+        public bool getItem;
+        public int chestMethod;
+    }
+
+    public void Quit()
+    {
+        Time.timeScale = 1f;
+        Debug.Log("Quit!");
+        Application.Quit();
     }
 }
