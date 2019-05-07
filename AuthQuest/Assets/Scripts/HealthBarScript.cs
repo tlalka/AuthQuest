@@ -35,7 +35,13 @@ public class HealthBarScript : MonoBehaviour
             //Time.timeScale = 0f;
             //bar.localScale = new Vector3(0f, 1f, 1f);
             //currentScale = bar.localScale.x;
-
+            //DEATH
+            SceneManager.MoveGameObjectToScene(player, SceneManager.GetActiveScene());
+            SceneManager.MoveGameObjectToScene(theCamera, SceneManager.GetActiveScene());
+            SceneManager.MoveGameObjectToScene(GameObject.Find("Grid"), SceneManager.GetActiveScene());
+            SceneManager.MoveGameObjectToScene(GameObject.Find("Canvas"), SceneManager.GetActiveScene());
+            SceneManager.MoveGameObjectToScene(GameObject.Find("HUD"), SceneManager.GetActiveScene());
+            SceneManager.MoveGameObjectToScene(GameObject.Find("LevelManager"), SceneManager.GetActiveScene());
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
         }
     }
