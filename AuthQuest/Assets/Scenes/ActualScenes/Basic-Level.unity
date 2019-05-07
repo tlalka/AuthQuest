@@ -850,7 +850,7 @@ GameObject:
   - component: {fileID: 384274019}
   - component: {fileID: 384274018}
   m_Layer: 0
-  m_Name: border
+  m_Name: borderplayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2441,6 +2441,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1586696506, guid: 9722aa3ea4fd9034f995f2f3f75cc6c5, type: 3}
+      propertyPath: rangeWeapon
+      value: 
+      objectReference: {fileID: 246, guid: 17176f3d047ba774f8db15d525e521e3, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9722aa3ea4fd9034f995f2f3f75cc6c5, type: 3}
 --- !u!1 &1423787820
@@ -16674,7 +16678,7 @@ GameObject:
   - component: {fileID: 1902210281}
   - component: {fileID: 1902210280}
   m_Layer: 0
-  m_Name: ItemImage1
+  m_Name: ItemImageplayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

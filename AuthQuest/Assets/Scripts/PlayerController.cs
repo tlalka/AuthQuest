@@ -236,7 +236,9 @@ public class PlayerController : MonoBehaviour
                 //Instantiate(rangeWeapon, position, Quaternion.identity);
                 rangeWeapon.gameObject.SetActive(true);
             }
+            rangeWeapon.GetComponent<WeaponStats>().unequipped();
             rangeWeapon = weaponToEquip;
+            weaponToEquip.GetComponent<WeaponStats>().equipped();
         }
         else
         {
@@ -248,7 +250,9 @@ public class PlayerController : MonoBehaviour
                 //Instantiate(meleeWeapon, position, Quaternion.identity);
                 meleeWeapon.gameObject.SetActive(true);
             }
+            meleeWeapon.GetComponent<WeaponStats>().unequipped();
             meleeWeapon = weaponToEquip;
+            weaponToEquip.GetComponent<WeaponStats>().equipped();
             //Equipping equ = attackIndicator.GetComponent<Equipping>();
             //equ.ChangeSprite(meleeWeapon.GetComponent<SpriteRenderer>().sprite);
             Sprite newSprite = meleeWeapon.GetComponent<SpriteRenderer>().sprite;
