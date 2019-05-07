@@ -4,13 +4,14 @@ public class HealthPickUp : MonoBehaviour
 {
     public GameObject player;
     public GameObject playerHealthBar;
-    private int healthRegen = 20;
+    private int healthRegen;
     public GameObject oneUp;
 
     void Start()
     {
         player = GameObject.Find("Player");
         playerHealthBar = GameObject.Find("HealthBar");
+        healthRegen = 20 * player.GetComponent<PlayerStats>().enemyLevel;
     }
 
     private void OnLevelLoaded()

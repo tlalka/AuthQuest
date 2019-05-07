@@ -94,8 +94,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponName: PlasmaLaser
-  weaponAttack: 50
-  weaponSpeed: 10
+  weaponAttack: 10
+  weaponSpeed: 1
   rotation: {x: 0, y: 0, z: 0, w: 0}
   scale: {x: 0, y: 0, z: 0}
   isRange: 1

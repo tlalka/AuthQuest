@@ -286,7 +286,7 @@ public class LevelManager : MonoBehaviour
         }
         else //load basic level
         {
-            if (bosslevel) //do not level up if this was a boss level
+            if (bosslevel) //level up enemies on boss levels
             {
                 currentColor = color;
                 Debug.Log("load new color " + currentColor);
@@ -295,6 +295,7 @@ public class LevelManager : MonoBehaviour
                 Destroy(grid);
                 bosslevel = false;
                 levelcount = 1;
+                player.GetComponent<PlayerStats>().LevelUpEnemy();
             }
             else
             {

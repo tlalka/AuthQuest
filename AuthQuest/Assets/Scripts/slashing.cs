@@ -62,8 +62,8 @@ public class slashing : MonoBehaviour
                 isAttacking = false;
             } else {
 
+            bob.GetComponent<NewCoolDownBars>().BarHealth.BarRegenHealth(1);
 
-        
             Debug.Log("Attack");
             
             //isAttacking = true;

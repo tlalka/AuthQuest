@@ -53,6 +53,9 @@ public class PlayerController : MonoBehaviour
     public GameObject CoolBar2;
     public int cool2;
 
+    //enemy stats
+    //public int enemyLevel;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -86,12 +89,14 @@ public class PlayerController : MonoBehaviour
         CoolBar2 = GameObject.Find("CoolDownBar2");
         cool1 = 0;
         cool2 = 0;
+
+        //enemyLevel = 1;
     }
 
     // Update is called once per frame
     void Update() //characer movment
     {
-        coolDown();
+        //coolDown();
         if (moveme)
         {
             transform.position = moveto;
@@ -267,22 +272,6 @@ public class PlayerController : MonoBehaviour
         moveto = moveto2;
     }
 
-    public void coolDown()
-    {
-        if (cool1 > 0)
-        {
-            cool1--;
-        }
-        if (cool2 > 0)
-        {
-            cool2--;
-        }
-
-        float math1 = .005f;
-        float math2 = .005f;
-        CoolBar1.GetComponent<CoolDown>().TakeDamage(math1);
-        CoolBar2.GetComponent<CoolDown>().TakeDamage(math2);
-    }
     void OnCollisionStay2D(Collision2D collision)
     {
 

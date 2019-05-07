@@ -36,8 +36,8 @@ public class EnemyController2 : MonoBehaviour
         playerHealthBar = GameObject.Find("HealthBar");
         playerWeapon = GameObject.Find("slash");
         enemyHealthBar = transform.GetChild(0).gameObject;
-        enemyAttack = 11 + player.GetComponent<PlayerStats>().currentLevel;
-        enemyHealth = player.GetComponent<PlayerStats>().currentLevel;
+        enemyAttack = 11 + player.GetComponent<PlayerStats>().enemyLevel;
+        enemyHealth = player.GetComponent<PlayerStats>().enemyLevel;
         //enemySpeed = 2;
     }
 
@@ -93,8 +93,8 @@ public class EnemyController2 : MonoBehaviour
             if (!invincible)
             {
                 invincible = true;
-
-                enemyHealthBar.GetComponent<EnemyHealthBar>().TakeDamage(player.GetComponent<PlayerStats>().MeleeAttack);
+                int damage = player.GetComponent<PlayerStats>().MeleeAttack + player.GetComponent<PlayerController>().meleeWeapon.GetComponent<WeaponStats>().weaponAttack;
+                enemyHealthBar.GetComponent<EnemyHealthBar>().TakeDamage(damage);
                 Knockback();
                 StartCoroutine(FlashInvisible());
             }

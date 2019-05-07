@@ -11,6 +11,7 @@ public class PlayerStats : MonoBehaviour
     public int Speed;
     public int Health;
     public int currentLevel;
+    public int enemyLevel;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,7 @@ public class PlayerStats : MonoBehaviour
         Speed = 1;
         Health = 100;
         currentLevel = 1;
+        enemyLevel = 1;
 
 }
 
@@ -42,7 +44,7 @@ public class PlayerStats : MonoBehaviour
                 Speed++;
                 break;
             case "green":
-                Health++;
+                Health = Health + 25;
                 break;
             case "blue":
                 MeleeDefense++;
@@ -55,5 +57,10 @@ public class PlayerStats : MonoBehaviour
                 break;
         }
         currentLevel++;
+    }
+
+    public void LevelUpEnemy()
+    {
+        enemyLevel++;
     }
 }

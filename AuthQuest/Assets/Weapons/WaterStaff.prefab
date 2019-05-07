@@ -94,8 +94,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponName: Water Staff
-  weaponAttack: 5
-  weaponSpeed: 15
+  weaponAttack: 2
+  weaponSpeed: 3
   rotation: {x: 0, y: 0, z: 0, w: 0}
   scale: {x: 0, y: 0, z: 0}
   isRange: 0

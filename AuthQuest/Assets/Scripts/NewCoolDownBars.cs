@@ -7,7 +7,7 @@ public class NewCoolDownBars : MonoBehaviour
 {
 
     GameObject player;
-    private CoolItDownBro BarHealth;
+    public CoolItDownBro BarHealth;
     private Image barImage;
     
     slashing isAttacking;
@@ -31,13 +31,6 @@ public class NewCoolDownBars : MonoBehaviour
             if (BarHealth.GetBarNormalized() == 0) {
                 iscoolingdown = false;
             }
-            
-            if (Input.GetMouseButtonDown(0))
-        {
-            BarHealth.BarRegenHealth(1);
-             //StartCoroutine(Attack());
-
-        }
         }
     }
 
@@ -48,19 +41,23 @@ public class NewCoolDownBars : MonoBehaviour
         public float BarAmount;
         
         private float BarDecreaseAmount;
+        GameObject player;
 
-        
 
-        
+
         public CoolItDownBro() {
+            player = GameObject.Find("Player");
             BarAmount = 0;
             BarDecreaseAmount = .5f;
-            
+            //Debug.Log(BarDecreaseAmount);
+        //.5f is the slowest, big numbers go faster
+
         }
 
         public void Update() {
         //Debug.Log("BarDecreaseAmount: " + BarDecreaseAmount);
         //Debug.Log("BarAmount: " + BarAmount);
+            BarDecreaseAmount = (float)player.GetComponent<PlayerController>().meleeWeapon.GetComponent<WeaponStats>().weaponSpeed / 2;
             BarAmount -= BarDecreaseAmount * Time.deltaTime;
         //Debug.Log("BarAmount: " + BarAmount);
             BarAmount = Mathf.Clamp(BarAmount, 0f, Cooling_Max);

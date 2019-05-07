@@ -94,8 +94,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponName: Garnet Spike
-  weaponAttack: 20
-  weaponSpeed: 5
+  weaponAttack: 2
+  weaponSpeed: 1
   rotation: {x: 0, y: 0, z: 0, w: 0}
   scale: {x: 0, y: 0, z: 0}
   isRange: 0

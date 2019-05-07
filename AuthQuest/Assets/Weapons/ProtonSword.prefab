@@ -94,8 +94,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponName: Proton Sword
-  weaponAttack: 10
-  weaponSpeed: 10
+  weaponAttack: 4
+  weaponSpeed: 2
   rotation: {x: 0, y: 0, z: 0, w: 0}
   scale: {x: 0, y: 0, z: 0}
   isRange: 0

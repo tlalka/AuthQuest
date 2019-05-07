@@ -94,8 +94,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponName: Abyssal AK
-  weaponAttack: 20
-  weaponSpeed: 50
+  weaponAttack: 2
+  weaponSpeed: 10
   rotation: {x: 0, y: 0, z: 0, w: 0}
   scale: {x: 0, y: 0, z: 0}
   isRange: 1
