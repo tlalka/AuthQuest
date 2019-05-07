@@ -1,51 +1,73 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class slashing : MonoBehaviour
 {
+   
     public bool MayAttack;
     public bool isAttacking;
     protected Coroutine attackRoutine;
     public Animator myanimator;
      CoolItDownBro attackstopper;
+     GameObject bob;
 
     // Start is called before the first frame update
     void Start()
     {
+       
         MayAttack = true;
         isAttacking = false;
         myanimator.SetBool("slashing", isAttacking);
         myanimator = GetComponent<Animator>();
+        bob = GameObject.Find("NewCool1");
+        
         
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         // this code is not letting player attack!
-        if (attackstopper.BarAmount > 0) {
-            MayAttack = false;
-        } else {MayAttack = true;
-        }
-        if (Input.GetMouseButtonDown(0))
+        //if (attackstopper.BarAmount > 0) {
+          //  MayAttack = false;
+        //} else {
+        //    MayAttack = true;
+        //if (bob.iscoolingdown) {
+            if (Input.GetMouseButtonDown(0) && !isAttacking)
         {
+            isAttacking = true;
             attackRoutine = StartCoroutine(Attack());
+            //bob.GetComponent<CoolItDownBro>().BarRegenHealth(1);
             // StartCoroutine(Attack());
 
         }
+   // }
+        //}
+        //if (Input.GetMouseButtonDown(0))
+        //{
+           // attackRoutine = StartCoroutine(Attack());
+            // StartCoroutine(Attack());
+
+        //}
     }
 
     private IEnumerator Attack()
     {
-        if (MayAttack) {
+        //if (MayAttack) {
+            
+            if(bob.GetComponent<NewCoolDownBars>().iscoolingdown) {
+                isAttacking = false;
+            } else {
+
 
         
             Debug.Log("Attack");
-            if (!isAttacking)
-            {
-
-            isAttacking = true;
+            
+            //isAttacking = true;
+            
             Debug.Log("attacked");
 
             myanimator.SetBool("slashing", isAttacking);
@@ -55,10 +77,9 @@ public class slashing : MonoBehaviour
             //Debug.Log("Attack done");
 
             StopAttack();
-            }
-        } else {
-
-        }
+    
+    }
+         
     }
     public void StopAttack()
     {

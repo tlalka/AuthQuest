@@ -11,19 +11,33 @@ public class NewCoolDownBars : MonoBehaviour
     private Image barImage;
     
     slashing isAttacking;
+    public bool iscoolingdown;
 
     private void Awake() {
         player = GameObject.Find("Player");
         barImage = transform.Find("Bar").GetComponent<Image>();
 
         BarHealth = new CoolItDownBro();
+        iscoolingdown = false;
     }
 
         private void Update() {
             BarHealth.Update();
 
             barImage.fillAmount = BarHealth.GetBarNormalized();
-            //BarHealth.GetBarNormalized();
+            if (BarHealth.GetBarNormalized() > 0) {
+                iscoolingdown = true;
+            }
+            if (BarHealth.GetBarNormalized() == 0) {
+                iscoolingdown = false;
+            }
+            
+            if (Input.GetMouseButtonDown(0))
+        {
+            BarHealth.BarRegenHealth(1);
+             //StartCoroutine(Attack());
+
+        }
         }
     }
 
@@ -34,10 +48,13 @@ public class NewCoolDownBars : MonoBehaviour
         public float BarAmount;
         
         private float BarDecreaseAmount;
+
+        
+
         
         public CoolItDownBro() {
             BarAmount = 0;
-            BarDecreaseAmount = .3f;
+            BarDecreaseAmount = .5f;
             
         }
 
@@ -48,11 +65,12 @@ public class NewCoolDownBars : MonoBehaviour
         //Debug.Log("BarAmount: " + BarAmount);
             BarAmount = Mathf.Clamp(BarAmount, 0f, Cooling_Max);
 
+
          }
 
         public void BarRegenHealth(int amount) {
 
-        if (BarAmount <= amount) {
+        if (BarAmount == 0) {
             BarAmount += amount;
         }
         //if (isAttacking = true) {
