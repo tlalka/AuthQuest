@@ -8,7 +8,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 public class PlayerController : MonoBehaviour
 {
     //Jeff's
-
     public Rigidbody2D theRB;
     public float moveSpeed;
     public bool isAttacking;
@@ -110,7 +109,7 @@ public class PlayerController : MonoBehaviour
         {
             CoolBar1.GetComponent<CoolDown>().HealthRegenerate(1);
             cool1 = meleeWeapon.GetComponent<WeaponStats>().weaponSpeed;
-            attackRoutine = StartCoroutine(Attack());
+            // attackRoutine = StartCoroutine(Attack());
             // StartCoroutine(Attack());
 
         }
@@ -146,7 +145,7 @@ public class PlayerController : MonoBehaviour
             myAnim.SetFloat("lastMoveY", Input.GetAxisRaw("Vertical"));
         }
     }
-
+/* 
     private IEnumerator Attack()
     {
         Debug.Log("Attack");
@@ -164,6 +163,7 @@ public class PlayerController : MonoBehaviour
             StopAttack();
         }
     }
+    */
     public void StopAttack()
     {
         if (attackRoutine != null)
