@@ -297,6 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8371d6c14a454433be58381998f0d87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iscoolingdown: 0
 --- !u!1 &152695021
 GameObject:
   m_ObjectHideFlags: 0
@@ -2123,6 +2124,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1586696502, guid: 9722aa3ea4fd9034f995f2f3f75cc6c5, type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 569161750341726970, guid: f6c566aa7044ad143a7784e035b1643c,
         type: 3}
       propertyPath: rangeWeapon
@@ -2149,10 +2154,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1586696502, guid: 9722aa3ea4fd9034f995f2f3f75cc6c5, type: 3}
-      propertyPath: m_Name
-      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 1586696509, guid: 9722aa3ea4fd9034f995f2f3f75cc6c5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2760,25 +2761,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1322813668}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1586696510
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1586696502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c65eb65c9748724ead289598926ed86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MeleeAttack: 0
-  MeleeDefense: 0
-  RangeAttack: 0
-  RangeDefense: 0
-  Speed: 0
-  Health: 0
-  currentLevel: 0
 --- !u!1 &1821450680
 GameObject:
   m_ObjectHideFlags: 0
